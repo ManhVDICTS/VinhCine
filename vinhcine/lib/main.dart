@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vinhcine/blocs/app_cubit.dart';
-import 'package:vinhcine/commons/app_environment.dart';
 import 'package:vinhcine/commons/app_themes.dart';
 import 'package:vinhcine/network/api_util.dart';
 import 'package:vinhcine/repositories/auth_repository.dart';
@@ -25,12 +24,6 @@ void main() async {
 
 Future<void> loadApp() async {
   WidgetsFlutterBinding.ensureInitialized();
-  if (currentEnvironment == Environment.dev) {
-    await GlobalConfiguration().loadFromAsset("configurations");
-  } else {
-    await GlobalConfiguration().loadFromAsset("configurations_prod");
-  }
-
   /// AWAIT SERVICES INITIALIZATION.
   await initServices();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
@@ -105,7 +98,7 @@ class _MyAppState extends State<MyApp> {
         return MaterialApp(
           locale: state.currentLocale,
           navigatorKey: AppContext.navigatorKey,
-          debugShowCheckedModeBanner: currentEnvironment == Environment.dev,
+          debugShowCheckedModeBanner: true,
           theme: AppThemes.theme,
           onGenerateRoute: Application.router?.generator,
           initialRoute: Routes.root,

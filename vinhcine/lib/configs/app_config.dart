@@ -1,27 +1,23 @@
-import 'package:global_configuration/global_configuration.dart';
-
 class AppConfig {
-  static const String appId = 'it.thoson';
-  static const String appName = 'Flutter Demo';
-  static const String version = '1.0.0';
+  const AppConfig({
+    required this.flavor,
+    required this.baseUrl,
+  });
 
-  ///Network
-  static final baseUrl = "${GlobalConfiguration().getValue('baseUrl')}";
+  factory AppConfig.init() {
+    const flavor = String.fromEnvironment(flavorKey);
+    const baseUrl = String.fromEnvironment(baseURLKey);
 
-  ///Paging
-  static const pageSize = 40;
-  static const pageSizeMax = 1000;
-}
+    return const AppConfig(
+      flavor: flavor,
+      baseUrl: baseUrl,
+    );
+  }
+  static const String flavorKey = 'FLAVOR';
+  static const String baseURLKey = 'BASE_URL';
 
-class FirebaseConfig {
-  //Todo
-}
+  final String flavor;
 
-class DatabaseConfig {
-  //Todo
-  static const int version = 1;
-}
-
-class MovieAPIConfig {
-  static const String APIKey = '26763d7bf2e94098192e629eb975dab0';
+  /// BACK END
+  final String baseUrl;
 }
