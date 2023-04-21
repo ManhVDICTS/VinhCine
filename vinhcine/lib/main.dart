@@ -1,119 +1,41 @@
-import 'package:fluro/fluro.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:vinhcine/blocs/app_cubit.dart';
-import 'package:vinhcine/commons/app_themes.dart';
-import 'package:vinhcine/network/api_util.dart';
-import 'package:vinhcine/repositories/auth_repository.dart';
-import 'package:vinhcine/repositories/movie_repository.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:global_configuration/global_configuration.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:vinhcine/ui/components/app_context.dart';
-import 'generated/l10n.dart';
-import 'network/api_client.dart';
-import 'router/application.dart';
-import 'router/routers.dart';
+import 'configs/app_config.dart';
 
 void main() async {
-  await loadApp();
-}
-
-Future<void> loadApp() async {
   WidgetsFlutterBinding.ensureInitialized();
-  /// AWAIT SERVICES INITIALIZATION.
-  await initServices();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-      .then((_) {
-    runApp(new MyApp());
-  });
+  final appConfig = AppConfig.init();
+  await initAwaitServices();
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [
+        Locale('en'),
+        Locale('vi'),
+      ],
+      path: 'assets/translations',
+      fallbackLocale: const Locale('vi'),
+      useOnlyLangCode: true,
+      useFallbackTranslations: true,
+      child: const MyApp(),
+    ),
+  );
 }
 
-/// Is a smart move to make your Services initialize before you run the Flutter app.
-/// as you can control the execution flow (maybe you need to load some Theme configuration,
-/// apiKey, language defined by the User... so load SettingService before running ApiService.
-/// so GetMaterialApp() doesn't have to rebuild, and takes the values directly.
-Future initServices() async {
-  /// Here is where you put get_storage, hive, shared_pref initialization.
-  /// or moor connection, or whatever that's async.
-  await Hive.initFlutter();
+// AWAIT SERVICES INITIALIZATION.
+Future initAwaitServices() async {
+  await Future.wait([
+    Hive.initFlutter(),
+    EasyLocalization.ensureInitialized()
+  ]);
 }
 
-class MyApp extends StatefulWidget {
-  MyApp() {
-    final router = new FluroRouter();
-    Routes.configureRoutes(router);
-    Application.router = router;
-  }
-
-  @override
-  State<StatefulWidget> createState() {
-    return _MyAppState();
-  }
-}
-
-class _MyAppState extends State<MyApp> {
-  ApiClient? _apiClient;
-
-  @override
-  void initState() {
-    _apiClient = ApiUtil.getApiClient();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    Hive.close();
-    super.dispose();
-  }
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MultiRepositoryProvider(
-      providers: [
-        RepositoryProvider<AuthRepository>(create: (context) {
-          return AuthRepositoryImpl(_apiClient);
-        }),
-        RepositoryProvider<MovieRepository>(create: (context) {
-          return MovieRepositoryImpl(_apiClient);
-        }),
-      ],
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<AppCubit>(create: (context) {
-            return AppCubit();
-          })
-        ],
-        child: materialApp(),
-      ),
-    );
-  }
-
-  BlocBuilder<AppCubit, AppState> materialApp() {
-    return BlocBuilder<AppCubit, AppState>(
-      builder: (context, state) {
-        return MaterialApp(
-          locale: state.currentLocale,
-          navigatorKey: AppContext.navigatorKey,
-          debugShowCheckedModeBanner: true,
-          theme: AppThemes.theme,
-          onGenerateRoute: Application.router?.generator,
-          initialRoute: Routes.root,
-          // navigatorObservers: [
-          //   NavigationObserver(context.bloc<NavigationCubit>()),
-          // ],
-          localizationsDelegates: [
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-            S.delegate,
-          ],
-          supportedLocales: S.delegate.supportedLocales,
-        );
-      },
-    );
+    return const Placeholder();
   }
 }
