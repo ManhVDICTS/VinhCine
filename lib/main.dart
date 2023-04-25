@@ -8,7 +8,7 @@ import 'package:vinhcine/src/router/router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await initializeDependencies();
+  await initDependencies();
   await initAwaitServices();
   runApp(
     EasyLocalization(

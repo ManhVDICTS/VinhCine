@@ -9,11 +9,10 @@ import '../../features/detail/domain/repositories/movie_repository.dart';
 
 final di = GetIt.instance;
 
-Future<void> initializeDependencies() async {
+Future<void> initDependencies() async {
   di
     ..registerSingleton<AppConfig>(AppConfig.init())
     ..registerSingleton<Dio>(getDio(di<AppConfig>()))
-    
     ..registerSingleton<GenreService>(
       GenreService(di<Dio>()),
     )
