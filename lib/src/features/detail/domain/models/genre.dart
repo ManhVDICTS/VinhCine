@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:equatable/equatable.dart';
-import 'package:vinhcine/src/features/detail/data/remote/dtos/genre_dto.dart';
 
 class GenreModel extends Equatable {
   final String? id;
