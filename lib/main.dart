@@ -1,12 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'configs/app_config.dart';
-import 'router/router.dart';
+import 'package:vinhcine/src/core/di/injections.dart';
+import 'package:vinhcine/src/features/detail/presentation/cubit/detail_cubit.dart';
+import 'package:vinhcine/src/router/router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final appConfig = AppConfig.init();
+  await initDependencies();
   await initAwaitServices();
   runApp(
     EasyLocalization(
@@ -25,19 +27,19 @@ void main() async {
 
 // AWAIT SERVICES INITIALIZATION.
 Future initAwaitServices() async {
-  await Future.wait([
-    Hive.initFlutter(),
-    EasyLocalization.ensureInitialized()
-  ]);
+  await Future.wait([Hive.initFlutter(), EasyLocalization.ensureInitialized()]);
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: appRouter,
+    return BlocProvider(
+      create: (context) => di<DetailCubit>(),
+      child: MaterialApp.router(
+        routerConfig: appRouter,
+      ),
     );
   }
 }
