@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:vinhcine/src/features/detail/domain/models/genre.dart';
 
@@ -18,7 +19,7 @@ class DetailCubit extends Cubit<DetailState> {
     response.fold((error) {
       emit(DetailFailed());
     }, (data) {
-      emit(DetailSuccess(data));
+      emit(DetailSuccess(data: data));
     });
   }
 }

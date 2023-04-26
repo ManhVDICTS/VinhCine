@@ -12,7 +12,7 @@ class DetailInitial extends DetailState {}
 class DetailLoading extends DetailState {}
 
 class DetailSuccess extends DetailState {
-  const DetailSuccess(this.data);
+  const DetailSuccess({required this.data});
   final List<GenreModel> data;
 
   @override
