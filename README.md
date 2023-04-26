@@ -16,6 +16,8 @@ This repo is a boilerplate to create flutter application easily. It is based on 
 6. Run `flutter pub run intl_utils:generate`
 7. Run `flutter pub run build_runner build --delete-conflicting-outputs`
 8. Run app.
+   * `flutter run -t lib/main.dart --flavor dev --dart-define=FLAVOR=dev --dart-define=BASE_URL=http://192.168.16.15:8200`
+   * `flutter run -t lib/main.dart --flavor prod --dart-define=FLAVOR=prod --dart-define=BASE_URL=http://api.vinhcine.vn`
 
 ## File structure
 

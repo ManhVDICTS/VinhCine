@@ -9,7 +9,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Home Screen')),
+      appBar: AppBar(title: const Text(String.fromEnvironment('BASE_URL'))),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
