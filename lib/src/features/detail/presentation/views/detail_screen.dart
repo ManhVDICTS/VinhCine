@@ -1,9 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:vinhcine/src/router/route_names.dart';
 
-/// The details screen
+@RoutePage(name: detailScreenName)
 class DetailsScreen extends StatelessWidget {
-  /// Constructs a [DetailsScreen]
   const DetailsScreen({super.key});
 
   @override
@@ -16,7 +16,7 @@ class DetailsScreen extends StatelessWidget {
           children: <ElevatedButton>[
             ElevatedButton(
               onPressed: () {
-                context.go('/');
+                context.popRoute();
               },
               child: const Text('Go back to the Home screen'),
             ),

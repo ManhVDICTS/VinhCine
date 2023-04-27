@@ -1,23 +1,22 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:vinhcine/src/features/detail/presentation/cubit/detail_cubit.dart';
+import 'package:vinhcine/src/router/route_names.dart';
+import 'package:vinhcine/src/router/router.dart';
 
-/// The home screen
+@RoutePage(name: homeScreenName)
 class HomeScreen extends StatelessWidget {
-  /// Constructs a [HomeScreen]
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text(String.fromEnvironment('BASE_URL'))),
+      appBar: AppBar(title: const Text('Home Screen')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             ElevatedButton(
-              onPressed: () => context.go('/details'),
+              onPressed: () => {context.pushRoute(const DetailScreenRoute())},
               child: const Text('Go to the Details screen'),
             ),
           ],
