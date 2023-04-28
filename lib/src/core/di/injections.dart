@@ -4,6 +4,7 @@ import 'package:vinhcine/src/configs/app_configs/app_config.dart';
 import 'package:vinhcine/src/core/network/client/client_provider.dart';
 import 'package:vinhcine/src/core/shared_prefs/shared_prefs_provider.dart';
 import 'package:vinhcine/src/features/detail/presentation/cubit/detail_cubit.dart';
+import 'package:vinhcine/src/features/signin/domain/data/services/signout_service.dart';
 import 'package:vinhcine/src/router/router.dart';
 import 'package:vinhcine/src/features/signin/domain/data/services/signin_service.dart';
 import 'package:vinhcine/src/features/signin/domain/repositories/signin_repository.dart';
@@ -18,9 +19,8 @@ Future<void> initDependencies() async {
   di
     ..registerSingleton<AppConfig>(AppConfig.init())
     ..registerSingleton<RootRouter>(RootRouter())
-    ..registerSingleton<Dio>(getDio(di<AppConfig>()))
     ..registerSingleton<GenreService>(
-      GenreService(di<Dio>()),
+      GenreService(dio(di<AppConfig>())),
     )
     ..registerSingleton<MovieGenreRepository>(
       MovieGenreRepositoryImpl(di<GenreService>()),
@@ -28,15 +28,20 @@ Future<void> initDependencies() async {
     ..registerFactory<DetailCubit>(
         () => DetailCubit(di<MovieGenreRepository>()))
     /// shared preference
-    ..registerFactory<SingInProviderImpl>(
-        SingInProviderImpl.new)
+    ..registerFactory<SharedPrefProvider>(
+        SharedPrefProvider.new)
+    /// sign out
+    ..registerSingleton<SignOutService>(
+      SignOutService(authDio(di<AppConfig>())),
+    )
     /// sign in
     ..registerSingleton<SignInService>(
-      SignInService(di<Dio>()),
+      SignInService(dio(di<AppConfig>())),
     )
     ..registerSingleton<SignInRepository>(
-      SignInRepositoryImpl(di<SignInService>()),
+      SignInRepositoryImpl(di<SignInService>(), di<SignOutService>()),
     )
     ..registerFactory<SignInCubit>(
-            () => SignInCubit(di<SignInRepository>()));
+            () => SignInCubit(di<SignInRepository>()),
+    );
 }

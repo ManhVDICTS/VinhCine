@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/src/components/button/app_button.dart';
@@ -8,53 +7,50 @@ import 'package:vinhcine/src/core/di/injections.dart';
 import 'package:vinhcine/src/features/signin/presentation/cubit/signin_cubit.dart';
 import 'package:vinhcine/src/router/route_names.dart';
 
+// ignore_for_file: must_be_immutable
 @RoutePage(name: signInScreenName)
-class SignInScreen extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return _SignInScreenState();
-  }
-}
+class SignInScreen extends StatelessWidget {
+  SignInScreen({super.key});
 
-class _SignInScreenState extends State<SignInScreen> {
-  final _usernameController = TextEditingController(text: 'manhptit123@gmail.com');
+  final _usernameController =
+      TextEditingController(text: 'manhptit123@gmail.com');
   final _passwordController = TextEditingController(text: '111111');
 
   late SignInCubit _cubit;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocProvider<SignInCubit>(
-      create: (_) {
-        _cubit = di<SignInCubit>();
-        _cubit.initData();
-        return _cubit;
-      },
-      child: Scaffold(
-        backgroundColor: AppColors.main,
-        appBar: AppBar(title: const Text('Sign In Screen')),
-        body: BlocListener<SignInCubit, SignInState>(
+        create: (_) {
+          _cubit = di<SignInCubit>();
+          _cubit.initData();
+          return _cubit;
+        },
+        child: BlocListener<SignInCubit, SignInState>(
           listener: (context, state) {
             if (state is SignInFail) {
-              _showMessage('Login failure');
+              _showMessage(message: 'Login fail', context: context);
             } else if (state is SignInSuccess) {
-              Navigator.pop(context);
+              _showMessage(message: 'Login success', context: context);
             } else if (state is InitDataSuccess) {
-              _showMessage(state.token);
+              if(state.token.isNotEmpty) {
+                _showMessage(message: state.token, context: context);
+              }
+            } else if (state is UserNameInvalid) {
+              _showMessage(message: "User name invalid", context: context);
+            } else if (state is PasswordInvalid) {
+              _showMessage(message: "Password invalid", context: context);
+            } else if (state is SignOutSuccess) {
+              _showMessage(message: "Logout success", context: context);
+            } else if (state is SignOutFail) {
+              _showMessage(message: "Logout fail", context: context);
             }
           },
-          child: buildBodyWidget(),
-        ),
-      ),
-    );
+          child: _buildBodyWidget(),
+        ));
   }
 
-  Widget buildBodyWidget() {
+  Widget buildSignInWidget() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -100,42 +96,64 @@ class _SignInScreenState extends State<SignInScreen> {
           ),
         ),
         const SizedBox(height: 32),
-        _buildSignButton(),
+        BlocBuilder<SignInCubit, SignInState>(
+          builder: (context, state) {
+            final isLoading = state is SignInLoading;
+            return Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: AppWhiteButton(
+                title: 'Sign In',
+                onPressed: isLoading ? null : _signIn,
+                isLoading: isLoading,
+              ),
+            );
+          },
+        ),
       ],
     );
   }
 
-  Widget _buildSignButton() {
-    return BlocBuilder<SignInCubit, SignInState>(
-      builder: (context, state) {
-        final isLoading = state is SignInLoading;
-        return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: AppWhiteButton(
-            title: 'Sign In',
-            onPressed: isLoading ? null : _signIn,
-            isLoading: isLoading,
-          ),
-        );
-      },
+  Widget buildSignOutWidget() {
+    return Center(
+      child: BlocBuilder<SignInCubit, SignInState>(
+        builder: (context, state) {
+          final isLoading = state is SignOutLoading;
+          return Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: AppWhiteButton(
+              title: 'Sign Out',
+              onPressed: isLoading ? null : _cubit.signOut,
+              isLoading: isLoading,
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildBodyWidget() {
+    return Scaffold(
+      backgroundColor: AppColors.main,
+      appBar: AppBar(title: const Text('Sign In Screen')),
+      body: BlocSelector<SignInCubit, SignInState, bool>(
+        selector: (state) => (state is InitDataSuccess && state.token.isNotEmpty) ||
+            (state is SignInSuccess && state.token.isNotEmpty),
+        builder: (context, isAuthenticated) {
+          return isAuthenticated ? buildSignOutWidget() : buildSignInWidget();
+        },
+      ),
     );
   }
 
   void _signIn() {
     final username = _usernameController.text;
     final password = _passwordController.text;
-    if (username.isEmpty) {
-      _showMessage('Username is invalid');
-      return;
-    }
-    if (password.isEmpty) {
-      _showMessage('Password is invalid');
-      return;
-    }
-    _cubit.signIn(username, password);
+    bool validUser = _cubit.checkUserName(username);
+    bool validPassword = _cubit.checkPassword(password);
+    if (validUser && validPassword) _cubit.signIn(username, password);
   }
 
-  void _showMessage(String message) {
+  void _showMessage({required String message, required BuildContext context}) {
     var snackBar = SnackBar(
       content: Text(message),
     );

@@ -1,52 +1,8 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-typedef ObjDecoder<T> = T Function(Map<String, dynamic>);
-typedef ObjEncoder<T> = Map<String, dynamic> Function(T);
+const kAccessTokenKey = 'access_token';
 
-abstract class SharedPreferencesProvider {
-  Future<T?> fetch<T>({
-    required String key,
-    ObjDecoder<T>? decoder,
-  });
-  Future<bool> save<T>({
-    required String key,
-    required T data,
-    ObjEncoder<T>? encoder,
-  });
-  Future<bool> delete({required String key});
-  Future<bool> clearAll();
-}
-
-class SharedPreferencesProviderImpl extends SharedPreferencesProvider {
-  @override
-  Future<bool> clearAll() =>
-      SharedPreferences.getInstance().then((sp) => sp.clear());
-
-  @override
-  Future<bool> delete({required String key}) =>
-      SharedPreferences.getInstance().then((sp) => sp.remove(key));
-
-  @override
-  Future<T?> fetch<T>({
-    required String key,
-    ObjDecoder<T>? decoder,
-  }) {
-    // TODO: implement save
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<bool> save<T>({
-    required String key,
-    required T data,
-    ObjEncoder<T>? encoder,
-  }) {
-    // TODO: implement save
-    throw UnimplementedError();
-  }
-}
-
-class SingInProviderImpl{
+class SharedPrefProvider{
 
   Future<bool> clearAll() =>
       SharedPreferences.getInstance().then((sp) => sp.clear());

@@ -17,17 +17,44 @@ class SignInCubit extends Cubit<SignInState> {
     response.fold((error) {
       emit(SignInFail());
     }, (data) {
-      di<SingInProviderImpl>().save(key: "access_token", data: data);
-      emit(SignInSuccess());
+      di<SharedPrefProvider>().save(key: kAccessTokenKey, data: data);
+      emit(SignInSuccess(token: data));
     });
   }
 
   void initData() async{
-    var token = await di<SingInProviderImpl>().fetch(key: 'access_token');
+    var token = await di<SharedPrefProvider>().fetch(key: kAccessTokenKey);
     if(token?.isNotEmpty == true) {
       emit(InitDataSuccess(token: token!));
     } else {
       emit(InitDataSuccess(token: ''));
     }
+  }
+
+  bool checkUserName(String userName){
+    bool valid = userName.isNotEmpty;
+    if(!valid) {
+      emit(UserNameInvalid());
+    }
+    return valid;
+  }
+
+  bool checkPassword(String password){
+    bool valid = password.isNotEmpty;
+    if(!valid) {
+      emit(PasswordInvalid());
+    }
+    return valid;
+  }
+
+  Future<void> signOut() async{
+    emit(SignOutLoading());
+    final response = await repository.signOut();
+    response.fold((error) {
+      emit(SignOutFail());
+    }, (data) {
+      di<SharedPrefProvider>().delete(key: kAccessTokenKey);
+      emit(SignOutSuccess());
+    });
   }
 }
