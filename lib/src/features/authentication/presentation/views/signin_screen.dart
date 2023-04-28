@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/src/components/button/app_button.dart';
 import 'package:vinhcine/src/configs/app_themes/app_colors.dart';
 import 'package:vinhcine/src/core/di/injections.dart';
-import 'package:vinhcine/src/features/signin/presentation/cubit/signin_cubit.dart';
 import 'package:vinhcine/src/router/route_names.dart';
+import '../cubit/auth_cubit.dart';
 
 // ignore_for_file: must_be_immutable
 @RoutePage(name: signInScreenName)
@@ -16,23 +16,23 @@ class SignInScreen extends StatelessWidget {
       TextEditingController(text: 'manhptit123@gmail.com');
   final _passwordController = TextEditingController(text: '111111');
 
-  late SignInCubit _cubit;
+  late AuthCubit _cubit;
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<SignInCubit>(
+    return BlocProvider<AuthCubit>(
         create: (_) {
-          _cubit = di<SignInCubit>();
+          _cubit = di<AuthCubit>();
           _cubit.initData();
           return _cubit;
         },
-        child: BlocListener<SignInCubit, SignInState>(
+        child: BlocListener<AuthCubit, AuthState>(
           listener: (context, state) {
             if (state is SignInFail) {
               _showMessage(message: 'Login fail', context: context);
             } else if (state is SignInSuccess) {
               _showMessage(message: 'Login success', context: context);
-            } else if (state is InitDataSuccess) {
+            } else if (state is GetTokenSuccess) {
               if(state.token.isNotEmpty) {
                 _showMessage(message: state.token, context: context);
               }
@@ -96,7 +96,7 @@ class SignInScreen extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 32),
-        BlocBuilder<SignInCubit, SignInState>(
+        BlocBuilder<AuthCubit, AuthState>(
           builder: (context, state) {
             final isLoading = state is SignInLoading;
             return Container(
@@ -115,7 +115,7 @@ class SignInScreen extends StatelessWidget {
 
   Widget buildSignOutWidget() {
     return Center(
-      child: BlocBuilder<SignInCubit, SignInState>(
+      child: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
           final isLoading = state is SignOutLoading;
           return Container(
@@ -135,8 +135,8 @@ class SignInScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.main,
       appBar: AppBar(title: const Text('Sign In Screen')),
-      body: BlocSelector<SignInCubit, SignInState, bool>(
-        selector: (state) => (state is InitDataSuccess && state.token.isNotEmpty) ||
+      body: BlocSelector<AuthCubit, AuthState, bool>(
+        selector: (state) => (state is GetTokenSuccess && state.token.isNotEmpty) ||
             (state is SignInSuccess && state.token.isNotEmpty),
         builder: (context, isAuthenticated) {
           return isAuthenticated ? buildSignOutWidget() : buildSignInWidget();

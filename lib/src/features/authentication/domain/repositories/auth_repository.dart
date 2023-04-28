@@ -1,9 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:vinhcine/src/core/failures/failure.dart';
-import 'package:vinhcine/src/features/detail/domain/models/genre.dart';
 import 'package:dartz/dartz.dart';
-import 'package:vinhcine/src/features/signin/domain/data/remote/dtos/signin_response.dart';
-import 'package:vinhcine/src/features/signin/domain/data/services/signout_service.dart';
+import 'package:vinhcine/src/features/authentication/domain/data/services/signout_service.dart';
 import 'dart:io' show HttpStatus;
 
 import '../data/services/signin_service.dart';

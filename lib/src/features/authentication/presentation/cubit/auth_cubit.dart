@@ -1,13 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:vinhcine/src/core/shared_prefs/shared_prefs_provider.dart';
-import '../../domain/repositories/signin_repository.dart';
+import '../../domain/repositories/auth_repository.dart';
 import 'package:vinhcine/src/core/di/injections.dart';
 
-part 'signin_state.dart';
+part 'auth_state.dart';
 
-class SignInCubit extends Cubit<SignInState> {
-  SignInCubit(this.repository) : super(SignInInitial());
+class AuthCubit extends Cubit<AuthState> {
+  AuthCubit(this.repository) : super(SignInInitial());
 
   final SignInRepository repository;
 
@@ -24,11 +24,7 @@ class SignInCubit extends Cubit<SignInState> {
 
   void initData() async{
     var token = await di<SharedPrefProvider>().fetch(key: kAccessTokenKey);
-    if(token?.isNotEmpty == true) {
-      emit(InitDataSuccess(token: token!));
-    } else {
-      emit(InitDataSuccess(token: ''));
-    }
+    emit(GetTokenSuccess(token: token ?? ''));
   }
 
   bool checkUserName(String userName){

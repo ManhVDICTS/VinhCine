@@ -1,60 +1,61 @@
-part of 'signin_cubit.dart';
+// ignore_for_file: must_be_immutable
 
-// ignore: must_be_immutable
-abstract class SignInState extends Equatable {
-  const SignInState();
+part of 'auth_cubit.dart';
+
+abstract class AuthState extends Equatable {
+  const AuthState();
 }
 
-class SignInInitial extends SignInState {
+class SignInInitial extends AuthState {
   @override
   List<Object> get props => [];
 }
 
-class SignInLoading extends SignInState {
+class SignInLoading extends AuthState {
   @override
   List<Object?> get props => throw UnimplementedError();
 }
 
-class SignInFail extends SignInState {
+class SignInFail extends AuthState {
   @override
   List<Object?> get props => throw UnimplementedError();
 }
 
-class SignInSuccess extends SignInState {
+class SignInSuccess extends AuthState {
   SignInSuccess({required this.token});
   String token;
   @override
   List<Object?> get props => [token];
 }
 
-class InitDataSuccess extends SignInState {
-  InitDataSuccess({required this.token});
+class GetTokenSuccess extends AuthState {
+  GetTokenSuccess({required this.token});
   String token;
   @override
   List<Object?> get props => [token];
 }
 
-class UserNameInvalid extends SignInState {
+class UserNameInvalid extends AuthState {
   @override
   List<Object?> get props => throw UnimplementedError();
 }
 
-class PasswordInvalid extends SignInState {
+class PasswordInvalid extends AuthState {
   @override
   List<Object?> get props => throw UnimplementedError();
 }
 
-class SignOutLoading extends SignInState {
+class SignOutLoading extends AuthState {
   @override
   List<Object?> get props => throw UnimplementedError();
 }
 
-class SignOutSuccess extends SignInState {
+class SignOutSuccess extends AuthState {
   @override
   List<Object?> get props => throw UnimplementedError();
 }
 
-class SignOutFail extends SignInState {
+class SignOutFail extends AuthState {
   @override
   List<Object?> get props => throw UnimplementedError();
 }

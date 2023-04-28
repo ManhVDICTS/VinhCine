@@ -5,7 +5,7 @@ import 'package:vinhcine/src/core/di/injections.dart';
 import 'package:vinhcine/src/features/detail/presentation/cubit/detail_cubit.dart';
 import 'package:vinhcine/src/features/detail/presentation/views/detail_screen.dart';
 import 'package:vinhcine/src/features/home/home_screen.dart';
-import 'package:vinhcine/src/features/signin/presentation/views/signin_screen.dart';
+import 'package:vinhcine/src/features/authentication/presentation/views/signin_screen.dart';
 
 part './routes/home_routes.dart';
 part './routes/detail_routes.dart';
