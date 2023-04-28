@@ -4,6 +4,7 @@ import 'package:vinhcine/src/configs/app_configs/app_config.dart';
 import 'package:vinhcine/src/core/network/client/client_provider.dart';
 import 'package:vinhcine/src/core/shared_prefs/shared_prefs_provider.dart';
 import 'package:vinhcine/src/features/detail/presentation/cubit/detail_cubit.dart';
+import 'package:vinhcine/src/router/router.dart';
 import 'package:vinhcine/src/features/signin/domain/data/services/signin_service.dart';
 import 'package:vinhcine/src/features/signin/domain/repositories/signin_repository.dart';
 import 'package:vinhcine/src/features/signin/presentation/cubit/signin_cubit.dart';
@@ -16,6 +17,7 @@ final di = GetIt.instance;
 Future<void> initDependencies() async {
   di
     ..registerSingleton<AppConfig>(AppConfig.init())
+    ..registerSingleton<RootRouter>(RootRouter())
     ..registerSingleton<Dio>(getDio(di<AppConfig>()))
     ..registerSingleton<GenreService>(
       GenreService(di<Dio>()),
