@@ -4,9 +4,9 @@ import 'package:vinhcine/src/configs/app_configs/app_config.dart';
 import 'package:vinhcine/src/core/network/client/client_provider.dart';
 import 'package:vinhcine/src/core/shared_prefs/shared_prefs_provider.dart';
 import 'package:vinhcine/src/features/detail/presentation/cubit/detail_cubit.dart';
-import 'package:vinhcine/src/features/authentication/domain/data/services/signout_service.dart';
+import 'package:vinhcine/src/features/authentication/domain/data/services/auth_service.dart';
 import 'package:vinhcine/src/router/router.dart';
-import 'package:vinhcine/src/features/authentication/domain/data/services/signin_service.dart';
+import 'package:vinhcine/src/features/authentication/domain/data/services/auth_service_no_token.dart';
 import 'package:vinhcine/src/features/authentication/domain/repositories/auth_repository.dart';
 import 'package:vinhcine/src/features/authentication/presentation/cubit/auth_cubit.dart';
 
@@ -31,15 +31,15 @@ Future<void> initDependencies() async {
     ..registerFactory<SharedPrefProvider>(
         SharedPrefProvider.new)
     /// sign out
-    ..registerSingleton<SignOutService>(
-      SignOutService(authDio(di<AppConfig>())),
+    ..registerSingleton<AuthService>(
+      AuthService(authDio(di<AppConfig>())),
     )
     /// sign in
-    ..registerSingleton<SignInService>(
-      SignInService(dio(di<AppConfig>())),
+    ..registerSingleton<AuthServiceNoToken>(
+      AuthServiceNoToken(dio(di<AppConfig>())),
     )
     ..registerSingleton<SignInRepository>(
-      SignInRepositoryImpl(di<SignInService>(), di<SignOutService>()),
+      SignInRepositoryImpl(di<AuthServiceNoToken>(), di<AuthService>()),
     )
     ..registerFactory<AuthCubit>(
             () => AuthCubit(di<SignInRepository>()),

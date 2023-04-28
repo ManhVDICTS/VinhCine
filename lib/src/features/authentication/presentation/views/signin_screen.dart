@@ -5,6 +5,7 @@ import 'package:vinhcine/src/components/button/app_button.dart';
 import 'package:vinhcine/src/configs/app_themes/app_colors.dart';
 import 'package:vinhcine/src/core/di/injections.dart';
 import 'package:vinhcine/src/router/route_names.dart';
+import 'package:vinhcine/src/router/router.dart';
 import '../cubit/auth_cubit.dart';
 
 // ignore_for_file: must_be_immutable
@@ -18,8 +19,11 @@ class SignInScreen extends StatelessWidget {
 
   late AuthCubit _cubit;
 
+  late BuildContext _currentContext;
+
   @override
   Widget build(BuildContext context) {
+    _currentContext = context;
     return BlocProvider<AuthCubit>(
         create: (_) {
           _cubit = di<AuthCubit>();
@@ -109,6 +113,14 @@ class SignInScreen extends StatelessWidget {
             );
           },
         ),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+          child: AppWhiteButton(
+            title: 'Register',
+            onPressed: () => {_currentContext.pushRoute(RegisterScreenRoute())},
+            isLoading: false,
+          ),
+        )
       ],
     );
   }

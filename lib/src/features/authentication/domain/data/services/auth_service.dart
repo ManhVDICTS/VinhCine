@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
-part 'signout_service.g.dart';
+part 'auth_service.g.dart';
 
 @RestApi()
-abstract class SignOutService {
-  factory SignOutService(Dio dio) = _SignOutService;
+abstract class AuthService {
+  factory AuthService(Dio dio) = _AuthService;
 
   @GET('/api/client_auth/logout')
   Future<HttpResponse<dynamic>> signOut();

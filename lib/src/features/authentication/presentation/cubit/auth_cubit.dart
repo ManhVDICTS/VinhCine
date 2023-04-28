@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:vinhcine/src/core/shared_prefs/shared_prefs_provider.dart';
+import 'package:vinhcine/src/features/authentication/domain/model/register.dart';
 import '../../domain/repositories/auth_repository.dart';
 import 'package:vinhcine/src/core/di/injections.dart';
 
@@ -43,6 +44,22 @@ class AuthCubit extends Cubit<AuthState> {
     return valid;
   }
 
+  bool checkFullName(String fullName){
+    bool valid = fullName.isNotEmpty;
+    if(!valid) {
+      emit(FullNameInvalid());
+    }
+    return valid;
+  }
+
+  bool checkPhone(String phone){
+    bool valid = phone.isNotEmpty;
+    if(!valid) {
+      emit(PhoneInvalid());
+    }
+    return valid;
+  }
+
   Future<void> signOut() async{
     emit(SignOutLoading());
     final response = await repository.signOut();
@@ -51,6 +68,21 @@ class AuthCubit extends Cubit<AuthState> {
     }, (data) {
       di<SharedPrefProvider>().delete(key: kAccessTokenKey);
       emit(SignOutSuccess());
+    });
+  }
+
+  Future<void> register({
+    required String userName,
+    required String password,
+    required String fullName,
+    required String phone,
+  }) async{
+    emit(RegisterLoading());
+    final response = await repository.register(userName: userName, password: password, fullName: fullName, phone: phone);
+    response.fold((error) {
+      emit(RegisterFail());
+    }, (data) {
+      emit(RegisterSuccess(data));
     });
   }
 }

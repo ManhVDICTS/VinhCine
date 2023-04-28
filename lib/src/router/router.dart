@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/src/core/di/injections.dart';
+import 'package:vinhcine/src/features/authentication/presentation/views/register_screen.dart';
 import 'package:vinhcine/src/features/detail/presentation/cubit/detail_cubit.dart';
 import 'package:vinhcine/src/features/detail/presentation/views/detail_screen.dart';
 import 'package:vinhcine/src/features/home/home_screen.dart';
@@ -10,6 +11,7 @@ import 'package:vinhcine/src/features/authentication/presentation/views/signin_s
 part './routes/home_routes.dart';
 part './routes/detail_routes.dart';
 part 'routes/signin_routes.dart';
+part 'routes/register_routes.dart';
 
 part 'router.gr.dart';
 
@@ -20,7 +22,7 @@ class RootRouter extends _$RootRouter {
         AutoRoute(
             path: '/',
             page: RootWrapperPageRoute.page,
-            children: [..._homeRoutes, ..._detailsRoutes, ..._signInRoutes]),
+            children: [..._homeRoutes, ..._detailsRoutes, ..._signInRoutes, ..._registerRoutes]),
       ];
 }
 

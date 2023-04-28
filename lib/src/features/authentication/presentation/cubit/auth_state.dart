@@ -45,6 +45,16 @@ class PasswordInvalid extends AuthState {
   List<Object?> get props => throw UnimplementedError();
 }
 
+class FullNameInvalid extends AuthState {
+  @override
+  List<Object?> get props => throw UnimplementedError();
+}
+
+class PhoneInvalid extends AuthState {
+  @override
+  List<Object?> get props => throw UnimplementedError();
+}
+
 class SignOutLoading extends AuthState {
   @override
   List<Object?> get props => throw UnimplementedError();
@@ -56,6 +66,23 @@ class SignOutSuccess extends AuthState {
 }
 
 class SignOutFail extends AuthState {
+  @override
+  List<Object?> get props => throw UnimplementedError();
+}
+
+class RegisterLoading extends AuthState {
+  @override
+  List<Object?> get props => throw UnimplementedError();
+}
+
+class RegisterSuccess extends AuthState {
+  RegisterSuccess(this.registerModel);
+  RegisterModel registerModel;
+  @override
+  List<Object?> get props => [registerModel];
+}
+
+class RegisterFail extends AuthState {
   @override
   List<Object?> get props => throw UnimplementedError();
 }
