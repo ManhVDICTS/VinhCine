@@ -9,6 +9,6 @@ part 'signin_service.g.dart';
 abstract class SignInService {
   factory SignInService(Dio dio) = _SignInService;
 
-  @GET('/api/client_auth/login')
+  @POST('/api/client_auth/login')
   Future<HttpResponse<SignInResponse>> signIn(@Body() Map<String, dynamic> body);
 }

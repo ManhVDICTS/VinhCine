@@ -23,3 +23,10 @@ class SignInSuccess extends SignInState {
   @override
   List<Object?> get props => throw UnimplementedError();
 }
+
+class InitDataSuccess extends SignInState {
+  InitDataSuccess({required this.token});
+  String token;
+  @override
+  List<Object?> get props => [token];
+}

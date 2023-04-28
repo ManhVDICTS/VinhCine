@@ -23,20 +23,18 @@ class SignInRepositoryImpl implements SignInRepository {
   Future<Either<Failure, String>> signIn({
     required String userName, required String password}) async {
     try {
-      final data = await _remoteDataService.signIn({
+      final result = await _remoteDataService.signIn({
         "username": userName,
         "password": password
-      }).then((value) {
-        if (value.response.statusCode == HttpStatus.ok) {
-          return SignInMapper.mapToModel(value.data);
-        } else {
-          throw DioError(
-            response: value.response,
-            requestOptions: value.response.requestOptions,
-          );
-        }
       });
-      return right(data);
+      if (result.response.statusCode == HttpStatus.ok) {
+        return Right(SignInMapper.mapToModel(result.data));
+      } else {
+        throw DioError(
+          response: result.response,
+          requestOptions: result.response.requestOptions,
+        );
+      }
     } catch (e) {
       return Left(DetailFailure(message: e.toString()));
     }

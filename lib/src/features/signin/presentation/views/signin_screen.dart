@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/src/components/button/app_button.dart';
+import 'package:vinhcine/src/configs/app_themes/app_colors.dart';
 import 'package:vinhcine/src/core/di/injections.dart';
+import 'package:vinhcine/src/core/shared_prefs/shared_prefs_provider.dart';
 import 'package:vinhcine/src/features/signin/presentation/cubit/signin_cubit.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -13,8 +15,10 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  final _usernameController = TextEditingController(text: 'quanth');
-  final _passwordController = TextEditingController(text: '12345678');
+  final _usernameController = TextEditingController(text: 'manhptit123@gmail.com');
+  final _passwordController = TextEditingController(text: '111111');
+
+  late SignInCubit _cubit;
 
   @override
   void initState() {
@@ -24,22 +28,25 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<SignInCubit>(
-      create: (_) => di<SignInCubit>(),
+      create: (_) {
+        _cubit = di<SignInCubit>();
+        _cubit.initData();
+        return _cubit;
+      },
       child: Scaffold(
-        backgroundColor: Colors.grey,
-        body: BlocConsumer<SignInCubit, SignInState>(
+        backgroundColor: AppColors.main,
+        appBar: AppBar(title: const Text('Sign In Screen')),
+        body: BlocListener<SignInCubit, SignInState>(
           listener: (context, state) {
             if (state is SignInFail) {
               _showMessage('Login failure');
             } else if (state is SignInSuccess) {
               Navigator.pop(context);
-            } /*else if (state.signInStatus == SignInStatus.USERNAME_PASSWORD_INVALID) {
-              _showMessage('Wrong Username or Password');
-            }*/
+            } else if (state is InitDataSuccess) {
+              _showMessage(state.token);
+            }
           },
-          builder: (context, state) {
-            return buildBodyWidget();
-          },
+          child: buildBodyWidget(),
         ),
       ),
     );
@@ -97,18 +104,7 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   Widget _buildSignButton() {
-    return BlocConsumer<SignInCubit, SignInState>(
-      listenWhen: (prev, current) {
-        return prev != current;
-      },
-      listener: (context, state) {
-        if (state is SignInSuccess) {
-          /// todo do something here
-        };
-      },
-      buildWhen: (prev, current) {
-        return prev != current;
-      },
+    return BlocBuilder<SignInCubit, SignInState>(
       builder: (context, state) {
         final isLoading = state is SignInLoading;
         return Container(
@@ -134,7 +130,7 @@ class _SignInScreenState extends State<SignInScreen> {
       _showMessage('Password is invalid');
       return;
     }
-    context.read<SignInCubit>().signIn(username, password);
+    _cubit.signIn(username, password);
   }
 
   void _showMessage(String message) {
