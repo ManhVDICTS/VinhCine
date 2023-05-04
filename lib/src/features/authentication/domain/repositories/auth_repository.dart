@@ -39,14 +39,15 @@ class AuthRepositoryImpl implements AuthRepository {
         "username": userName,
         "password": password
       });
-      if (result.response.statusCode == HttpStatus.ok) {
-        return Right(SignInMapper.mapToModel(result.data));
-      } else {
-        throw DioError(
-          response: result.response,
-          requestOptions: result.response.requestOptions,
-        );
-      }
+      return Right(SignInMapper.mapToModel(result));
+      // if (result.response.statusCode == HttpStatus.ok) {
+      //   return Right(SignInMapper.mapToModel(result.data));
+      // } else {
+      //   throw DioError(
+      //     response: result.response,
+      //     requestOptions: result.response.requestOptions,
+      //   );
+      // }
     } catch (e) {
       return Left(DetailFailure(message: e.toString()));
     }
@@ -55,15 +56,8 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, bool>> signOut() async {
     try {
-      final result = await _authService.signOut();
-      if (result.response.statusCode == HttpStatus.ok) {
-        return const Right(true);
-      } else {
-        throw DioError(
-          response: result.response,
-          requestOptions: result.response.requestOptions,
-        );
-      }
+      await _authService.signOut();
+      return const Right(true);
     } catch (e) {
       return Left(DetailFailure(message: e.toString()));
     }
@@ -83,14 +77,15 @@ class AuthRepositoryImpl implements AuthRepository {
         "fullname": fullName,
         "phone": phone
       });
-      if (result.response.statusCode == HttpStatus.ok) {
-        return Right(RegisterMapper.mapToModel(result.data));
-      } else {
-        throw DioError(
-          response: result.response,
-          requestOptions: result.response.requestOptions,
-        );
-      }
+      return Right(RegisterMapper.mapToModel(result));
+      // if (result != null) {
+      //   return Right(RegisterMapper.mapToModel(result));
+      // } else {
+      //   throw DioError(
+      //     response: result,
+      //     requestOptions: result.requestOptions,
+      //   );
+      // }
     } catch (e) {
       return Left(DetailFailure(message: e.toString()));
     }

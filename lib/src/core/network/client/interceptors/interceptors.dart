@@ -39,7 +39,7 @@ class InterceptorBuilder {
         tokenStorage: di<AccessTokenStorage>(),
         refreshToken: (token, client) async{
           var result = await di<AuthService>().refreshToken();
-          return result.data.token;
+          return result.token;
         },
         httpClient: dio,
         tokenHeader: (String token) {
