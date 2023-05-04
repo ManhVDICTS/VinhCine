@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:fresh_dio/fresh_dio.dart';
 import 'package:vinhcine/src/core/di/injections.dart';
 import 'package:vinhcine/src/core/network/client/interceptors/authorization_interceptor.dart';
 import 'package:vinhcine/src/core/network/client/interceptors/logger_interceptor.dart';
-import 'package:vinhcine/src/core/shared_prefs/shared_prefs_provider.dart';
+import 'package:vinhcine/src/core/shared_prefs/access_token_storage.dart';
+import 'package:vinhcine/src/features/authentication/domain/data/services/auth_service.dart';
 
 export 'authorization_interceptor.dart';
 export 'logger_interceptor.dart';
@@ -14,7 +16,7 @@ class InterceptorBuilder {
   static AuthorizationInterceptor authorization =
       AuthorizationInterceptor(getBearerToken: () async {
     try {
-      var token = await di<SharedPrefProvider>().fetch(key: kAccessTokenKey);
+      var token = await di<AccessTokenStorage>().read();
       return token;
     } catch (e) {
       rethrow;
@@ -27,5 +29,24 @@ class InterceptorBuilder {
     } else {
       return const Interceptor();
     }
+  }
+
+  static Interceptor refreshToken(Dio dio) {
+    return Fresh<String>(
+        shouldRefresh: (Response? response){
+          return response?.statusCode == 404;
+        },
+        tokenStorage: di<AccessTokenStorage>(),
+        refreshToken: (token, client) async{
+          var result = await di<AuthService>().refreshToken();
+          return result.data.token;
+        },
+        httpClient: dio,
+        tokenHeader: (String token) {
+          return {
+            'Authorization': 'Bearer $token',
+          };
+        }
+    );
   }
 }

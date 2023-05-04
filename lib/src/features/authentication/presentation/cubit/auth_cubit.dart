@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:vinhcine/src/core/shared_prefs/shared_prefs_provider.dart';
+import 'package:vinhcine/src/core/shared_prefs/access_token_storage.dart';
 import 'package:vinhcine/src/features/authentication/domain/model/register.dart';
 import '../../domain/repositories/auth_repository.dart';
 import 'package:vinhcine/src/core/di/injections.dart';
@@ -18,13 +18,13 @@ class AuthCubit extends Cubit<AuthState> {
     response.fold((error) {
       emit(SignInFail());
     }, (data) {
-      di<SharedPrefProvider>().save(key: kAccessTokenKey, data: data);
+      di<AccessTokenStorage>().write(data);
       emit(SignInSuccess(token: data));
     });
   }
 
   void initData() async{
-    var token = await di<SharedPrefProvider>().fetch(key: kAccessTokenKey);
+    var token = await di<AccessTokenStorage>().read();
     emit(GetTokenSuccess(token: token ?? ''));
   }
 
@@ -66,7 +66,7 @@ class AuthCubit extends Cubit<AuthState> {
     response.fold((error) {
       emit(SignOutFail());
     }, (data) {
-      di<SharedPrefProvider>().delete(key: kAccessTokenKey);
+      di<AccessTokenStorage>().delete();
       emit(SignOutSuccess());
     });
   }

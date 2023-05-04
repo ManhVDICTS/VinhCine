@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:math' as math;
 import 'package:dio/dio.dart';
 import 'package:vinhcine/src/core/di/injections.dart';
-import 'package:vinhcine/src/core/shared_prefs/shared_prefs_provider.dart';
+import 'package:vinhcine/src/core/shared_prefs/access_token_storage.dart';
 
 typedef PrettyDioLoggerInterceptor = PrettyDioLogger;
 

@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:vinhcine/src/configs/app_configs/app_config.dart';
 import 'package:vinhcine/src/core/network/client/client_provider.dart';
-import 'package:vinhcine/src/core/shared_prefs/shared_prefs_provider.dart';
+import 'package:vinhcine/src/core/shared_prefs/access_token_storage.dart';
 import 'package:vinhcine/src/features/detail/presentation/cubit/detail_cubit.dart';
 import 'package:vinhcine/src/features/authentication/domain/data/services/auth_service.dart';
 import 'package:vinhcine/src/router/router.dart';
@@ -28,8 +28,8 @@ Future<void> initDependencies() async {
     ..registerFactory<DetailCubit>(
         () => DetailCubit(di<MovieGenreRepository>()))
     /// shared preference
-    ..registerFactory<SharedPrefProvider>(
-        SharedPrefProvider.new)
+    ..registerFactory<AccessTokenStorage>(
+        AccessTokenStorage.new)
     /// sign out
     ..registerSingleton<AuthService>(
       AuthService(authDio(di<AppConfig>())),
