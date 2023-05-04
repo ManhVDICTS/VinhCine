@@ -2,10 +2,10 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:vinhcine/src/features/authentication/domain/data/remote/dtos/payload_dto.dart';
 
-part 'signin_response.g.dart';
+part 'get_token_response.g.dart';
 
 @JsonSerializable()
-class SignInResponse extends Equatable {
+class GetTokenResponse extends Equatable {
   @JsonKey()
   final int code;
   @JsonKey()
@@ -15,12 +15,12 @@ class SignInResponse extends Equatable {
   @JsonKey()
   final double expiresIn;
 
-  const SignInResponse({required this.code, required this.token, required this.data, required this.expiresIn});
+  const GetTokenResponse({required this.code, required this.token, required this.data, required this.expiresIn});
 
-  factory SignInResponse.fromJson(Map<String, dynamic> json) =>
-      _$SignInResponseFromJson(json);
+  factory GetTokenResponse.fromJson(Map<String, dynamic> json) =>
+      _$GetTokenResponseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$SignInResponseToJson(this);
+  Map<String, dynamic> toJson() => _$GetTokenResponseToJson(this);
 
   @override
   bool get stringify => true;
@@ -28,13 +28,13 @@ class SignInResponse extends Equatable {
   @override
   List<Object?> get props => [code, token, data, expiresIn];
 
-  SignInResponse copyWith({
+  GetTokenResponse copyWith({
     int? code,
     String? token,
     PayloadDTO? data,
     double? expiresIn,
   }) {
-    return SignInResponse(
+    return GetTokenResponse(
       code: code ?? this.code,
       token: token ?? this.token,
       data: data ?? this.data,

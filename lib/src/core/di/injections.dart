@@ -38,10 +38,10 @@ Future<void> initDependencies() async {
     ..registerSingleton<AuthServiceNoToken>(
       AuthServiceNoToken(dio(di<AppConfig>())),
     )
-    ..registerSingleton<SignInRepository>(
-      SignInRepositoryImpl(di<AuthServiceNoToken>(), di<AuthService>()),
+    ..registerSingleton<AuthRepository>(
+      AuthRepositoryImpl(di<AuthServiceNoToken>(), di<AuthService>()),
     )
     ..registerFactory<AuthCubit>(
-            () => AuthCubit(di<SignInRepository>()),
+            () => AuthCubit(di<AuthRepository>()),
     );
 }

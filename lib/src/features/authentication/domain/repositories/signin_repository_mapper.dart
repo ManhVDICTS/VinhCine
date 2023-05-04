@@ -1,7 +1,7 @@
-import '../data/remote/dtos/signin_response.dart';
+import '../data/remote/dtos/get_token_response.dart';
 
 class SignInMapper {
-  static String mapToModel(SignInResponse response) {
+  static String mapToModel(GetTokenResponse response) {
     return response.token;
   }
 }

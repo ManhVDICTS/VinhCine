@@ -9,7 +9,7 @@ import 'dart:io' show HttpStatus;
 
 import 'signin_repository_mapper.dart';
 
-abstract class SignInRepository {
+abstract class AuthRepository {
   Future<Either<Failure, String>> signIn({
     required String userName,
     required String password,
@@ -25,18 +25,18 @@ abstract class SignInRepository {
   });
 }
 
-class SignInRepositoryImpl implements SignInRepository {
-  final AuthServiceNoToken _noTokenAuthService;
-  final AuthService _hasTokenAuthService;
+class AuthRepositoryImpl implements AuthRepository {
+  final AuthServiceNoToken _authServiceNoToken;
+  final AuthService _authService;
 
   @override
-  SignInRepositoryImpl(this._noTokenAuthService, this._hasTokenAuthService);
+  AuthRepositoryImpl(this._authServiceNoToken, this._authService);
 
   @override
   Future<Either<Failure, String>> signIn({
     required String userName, required String password}) async {
     try {
-      final result = await _noTokenAuthService.signIn({
+      final result = await _authServiceNoToken.signIn({
         "username": userName,
         "password": password
       });
@@ -56,7 +56,7 @@ class SignInRepositoryImpl implements SignInRepository {
   @override
   Future<Either<Failure, bool>> signOut() async {
     try {
-      final result = await _hasTokenAuthService.signOut();
+      final result = await _authService.signOut();
       if (result.response.statusCode == HttpStatus.ok) {
         return const Right(true);
       } else {
@@ -78,7 +78,7 @@ class SignInRepositoryImpl implements SignInRepository {
     required String phone,
   }) async {
     try {
-      final result = await _noTokenAuthService.register({
+      final result = await _authServiceNoToken.register({
         "username": userName,
         "password": password,
         "fullname": fullName,

@@ -10,7 +10,7 @@ part 'auth_state.dart';
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit(this.repository) : super(SignInInitial());
 
-  final SignInRepository repository;
+  final AuthRepository repository;
 
   Future<void> signIn(String username, String password) async {
     emit(SignInLoading());
