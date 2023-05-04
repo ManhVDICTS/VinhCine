@@ -34,7 +34,7 @@ class InterceptorBuilder {
   static Interceptor refreshToken(Dio dio) {
     return Fresh<String>(
         shouldRefresh: (Response? response){
-          return response?.statusCode == 404;
+          return response?.statusCode == 401;
         },
         tokenStorage: di<AccessTokenStorage>(),
         refreshToken: (token, client) async{
