@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:vinhcine/src/features/authentication/domain/data/remote/dtos/payload_dto.dart';
-
+import 'payload_dto.dart';
 part 'get_token_response.g.dart';
 
 @JsonSerializable()

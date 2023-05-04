@@ -5,7 +5,6 @@ import 'package:vinhcine/src/core/di/injections.dart';
 import 'package:vinhcine/src/core/exceptions/app_exceptions.dart';
 import 'package:vinhcine/src/core/network/client/client_provider.dart';
 import 'package:vinhcine/src/core/shared_prefs/access_token_storage.dart';
-import 'package:vinhcine/src/features/authentication/domain/data/services/auth_service.dart';
 
 class AuthorizationInterceptor extends Interceptor {
   AuthorizationInterceptor({required Future<String?> Function() getBearerToken})

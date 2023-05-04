@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
-import 'package:vinhcine/src/features/authentication/domain/data/remote/dtos/register_response.dart';
 
-import '../remote/dtos/get_token_response.dart';
+import '../dtos/get_token_response.dart';
+import '../dtos/register_response.dart';
 
 part 'auth_service_no_token.g.dart';
 

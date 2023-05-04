@@ -4,12 +4,12 @@ import 'package:vinhcine/src/configs/app_configs/app_config.dart';
 import 'package:vinhcine/src/core/network/client/client_provider.dart';
 import 'package:vinhcine/src/core/shared_prefs/access_token_storage.dart';
 import 'package:vinhcine/src/features/detail/presentation/cubit/detail_cubit.dart';
-import 'package:vinhcine/src/features/authentication/domain/data/services/auth_service.dart';
 import 'package:vinhcine/src/router/router.dart';
-import 'package:vinhcine/src/features/authentication/domain/data/services/auth_service_no_token.dart';
 import 'package:vinhcine/src/features/authentication/domain/repositories/auth_repository.dart';
 import 'package:vinhcine/src/features/authentication/presentation/cubit/auth_cubit.dart';
 
+import '../../features/authentication/data/remote/services/auth_service.dart';
+import '../../features/authentication/data/remote/services/auth_service_no_token.dart';
 import '../../features/detail/data/remote/services/genre_service.dart';
 import '../../features/detail/domain/repositories/movie_repository.dart';
 

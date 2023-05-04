@@ -5,7 +5,7 @@ import 'package:vinhcine/src/core/di/injections.dart';
 import 'package:vinhcine/src/core/network/client/interceptors/authorization_interceptor.dart';
 import 'package:vinhcine/src/core/network/client/interceptors/logger_interceptor.dart';
 import 'package:vinhcine/src/core/shared_prefs/access_token_storage.dart';
-import 'package:vinhcine/src/features/authentication/domain/data/services/auth_service.dart';
+import 'package:vinhcine/src/features/authentication/data/remote/services/auth_service.dart';
 
 export 'authorization_interceptor.dart';
 export 'logger_interceptor.dart';

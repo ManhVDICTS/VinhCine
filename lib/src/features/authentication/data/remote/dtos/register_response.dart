@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:vinhcine/src/features/authentication/domain/data/remote/dtos/payload_dto.dart';
-import 'package:vinhcine/src/features/authentication/domain/data/remote/dtos/register_dto.dart';
+
+import 'register_dto.dart';
 
 part 'register_response.g.dart';
 
