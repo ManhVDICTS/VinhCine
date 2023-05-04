@@ -2,12 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:vinhcine/src/core/failures/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:vinhcine/src/features/authentication/domain/model/register.dart';
-import 'package:vinhcine/src/features/authentication/domain/repositories/register_repository_mapper.dart';
+import 'package:vinhcine/src/features/authentication/domain/repositories/auth_repository_mapper.dart';
 import 'dart:io' show HttpStatus;
 
 import '../../data/remote/services/auth_service.dart';
 import '../../data/remote/services/auth_service_no_token.dart';
-import 'signin_repository_mapper.dart';
 
 abstract class AuthRepository {
   Future<Either<Failure, String>> signIn({
