@@ -10,7 +10,7 @@ part 'auth_service.g.dart';
 abstract class AuthService {
   factory AuthService(Dio dio) = _AuthService;
 
-  @GET('/api/client_auth/logout1')
+  @GET('/api/client_auth/logout')
   Future<dynamic> signOut();
 
   @GET('/api/client_auth/refresh')

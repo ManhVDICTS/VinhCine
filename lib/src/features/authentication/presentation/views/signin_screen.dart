@@ -147,11 +147,13 @@ class SignInScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.main,
       appBar: AppBar(title: const Text('Sign In Screen')),
-      body: BlocSelector<AuthCubit, AuthState, bool>(
-        selector: (state) => (state is GetTokenSuccess && state.token.isNotEmpty) ||
-            (state is SignInSuccess && state.token.isNotEmpty),
-        builder: (context, isAuthenticated) {
-          return isAuthenticated ? buildSignOutWidget() : buildSignInWidget();
+      body: BlocBuilder<AuthCubit, AuthState>(
+        builder: (context, state) {
+          final showLogOut = state is SignOutLoading ||
+              state is SignOutFail ||
+              (state is GetTokenSuccess && state.token.isNotEmpty) ||
+              (state is SignInSuccess && state.token.isNotEmpty);
+          return showLogOut ? buildSignOutWidget() :buildSignInWidget();
         },
       ),
     );
