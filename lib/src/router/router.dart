@@ -15,8 +15,6 @@ import 'package:vinhcine/src/features/profile/presentation/views/profile_screen.
 part './routes/home_routes.dart';
 part './routes/detail_routes.dart';
 part 'routes/signin_routes.dart';
-part 'routes/register_routes.dart';
-part 'routes/forgot_password_routes.dart';
 part 'routes/profile_routes.dart';
 
 part 'router.gr.dart';
@@ -65,5 +63,29 @@ class SignInWrapperPage extends StatelessWidget {
     return MultiBlocProvider(providers: [
       BlocProvider<AuthCubit>(create: ((context) => di<AuthCubit>()..initData()))
     ], child: SignInScreen());
+  }
+}
+
+@RoutePage(name: 'RegisterWrapperPageRoute')
+class RegisterWrapperPage extends StatelessWidget {
+  const RegisterWrapperPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(providers: [
+      BlocProvider<AuthCubit>(create: ((context) => di<AuthCubit>()))
+    ], child: RegisterScreen());
+  }
+}
+
+@RoutePage(name: 'ForgotPasswordWrapperPageRoute')
+class ForgotPasswordWrapperPage extends StatelessWidget {
+  const ForgotPasswordWrapperPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(providers: [
+      BlocProvider<AuthCubit>(create: ((context) => di<AuthCubit>()))
+    ], child: ForgotPasswordScreen());
   }
 }

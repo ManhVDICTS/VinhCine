@@ -16,27 +16,23 @@ class ForgotPasswordScreen extends StatelessWidget {
   final _userNameController =
       TextEditingController(text: 'manhptit123@gmail.com');
 
-  late AuthCubit _cubit;
+  late BuildContext _currentContext;
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AuthCubit>(
-        create: (_) {
-          _cubit = di<AuthCubit>();
-          return _cubit;
-        },
-        child: BlocListener<AuthCubit, AuthState>(
-          listener: (context, state) {
-            if (state is EmailInvalid) {
-              _showMessage(message: "Email invalid", context: context);
-            } else if (state is ForgotPasswordSuccess) {
-              _showMessage(message: "Forgot password success", context: context);
-            } else if (state is ForgotPasswordFail) {
-              _showMessage(message: state.message, context: context);
-            }
-          },
-          child: _buildBodyWidget(),
-        ));
+    _currentContext = context;
+    return BlocListener<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (state is EmailInvalid) {
+          _showMessage(message: "Email invalid", context: context);
+        } else if (state is ForgotPasswordSuccess) {
+          _showMessage(message: "Forgot password success", context: context);
+        } else if (state is ForgotPasswordFail) {
+          _showMessage(message: state.message, context: context);
+        }
+      },
+      child: _buildBodyWidget(),
+    );
   }
 
   Widget _buildBodyWidget() {
@@ -87,9 +83,9 @@ class ForgotPasswordScreen extends StatelessWidget {
 
   void _forgotPassword() {
     final userName = _userNameController.text;
-    bool validEmail = _cubit.checkEmail(userName);
+    bool validEmail = _currentContext.read<AuthCubit>().checkEmail(userName);
     if (validEmail) {
-      _cubit.forgotPassword(userName);
+      _currentContext.read<AuthCubit>().forgotPassword(userName);
     }
   }
 

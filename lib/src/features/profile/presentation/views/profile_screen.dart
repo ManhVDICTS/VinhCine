@@ -10,8 +10,6 @@ import 'package:vinhcine/src/features/profile/presentation/views/widgets/profile
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
 
-  late ProfileCubit _cubit;
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProfileCubit, ProfileState>(

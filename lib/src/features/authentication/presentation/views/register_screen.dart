@@ -12,8 +12,7 @@ import 'package:vinhcine/src/router/route_names.dart';
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});
 
-  late AuthCubit _cubit;
-
+  late BuildContext _currentContext;
   final _userNameController = TextEditingController(
       text: 'manhptit123@gmail.com');
   final _passwordController = TextEditingController(text: '111111');
@@ -22,24 +21,19 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) {
-        _cubit = di<AuthCubit>();
-        return _cubit;
+    _currentContext = context;
+    return BlocListener<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (state is RegisterSuccess) {
+          _showMessage(message: "Register success", context: context);
+        } else if (state is RegisterFail) {
+          _showMessage(message: "Register fail", context: context);
+        }
       },
-      child: BlocListener<AuthCubit, AuthState>(
-        listener: (context, state) {
-          if (state is RegisterSuccess) {
-            _showMessage(message: "Register success", context: context);
-          } else if (state is RegisterFail) {
-            _showMessage(message: "Register fail", context: context);
-          }
-        },
-        child: Scaffold(
-          backgroundColor: AppColors.main,
-          appBar: AppBar(title: const Text('Register Screen')),
-          body: _buildRegisterWidget(),
-        ),
+      child: Scaffold(
+        backgroundColor: AppColors.main,
+        appBar: AppBar(title: const Text('Register Screen')),
+        body: _buildRegisterWidget(),
       ),
     );
   }
@@ -154,13 +148,13 @@ class RegisterScreen extends StatelessWidget {
     final password = _passwordController.text;
     final fullName = _fullNameController.text;
     final phone = _phoneController.text;
-    bool validUser = _cubit.checkUserName(userName);
-    bool validPassword = _cubit.checkPassword(password);
-    bool validFullName = _cubit.checkFullName(fullName);
-    bool validPhone = _cubit.checkPhone(phone);
+    bool validUser = _currentContext.read<AuthCubit>().checkUserName(userName);
+    bool validPassword = _currentContext.read<AuthCubit>().checkPassword(password);
+    bool validFullName = _currentContext.read<AuthCubit>().checkFullName(fullName);
+    bool validPhone = _currentContext.read<AuthCubit>().checkPhone(phone);
 
     if (validUser && validPassword && validFullName && validPhone) {
-      _cubit.register(
+      _currentContext.read<AuthCubit>().register(
           userName: userName,
           password: password,
           fullName: fullName,
