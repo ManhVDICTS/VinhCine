@@ -18,6 +18,10 @@ abstract class AuthServiceNoToken {
 
   @POST('/api/client_auth/register')
   Future<ObjectResponse<RegisterDTO>> register(@Body() Map<String, dynamic> body, @CancelRequest() CancelToken cancelToken);
+
+  @POST('/api/client_auth/forgot-password')
+  Future<ObjectResponse<dynamic>> forgotPassword(@Body() Map<String, dynamic> body, @CancelRequest() CancelToken cancelToken);
+
 }
 
 extension AuthServiceNoTokenExtensions on AuthServiceNoToken {

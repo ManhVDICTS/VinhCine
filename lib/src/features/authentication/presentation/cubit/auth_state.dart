@@ -86,3 +86,25 @@ class RegisterFail extends AuthState {
   @override
   List<Object?> get props => throw UnimplementedError();
 }
+
+class EmailInvalid extends AuthState {
+  @override
+  List<Object?> get props => throw UnimplementedError();
+}
+
+class ForgotPasswordLoading extends AuthState {
+  @override
+  List<Object?> get props => throw UnimplementedError();
+}
+
+class ForgotPasswordSuccess extends AuthState {
+  @override
+  List<Object?> get props => throw UnimplementedError();
+}
+
+class ForgotPasswordFail extends AuthState {
+  ForgotPasswordFail({required this.message});
+  String message;
+  @override
+  List<Object?> get props => [message];
+}

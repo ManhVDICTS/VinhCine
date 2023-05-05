@@ -22,6 +22,10 @@ abstract class AuthRepository {
     required String fullName,
     required String phone,
   });
+
+  Future<Either<Failure, bool>> forgotPassword({
+    required String userName,
+  });
   /// cancel token
   void cancelRequest();
 }
@@ -32,6 +36,7 @@ class AuthRepositoryImpl implements AuthRepository {
   CancelToken? _signInCancelToken;
   CancelToken? _registerCancelToken;
   CancelToken? _logoutCancelToken;
+  CancelToken? _forgotPasswordCancelToken;
 
   @override
   AuthRepositoryImpl(this._authServiceNoToken, this._authService);
@@ -96,9 +101,31 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
+  Future<Either<Failure, bool>> forgotPassword({
+    required String userName,
+  }) async {
+    _forgotPasswordCancelToken = CancelToken();
+    try {
+      final result = await _authServiceNoToken.forgotPassword({"username": userName},
+          _forgotPasswordCancelToken!);
+      if (result.code == 0) {
+        return const Right(true);
+      } else {
+        return Left(DetailFailure(message: result.message));
+      }
+    } catch (e) {
+      if(e is DioError) {
+        return Left(DetailFailure(message: e.response?.statusMessage ?? ''));
+      }
+      return Left(DetailFailure(message: e.toString()));
+    }
+  }
+
+  @override
   void cancelRequest() {
     _signInCancelToken?.cancel();
     _registerCancelToken?.cancel();
     _logoutCancelToken?.cancel();
+    _forgotPasswordCancelToken?.cancel();
   }
 }

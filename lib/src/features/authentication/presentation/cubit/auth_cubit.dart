@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:vinhcine/src/core/failures/failure.dart';
 import 'package:vinhcine/src/core/shared_prefs/access_token_storage.dart';
 import 'package:vinhcine/src/features/authentication/domain/model/register.dart';
 import '../../domain/repositories/auth_repository.dart';
@@ -60,6 +61,14 @@ class AuthCubit extends Cubit<AuthState> {
     return valid;
   }
 
+  bool checkEmail(String email){
+    bool valid = email.isNotEmpty;
+    if(!valid) {
+      emit(EmailInvalid());
+    }
+    return valid;
+  }
+
   Future<void> signOut() async{
     emit(SignOutLoading());
     final response = await repository.signOut();
@@ -83,6 +92,20 @@ class AuthCubit extends Cubit<AuthState> {
       emit(RegisterFail());
     }, (data) {
       emit(RegisterSuccess(data));
+    });
+  }
+
+  Future<void> forgotPassword(String userName) async{
+    emit(ForgotPasswordLoading());
+    final response = await repository.forgotPassword(userName: userName);
+    response.fold((error) {
+      if(error is DetailFailure){
+        emit(ForgotPasswordFail(message: error.message ?? ''));
+      } else {
+        emit(ForgotPasswordFail(message: 'something wrong, unknown error'));
+      }
+    }, (data) {
+      emit(ForgotPasswordSuccess());
     });
   }
 

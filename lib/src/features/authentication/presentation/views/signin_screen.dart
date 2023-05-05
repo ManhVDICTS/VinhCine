@@ -120,6 +120,14 @@ class SignInScreen extends StatelessWidget {
             onPressed: () => {_currentContext.pushRoute(RegisterScreenRoute())},
             isLoading: false,
           ),
+        ),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: AppWhiteButton(
+            title: 'Forgot password',
+            onPressed: () => {_currentContext.pushRoute(ForgotPasswordScreenRoute())},
+            isLoading: false,
+          ),
         )
       ],
     );
