@@ -3,13 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/src/components/button/app_button.dart';
 import 'package:vinhcine/src/configs/app_themes/app_colors.dart';
-import 'package:vinhcine/src/core/di/injections.dart';
-import 'package:vinhcine/src/router/route_names.dart';
 import 'package:vinhcine/src/router/router.dart';
 import '../cubit/auth_cubit.dart';
 
 // ignore_for_file: must_be_immutable
-@RoutePage(name: signInScreenName)
 class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
 
@@ -17,41 +14,33 @@ class SignInScreen extends StatelessWidget {
       TextEditingController(text: 'manhptit123@gmail.com');
   final _passwordController = TextEditingController(text: '111111');
 
-  late AuthCubit _cubit;
-
   late BuildContext _currentContext;
 
   @override
   Widget build(BuildContext context) {
     _currentContext = context;
-    return BlocProvider<AuthCubit>(
-        create: (_) {
-          _cubit = di<AuthCubit>();
-          _cubit.initData();
-          return _cubit;
-        },
-        child: BlocListener<AuthCubit, AuthState>(
-          listener: (context, state) {
-            if (state is SignInFail) {
-              _showMessage(message: 'Login fail', context: context);
-            } else if (state is SignInSuccess) {
-              _showMessage(message: 'Login success', context: context);
-            } else if (state is GetTokenSuccess) {
-              if(state.token.isNotEmpty) {
-                _showMessage(message: state.token, context: context);
-              }
-            } else if (state is UserNameInvalid) {
-              _showMessage(message: "User name invalid", context: context);
-            } else if (state is PasswordInvalid) {
-              _showMessage(message: "Password invalid", context: context);
-            } else if (state is SignOutSuccess) {
-              _showMessage(message: "Logout success", context: context);
-            } else if (state is SignOutFail) {
-              _showMessage(message: "Logout fail", context: context);
-            }
-          },
-          child: _buildBodyWidget(),
-        ));
+    return BlocListener<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (state is SignInFail) {
+          _showMessage(message: 'Login fail', context: context);
+        } else if (state is SignInSuccess) {
+          _showMessage(message: 'Login success', context: context);
+        } else if (state is GetTokenSuccess) {
+          if(state.token.isNotEmpty) {
+            _showMessage(message: state.token, context: context);
+          }
+        } else if (state is UserNameInvalid) {
+          _showMessage(message: "User name invalid", context: context);
+        } else if (state is PasswordInvalid) {
+          _showMessage(message: "Password invalid", context: context);
+        } else if (state is SignOutSuccess) {
+          _showMessage(message: "Logout success", context: context);
+        } else if (state is SignOutFail) {
+          _showMessage(message: "Logout fail", context: context);
+        }
+      },
+      child: _buildBodyWidget(),
+    );
   }
 
   Widget buildSignInWidget() {
@@ -142,7 +131,7 @@ class SignInScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: AppWhiteButton(
               title: 'Sign Out',
-              onPressed: isLoading ? null : _cubit.signOut,
+              onPressed: isLoading ? null : _currentContext.read<AuthCubit>().signOut,
               isLoading: isLoading,
             ),
           );
@@ -170,9 +159,9 @@ class SignInScreen extends StatelessWidget {
   void _signIn() {
     final username = _usernameController.text;
     final password = _passwordController.text;
-    bool validUser = _cubit.checkUserName(username);
-    bool validPassword = _cubit.checkPassword(password);
-    if (validUser && validPassword) _cubit.signIn(username, password);
+    bool validUser = _currentContext.read<AuthCubit>().checkUserName(username);
+    bool validPassword = _currentContext.read<AuthCubit>().checkPassword(password);
+    if (validUser && validPassword) _currentContext.read<AuthCubit>().signIn(username, password);
   }
 
   void _showMessage({required String message, required BuildContext context}) {

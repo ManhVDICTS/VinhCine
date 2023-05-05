@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/src/components/button/app_button.dart';
@@ -6,10 +5,8 @@ import 'package:vinhcine/src/configs/app_themes/app_colors.dart';
 import 'package:vinhcine/src/features/profile/domain/model/my_profile.dart';
 import 'package:vinhcine/src/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:vinhcine/src/features/profile/presentation/views/widgets/profile_card.dart';
-import 'package:vinhcine/src/router/route_names.dart';
 
 // ignore_for_file: must_be_immutable
-@RoutePage(name: profileScreenName)
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
 

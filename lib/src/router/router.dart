@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/src/core/di/injections.dart';
+import 'package:vinhcine/src/features/authentication/presentation/cubit/auth_cubit.dart';
 import 'package:vinhcine/src/features/authentication/presentation/views/forgot_password_screen.dart';
 import 'package:vinhcine/src/features/authentication/presentation/views/register_screen.dart';
 import 'package:vinhcine/src/features/detail/presentation/cubit/detail_cubit.dart';
@@ -27,7 +28,7 @@ class RootRouter extends _$RootRouter {
         AutoRoute(
             path: '/',
             page: RootWrapperPageRoute.page,
-            children: [..._homeRoutes, ..._detailsRoutes, ..._signInRoutes, ..._registerRoutes, ..._forgotPasswordRoutes, ..._profileRoutes]),
+            children: [..._homeRoutes, ..._detailsRoutes, ..._signInRoutes, ..._profileRoutes]),
       ];
 }
 
@@ -52,5 +53,17 @@ class ProfileWrapperPage extends StatelessWidget {
     return MultiBlocProvider(providers: [
       BlocProvider<ProfileCubit>(create: ((context) => di<ProfileCubit>()..getMyProfile()))
     ], child: ProfileScreen());
+  }
+}
+
+@RoutePage(name: 'SignInWrapperPageRoute')
+class SignInWrapperPage extends StatelessWidget {
+  const SignInWrapperPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(providers: [
+      BlocProvider<AuthCubit>(create: ((context) => di<AuthCubit>()..initData()))
+    ], child: SignInScreen());
   }
 }
