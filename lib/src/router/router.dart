@@ -14,7 +14,7 @@ import 'package:vinhcine/src/features/profile/presentation/views/profile_screen.
 
 part './routes/home_routes.dart';
 part './routes/detail_routes.dart';
-part 'routes/signin_routes.dart';
+part 'routes/auth_routes.dart';
 part 'routes/profile_routes.dart';
 
 part 'router.gr.dart';
@@ -26,7 +26,7 @@ class RootRouter extends _$RootRouter {
         AutoRoute(
             path: '/',
             page: RootWrapperPageRoute.page,
-            children: [..._homeRoutes, ..._detailsRoutes, ..._signInRoutes, ..._profileRoutes]),
+            children: [..._homeRoutes, ..._detailsRoutes, ..._authRoutes, ..._profileRoutes]),
       ];
 }
 
