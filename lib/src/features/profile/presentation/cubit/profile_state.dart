@@ -8,5 +8,24 @@ abstract class ProfileState extends Equatable {
 
 class ProfileInitial extends ProfileState {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => throw UnimplementedError();
+}
+
+class GetMyProfileLoading extends ProfileState {
+  @override
+  List<Object?> get props => throw UnimplementedError();
+}
+
+class GetMyProfileFail extends ProfileState {
+  @override
+  List<Object?> get props => throw UnimplementedError();
+}
+
+class GetMyProfileSuccess extends ProfileState {
+  MyProfile profile;
+
+  GetMyProfileSuccess({required this.profile});
+
+  @override
+  List<Object?> get props => [profile];
 }

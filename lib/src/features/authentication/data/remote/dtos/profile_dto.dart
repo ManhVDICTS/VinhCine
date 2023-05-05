@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'payload_dto.g.dart';
+part 'profile_dto.g.dart';
 
 @JsonSerializable()
-class PayloadDTO extends Equatable {
+class ProfileDTO extends Equatable {
   @JsonKey(name: 'is_card')
   final bool? isCard;
   @JsonKey()
@@ -22,7 +22,7 @@ class PayloadDTO extends Equatable {
   @JsonKey(name: '_id')
   final String? id;
 
-  const PayloadDTO({
+  const ProfileDTO({
     this.isCard,
     this.point,
     this.forgetPasswordToken,
@@ -33,11 +33,11 @@ class PayloadDTO extends Equatable {
     this.id,
   });
 
-  factory PayloadDTO.fromJson(Map<String, dynamic> json) {
-    return _$PayloadDTOFromJson(json);
+  factory ProfileDTO.fromJson(Map<String, dynamic> json) {
+    return _$ProfileDTOFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$PayloadDTOToJson(this);
+  Map<String, dynamic> toJson() => _$ProfileDTOToJson(this);
 
   @override
   bool get stringify => true;
@@ -56,7 +56,7 @@ class PayloadDTO extends Equatable {
     id
   ];
 
-  PayloadDTO copyWith({
+  ProfileDTO copyWith({
     bool? isCard,
     int? point,
     String? forgetPasswordToken,
@@ -66,7 +66,7 @@ class PayloadDTO extends Equatable {
     String? barCode,
     String? id,
   }) {
-    return PayloadDTO(
+    return ProfileDTO(
       isCard: isCard ?? this.isCard,
       point: point ?? this.point,
       forgetPasswordToken: forgetPasswordToken ?? this.forgetPasswordToken,

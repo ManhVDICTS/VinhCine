@@ -21,30 +21,54 @@ class ProfileScreen extends StatelessWidget {
     return BlocProvider<ProfileCubit>(
         create: (_) {
           _cubit = di<ProfileCubit>();
+          _cubit.getMyProfile();
           return _cubit;
         },
-        child: BlocListener<ProfileCubit, ProfileState>(
+        child: BlocConsumer<ProfileCubit, ProfileState>(
           listener: (context, state) {
-            /// do nothing
+            // TODO: implement listener
           },
-          child: _buildBodyWidget(),
+          builder: (context, state) {
+            if(state is GetMyProfileSuccess){
+              return _buildBodyWidget(state.profile);
+            } else if(state is GetMyProfileLoading){
+              return _buildLoading();
+            } else if(state is GetMyProfileFail){
+              return _buildFail();
+            }
+            return Container();
+          },
         ));
   }
 
-  Widget _buildBodyWidget() {
+  Widget _buildLoading(){
+    return Scaffold(
+      backgroundColor: AppColors.main,
+      appBar: AppBar(title: const Text('Profile Screen')),
+      body: const Center(
+        child: Text("Loading"),
+      ),
+    );
+  }
+
+  Widget _buildFail(){
+    return Scaffold(
+      backgroundColor: AppColors.main,
+      appBar: AppBar(title: const Text('Profile Screen')),
+      body: const Center(
+        child: Text("Fail"),
+      ),
+    );
+  }
+
+  Widget _buildBodyWidget(MyProfile myProfile) {
     return Scaffold(
       backgroundColor: AppColors.main,
       appBar: AppBar(title: const Text('Profile Screen')),
       body: Column(
         children: [
           ProfileCard(
-            myProfile: MyProfile(
-                fullName: "Mạnh",
-                seenFilmNumber: 10,
-                totalPay: 1200000,
-                point: 500,
-                barCode: "Eq0IFM3rAYWb3A3j",
-                avatar: 'http://via.placeholder.com/200x150'),
+            myProfile: myProfile,
           ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
