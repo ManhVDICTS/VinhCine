@@ -6,7 +6,7 @@ import 'package:vinhcine/src/core/network/client/interceptors/interceptors.dart'
 Dio dio(AppConfig appConfig) {
   final dio = Dio();
   dio.interceptors.add(InterceptorBuilder.logger);
-  dio.options.baseUrl = /*appConfig.baseUrl*/'https://69f89b8e-54ee-4502-996f-906e89406513.mock.pstmn.io';
+  dio.options.baseUrl = appConfig.baseUrl;
   return dio;
 }
 

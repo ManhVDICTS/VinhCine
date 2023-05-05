@@ -1,16 +1,14 @@
-import 'package:vinhcine/src/features/authentication/domain/model/auth_mapper.dart';
-import '../../data/remote/dtos/get_token_response.dart';
-import '../../data/remote/dtos/register_response.dart';
+import 'package:vinhcine/src/core/network/response/object_response.dart';
 import '../model/register.dart';
 
 class RegisterMapper {
-  static RegisterModel mapToModel(RegisterResponse response) {
-    return response.toModel();
+  static RegisterModel mapToModel(ObjectResponse response) {
+    return response.data.toModel();
   }
 }
 
 class SignInMapper {
-  static String mapToModel(GetTokenResponse response) {
+  static String mapToModel(ObjectResponse response) {
     return response.token;
   }
 }

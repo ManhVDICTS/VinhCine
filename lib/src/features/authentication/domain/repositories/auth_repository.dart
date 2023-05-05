@@ -29,9 +29,9 @@ abstract class AuthRepository {
 class AuthRepositoryImpl implements AuthRepository {
   final AuthServiceNoToken _authServiceNoToken;
   final AuthService _authService;
-  late CancelToken _signInCancelToken;
-  late CancelToken _registerCancelToken;
-  late CancelToken _logoutCancelToken;
+  CancelToken? _signInCancelToken;
+  CancelToken? _registerCancelToken;
+  CancelToken? _logoutCancelToken;
 
   @override
   AuthRepositoryImpl(this._authServiceNoToken, this._authService);
@@ -44,8 +44,17 @@ class AuthRepositoryImpl implements AuthRepository {
       final result = await _authServiceNoToken.signIn({
         "username": userName,
         "password": password
-      }, _signInCancelToken);
-      return Right(SignInMapper.mapToModel(result));
+      }, _signInCancelToken!);
+      if (result.code == 0) {
+        return Right(SignInMapper.mapToModel(result));
+      } else {
+        /*throw DioError(
+          response: result.response,
+          requestOptions: result.response.requestOptions,
+        );*/
+        return Left(DetailFailure(message: result.message));
+      }
+      /*return Right(SignInMapper.mapToModel(result));*/
     } catch (e) {
       return Left(DetailFailure(message: e.toString()));
     }
@@ -53,8 +62,9 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<Either<Failure, bool>> signOut() async {
+    _logoutCancelToken = CancelToken();
     try {
-      await _authService.signOut(_logoutCancelToken);
+      await _authService.signOut(_logoutCancelToken!);
       return const Right(true);
     } catch (e) {
       return Left(DetailFailure(message: e.toString()));
@@ -68,13 +78,14 @@ class AuthRepositoryImpl implements AuthRepository {
     required String fullName,
     required String phone,
   }) async {
+    _registerCancelToken = CancelToken();
     try {
       final result = await _authServiceNoToken.register({
         "username": userName,
         "password": password,
         "fullname": fullName,
         "phone": phone
-      }, _registerCancelToken);
+      }, _registerCancelToken!);
       return Right(RegisterMapper.mapToModel(result));
     } catch (e) {
       return Left(DetailFailure(message: e.toString()));
@@ -83,8 +94,8 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   void cancelRequest() {
-    _signInCancelToken.cancel();
-    _registerCancelToken.cancel();
-    _logoutCancelToken.cancel();
+    _signInCancelToken?.cancel();
+    _registerCancelToken?.cancel();
+    _logoutCancelToken?.cancel();
   }
 }

@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:retrofit/retrofit.dart';
-
-import '../dtos/get_token_response.dart';
+import 'package:vinhcine/src/core/network/response/object_response.dart';
+import 'package:vinhcine/src/features/authentication/data/remote/dtos/payload_dto.dart';
+import 'package:vinhcine/src/features/authentication/data/remote/dtos/payload_dto.dart' as dto;
 
 part 'auth_service.g.dart';
 
@@ -14,9 +17,13 @@ abstract class AuthService {
   Future<dynamic> signOut(@CancelRequest() CancelToken cancelToken);
 
   @GET('/api/client_auth/refresh')
-  Future<GetTokenResponse> refreshToken();
+  Future<ObjectResponse<PayloadDTO>> refreshToken();
 }
 
-GetTokenResponse deserializeGetTokenResponse(Map<String, dynamic> json) => GetTokenResponse.fromJson(json);
+ObjectResponse<dto.PayloadDTO> deserializeObjectResponse<PayloadDTO>(Map<String, dynamic> json) =>
+    ObjectResponse<dto.PayloadDTO>.fromJson(
+      json,
+          (value) => dto.PayloadDTO.fromJson(value as Map<String, dynamic>),
+    );
 
-Map<String, dynamic> serializeGetTokenResponse(GetTokenResponse object) => object.toJson();
+Map<String, dynamic> serializeObjectResponse(ObjectResponse object) => object.toJson((obj) => obj.toJson());
