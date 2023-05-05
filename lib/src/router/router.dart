@@ -8,6 +8,7 @@ import 'package:vinhcine/src/features/detail/presentation/cubit/detail_cubit.dar
 import 'package:vinhcine/src/features/detail/presentation/views/detail_screen.dart';
 import 'package:vinhcine/src/features/home/home_screen.dart';
 import 'package:vinhcine/src/features/authentication/presentation/views/signin_screen.dart';
+import 'package:vinhcine/src/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:vinhcine/src/features/profile/presentation/views/profile_screen.dart';
 
 part './routes/home_routes.dart';
@@ -39,5 +40,17 @@ class RootWrapperPage extends StatelessWidget {
     return MultiBlocProvider(providers: [
       BlocProvider<DetailCubit>(create: ((context) => di<DetailCubit>()))
     ], child: const AutoRouter());
+  }
+}
+
+@RoutePage(name: 'ProfileWrapperPageRoute')
+class ProfileWrapperPage extends StatelessWidget {
+  const ProfileWrapperPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(providers: [
+      BlocProvider<ProfileCubit>(create: ((context) => di<ProfileCubit>()..getMyProfile()))
+    ], child: ProfileScreen());
   }
 }

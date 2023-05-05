@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/src/components/button/app_button.dart';
 import 'package:vinhcine/src/configs/app_themes/app_colors.dart';
-import 'package:vinhcine/src/core/di/injections.dart';
 import 'package:vinhcine/src/features/profile/domain/model/my_profile.dart';
 import 'package:vinhcine/src/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:vinhcine/src/features/profile/presentation/views/widgets/profile_card.dart';
@@ -18,27 +17,21 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ProfileCubit>(
-        create: (_) {
-          _cubit = di<ProfileCubit>();
-          _cubit.getMyProfile();
-          return _cubit;
-        },
-        child: BlocConsumer<ProfileCubit, ProfileState>(
-          listener: (context, state) {
-            // TODO: implement listener
-          },
-          builder: (context, state) {
-            if(state is GetMyProfileSuccess){
-              return _buildBodyWidget(state.profile);
-            } else if(state is GetMyProfileLoading){
-              return _buildLoading();
-            } else if(state is GetMyProfileFail){
-              return _buildFail();
-            }
-            return Container();
-          },
-        ));
+    return BlocConsumer<ProfileCubit, ProfileState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        if(state is GetMyProfileSuccess){
+          return _buildBodyWidget(state.profile);
+        } else if(state is GetMyProfileLoading){
+          return _buildLoading();
+        } else if(state is GetMyProfileFail){
+          return _buildFail();
+        }
+        return Container();
+      },
+    );
   }
 
   Widget _buildLoading(){
