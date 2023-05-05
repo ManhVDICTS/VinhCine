@@ -11,7 +11,7 @@ abstract class AuthService {
   factory AuthService(Dio dio) = _AuthService;
 
   @GET('/api/client_auth/logout')
-  Future<dynamic> signOut();
+  Future<dynamic> signOut(@CancelRequest() CancelToken cancelToken);
 
   @GET('/api/client_auth/refresh')
   Future<GetTokenResponse> refreshToken();

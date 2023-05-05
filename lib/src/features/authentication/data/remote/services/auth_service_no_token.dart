@@ -14,11 +14,10 @@ abstract class AuthServiceNoToken {
   factory AuthServiceNoToken(Dio dio) = _AuthServiceNoToken;
 
   @POST('/api/client_auth/login')
-  Future<GetTokenResponse> signIn(@Body() Map<String, dynamic> body);
+  Future<GetTokenResponse> signIn(@Body() Map<String, dynamic> body, @CancelRequest() CancelToken cancelToken);
 
   @POST('/api/client_auth/register')
-  Future<RegisterResponse> register(
-      @Body() Map<String, dynamic> body);
+  Future<RegisterResponse> register(@Body() Map<String, dynamic> body, @CancelRequest() CancelToken cancelToken);
 }
 
 GetTokenResponse deserializeGetTokenResponse(Map<String, dynamic> json) => GetTokenResponse.fromJson(json);

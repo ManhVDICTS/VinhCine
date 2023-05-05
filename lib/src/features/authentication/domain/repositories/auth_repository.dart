@@ -22,11 +22,16 @@ abstract class AuthRepository {
     required String fullName,
     required String phone,
   });
+  /// cancel token
+  void cancelRequest();
 }
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthServiceNoToken _authServiceNoToken;
   final AuthService _authService;
+  late CancelToken _signInCancelToken;
+  late CancelToken _registerCancelToken;
+  late CancelToken _logoutCancelToken;
 
   @override
   AuthRepositoryImpl(this._authServiceNoToken, this._authService);
@@ -34,20 +39,13 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, String>> signIn({
     required String userName, required String password}) async {
+    _signInCancelToken = CancelToken();
     try {
       final result = await _authServiceNoToken.signIn({
         "username": userName,
         "password": password
-      });
+      }, _signInCancelToken);
       return Right(SignInMapper.mapToModel(result));
-      // if (result.response.statusCode == HttpStatus.ok) {
-      //   return Right(SignInMapper.mapToModel(result.data));
-      // } else {
-      //   throw DioError(
-      //     response: result.response,
-      //     requestOptions: result.response.requestOptions,
-      //   );
-      // }
     } catch (e) {
       return Left(DetailFailure(message: e.toString()));
     }
@@ -56,7 +54,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, bool>> signOut() async {
     try {
-      await _authService.signOut();
+      await _authService.signOut(_logoutCancelToken);
       return const Right(true);
     } catch (e) {
       return Left(DetailFailure(message: e.toString()));
@@ -76,18 +74,17 @@ class AuthRepositoryImpl implements AuthRepository {
         "password": password,
         "fullname": fullName,
         "phone": phone
-      });
+      }, _registerCancelToken);
       return Right(RegisterMapper.mapToModel(result));
-      // if (result != null) {
-      //   return Right(RegisterMapper.mapToModel(result));
-      // } else {
-      //   throw DioError(
-      //     response: result,
-      //     requestOptions: result.requestOptions,
-      //   );
-      // }
     } catch (e) {
       return Left(DetailFailure(message: e.toString()));
     }
+  }
+
+  @override
+  void cancelRequest() {
+    _signInCancelToken.cancel();
+    _registerCancelToken.cancel();
+    _logoutCancelToken.cancel();
   }
 }

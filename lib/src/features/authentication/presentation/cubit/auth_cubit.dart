@@ -85,4 +85,10 @@ class AuthCubit extends Cubit<AuthState> {
       emit(RegisterSuccess(data));
     });
   }
+
+  @override
+  Future<void> close() {
+    repository.cancelRequest();
+    return super.close();
+  }
 }
