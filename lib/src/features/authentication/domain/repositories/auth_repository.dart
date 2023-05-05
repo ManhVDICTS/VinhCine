@@ -48,13 +48,8 @@ class AuthRepositoryImpl implements AuthRepository {
       if (result.code == 0) {
         return Right(SignInMapper.mapToModel(result));
       } else {
-        /*throw DioError(
-          response: result.response,
-          requestOptions: result.response.requestOptions,
-        );*/
         return Left(DetailFailure(message: result.message));
       }
-      /*return Right(SignInMapper.mapToModel(result));*/
     } catch (e) {
       return Left(DetailFailure(message: e.toString()));
     }
@@ -64,8 +59,12 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, bool>> signOut() async {
     _logoutCancelToken = CancelToken();
     try {
-      await _authService.signOut(_logoutCancelToken!);
-      return const Right(true);
+      var result = await _authService.signOut(_logoutCancelToken!);
+      if (result.code == 0) {
+        return const Right(true);
+      } else {
+        return Left(DetailFailure(message: result.message));
+      }
     } catch (e) {
       return Left(DetailFailure(message: e.toString()));
     }
@@ -86,7 +85,11 @@ class AuthRepositoryImpl implements AuthRepository {
         "fullname": fullName,
         "phone": phone
       }, _registerCancelToken!);
-      return Right(RegisterMapper.mapToModel(result));
+      if (result.code == 0) {
+        return Right(RegisterMapper.mapToModel(result));
+      } else {
+        return Left(DetailFailure(message: result.message));
+      }
     } catch (e) {
       return Left(DetailFailure(message: e.toString()));
     }
