@@ -9,6 +9,6 @@ part 'genre_service.g.dart';
 abstract class GenreService {
   factory GenreService(Dio dio) = _GenreService;
 
-  @GET('/api/movie_genre')
+  @GET('/api/movie_genre1')
   Future<HttpResponse<MovieGenreResponse>> getMovieGenres();
 }
