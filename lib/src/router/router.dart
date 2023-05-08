@@ -9,7 +9,6 @@ import 'package:vinhcine/src/features/detail/presentation/cubit/detail_cubit.dar
 import 'package:vinhcine/src/features/detail/presentation/views/detail_screen.dart';
 import 'package:vinhcine/src/features/home/home_screen.dart';
 import 'package:vinhcine/src/features/authentication/presentation/views/signin_screen.dart';
-import 'package:vinhcine/src/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:vinhcine/src/features/profile/presentation/views/profile_screen.dart';
 
 part './routes/home_routes.dart';
@@ -42,50 +41,50 @@ class RootWrapperPage extends StatelessWidget {
   }
 }
 
-@RoutePage(name: 'ProfileWrapperPageRoute')
-class ProfileWrapperPage extends StatelessWidget {
-  const ProfileWrapperPage({super.key});
+// @RoutePage(name: 'ProfileWrapperPageRoute')
+// class ProfileWrapperPage extends StatelessWidget {
+//   const ProfileWrapperPage({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return MultiBlocProvider(providers: [
-      BlocProvider<ProfileCubit>(create: ((context) => di<ProfileCubit>()..getMyProfile()))
-    ], child: ProfileScreen());
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return MultiBlocProvider(providers: [
+//       BlocProvider<ProfileCubit>(create: ((context) => di<ProfileCubit>()..getMyProfile()))
+//     ], child: ProfileScreen());
+//   }
+// }
 
-@RoutePage(name: 'SignInWrapperPageRoute')
-class SignInWrapperPage extends StatelessWidget {
-  const SignInWrapperPage({super.key});
+// @RoutePage(name: 'SignInWrapperPageRoute')
+// class SignInWrapperPage extends StatelessWidget {
+//   const SignInWrapperPage({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return MultiBlocProvider(providers: [
-      BlocProvider<AuthCubit>(create: ((context) => di<AuthCubit>()..initData()))
-    ], child: SignInScreen());
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return MultiBlocProvider(providers: [
+//       BlocProvider<AuthCubit>(create: ((context) => di<AuthCubit>()..initData()))
+//     ], child: SignInScreen());
+//   }
+// }
 
-@RoutePage(name: 'RegisterWrapperPageRoute')
-class RegisterWrapperPage extends StatelessWidget {
-  const RegisterWrapperPage({super.key});
+// @RoutePage(name: 'RegisterWrapperPageRoute')
+// class RegisterWrapperPage extends StatelessWidget {
+//   const RegisterWrapperPage({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return MultiBlocProvider(providers: [
-      BlocProvider<AuthCubit>(create: ((context) => di<AuthCubit>()))
-    ], child: RegisterScreen());
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return MultiBlocProvider(providers: [
+//       BlocProvider<AuthCubit>(create: ((context) => di<AuthCubit>()))
+//     ], child: RegisterScreen());
+//   }
+// }
 
-@RoutePage(name: 'ForgotPasswordWrapperPageRoute')
-class ForgotPasswordWrapperPage extends StatelessWidget {
-  const ForgotPasswordWrapperPage({super.key});
+// @RoutePage(name: 'ForgotPasswordWrapperPageRoute')
+// class ForgotPasswordWrapperPage extends StatelessWidget {
+//   const ForgotPasswordWrapperPage({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return MultiBlocProvider(providers: [
-      BlocProvider<AuthCubit>(create: ((context) => di<AuthCubit>()))
-    ], child: ForgotPasswordScreen());
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return MultiBlocProvider(providers: [
+//       BlocProvider<AuthCubit>(create: ((context) => di<AuthCubit>()))
+//     ], child: ForgotPasswordScreen());
+//   }
+// }

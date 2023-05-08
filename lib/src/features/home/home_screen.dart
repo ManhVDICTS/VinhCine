@@ -20,11 +20,11 @@ class HomeScreen extends StatelessWidget {
               child: const Text('Go to the Details screen'),
             ),
             ElevatedButton(
-              onPressed: () => {context.pushRoute(const SignInWrapperPageRoute())},
+              onPressed: () => {context.pushRoute(SignInScreenRoute())},
               child: const Text('Go to the Sign in screen'),
             ),
             ElevatedButton(
-              onPressed: () => {context.pushRoute(const ProfileWrapperPageRoute())},
+              onPressed: () => {context.pushRoute(ProfileScreenRoute())},
               child: const Text('Go to the Profile screen'),
             ),
           ],

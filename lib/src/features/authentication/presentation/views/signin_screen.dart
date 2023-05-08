@@ -1,12 +1,15 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/src/components/button/app_button.dart';
 import 'package:vinhcine/src/configs/app_themes/app_colors.dart';
 import 'package:vinhcine/src/router/router.dart';
+import '../../../../router/route_names.dart';
 import '../cubit/auth_cubit.dart';
 
-// ignore_for_file: must_be_immutable
+@RoutePage(name: signInScreenRoute)
 class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
 
@@ -26,7 +29,7 @@ class SignInScreen extends StatelessWidget {
         } else if (state is SignInSuccess) {
           _showMessage(message: 'Login success', context: context);
         } else if (state is GetTokenSuccess) {
-          if(state.token.isNotEmpty) {
+          if (state.token.isNotEmpty) {
             _showMessage(message: state.token, context: context);
           }
         } else if (state is UserNameInvalid) {
@@ -106,7 +109,7 @@ class SignInScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
           child: AppWhiteButton(
             title: 'Register',
-            onPressed: () => {_currentContext.pushRoute(const RegisterWrapperPageRoute())},
+            onPressed: () => {_currentContext.pushRoute(RegisterScreenRoute())},
             isLoading: false,
           ),
         ),
@@ -114,7 +117,8 @@ class SignInScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: AppWhiteButton(
             title: 'Forgot password',
-            onPressed: () => {_currentContext.pushRoute(const ForgotPasswordWrapperPageRoute())},
+            onPressed: () =>
+                {_currentContext.pushRoute(ForgotPasswordScreenRoute())},
             isLoading: false,
           ),
         )
@@ -131,7 +135,8 @@ class SignInScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: AppWhiteButton(
               title: 'Sign Out',
-              onPressed: isLoading ? null : _currentContext.read<AuthCubit>().signOut,
+              onPressed:
+                  isLoading ? null : _currentContext.read<AuthCubit>().signOut,
               isLoading: isLoading,
             ),
           );
@@ -150,7 +155,7 @@ class SignInScreen extends StatelessWidget {
               state is SignOutFail ||
               (state is GetTokenSuccess && state.token.isNotEmpty) ||
               (state is SignInSuccess && state.token.isNotEmpty);
-          return showLogOut ? buildSignOutWidget() :buildSignInWidget();
+          return showLogOut ? buildSignOutWidget() : buildSignInWidget();
         },
       ),
     );
@@ -160,8 +165,10 @@ class SignInScreen extends StatelessWidget {
     final username = _usernameController.text;
     final password = _passwordController.text;
     bool validUser = _currentContext.read<AuthCubit>().checkUserName(username);
-    bool validPassword = _currentContext.read<AuthCubit>().checkPassword(password);
-    if (validUser && validPassword) _currentContext.read<AuthCubit>().signIn(username, password);
+    bool validPassword =
+        _currentContext.read<AuthCubit>().checkPassword(password);
+    if (validUser && validPassword)
+      _currentContext.read<AuthCubit>().signIn(username, password);
   }
 
   void _showMessage({required String message, required BuildContext context}) {
