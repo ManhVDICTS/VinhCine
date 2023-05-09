@@ -7,8 +7,8 @@ import 'package:vinhcine/src/features/authentication/presentation/views/forgot_p
 import 'package:vinhcine/src/features/authentication/presentation/views/register_screen.dart';
 import 'package:vinhcine/src/features/detail/presentation/cubit/detail_cubit.dart';
 import 'package:vinhcine/src/features/detail/presentation/views/detail_screen.dart';
-import 'package:vinhcine/src/features/home/home_screen.dart';
 import 'package:vinhcine/src/features/authentication/presentation/views/signin_screen.dart';
+import 'package:vinhcine/src/features/home/presentation/home_screen.dart';
 import 'package:vinhcine/src/features/profile/presentation/views/profile_screen.dart';
 
 part './routes/home_routes.dart';
