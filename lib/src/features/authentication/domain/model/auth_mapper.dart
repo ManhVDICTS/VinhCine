@@ -1,11 +1,7 @@
-import 'package:vinhcine/src/core/network/response/object_response.dart';
+import 'package:vinhcine/src/features/authentication/data/remote/dtos/register_dto.dart';
 import 'package:vinhcine/src/features/authentication/domain/model/register.dart';
 
-extension RegisterData on ObjectResponse {
+extension RegisterData on RegisterDTO {
   RegisterModel toModel() =>
-      RegisterModel(userName: data.userName, password: data.password);
-}
-
-extension SignInData on ObjectResponse {
-  String toModel() => token;
+      RegisterModel(userName: userName, password: password);
 }

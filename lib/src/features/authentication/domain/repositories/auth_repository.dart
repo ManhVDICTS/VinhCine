@@ -16,7 +16,7 @@ abstract class AuthRepository {
 
   Future<Either<Failure, bool>> signOut();
 
-  Future<Either<Failure, RegisterModel>> register({
+  Future<Either<Failure, RegisterModel?>> register({
     required String userName,
     required String password,
     required String fullName,
@@ -75,7 +75,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, RegisterModel>> register({
+  Future<Either<Failure, RegisterModel?>> register({
     required String userName,
     required String password,
     required String fullName,

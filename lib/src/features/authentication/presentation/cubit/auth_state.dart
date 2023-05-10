@@ -77,7 +77,7 @@ class RegisterLoading extends AuthState {
 
 class RegisterSuccess extends AuthState {
   RegisterSuccess(this.registerModel);
-  RegisterModel registerModel;
+  RegisterModel? registerModel;
   @override
   List<Object?> get props => [registerModel];
 }
