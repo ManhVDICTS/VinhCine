@@ -16,7 +16,8 @@ class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
   @override
   Widget wrappedRoute(BuildContext context) {
     return MultiBlocProvider(providers: [
-      BlocProvider<ProfileCubit>(create: ((context) => di<ProfileCubit>()..getMyProfile()))
+      BlocProvider<ProfileCubit>(
+          create: ((context) => di<ProfileCubit>()..getMyProfile()))
     ], child: this);
   }
 

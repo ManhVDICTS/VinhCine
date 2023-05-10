@@ -12,6 +12,7 @@ import 'profile_repository_mapper.dart';
 
 abstract class ProfileRepository {
   Future<Either<Failure, MyProfile>> getMyProfile();
+
   /// cancel token
   void cancelRequest();
 }

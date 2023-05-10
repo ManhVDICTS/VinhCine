@@ -22,7 +22,8 @@ class AuthorizationInterceptor extends Interceptor {
         options.headers['Authorization'] = 'Bearer $token';
         super.onRequest(options, handler);
       } else {
-        final e = NotAuthenticatedException(message: 'NotAuthenticatedException');
+        final e =
+            NotAuthenticatedException(message: 'NotAuthenticatedException');
         handler.reject(DioError(
             requestOptions: options, type: DioErrorType.cancel, error: e));
       }

@@ -15,7 +15,8 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> signIn(String username, String password) async {
     emit(SignInLoading());
-    final response = await repository.signIn(userName: username, password: password);
+    final response =
+        await repository.signIn(userName: username, password: password);
     response.fold((error) {
       emit(SignInFail());
     }, (data) {
@@ -24,52 +25,52 @@ class AuthCubit extends Cubit<AuthState> {
     });
   }
 
-  void initData() async{
+  void initData() async {
     var token = await di<AccessTokenStorage>().read();
     emit(GetTokenSuccess(token: token ?? ''));
   }
 
-  bool checkUserName(String userName){
+  bool checkUserName(String userName) {
     bool valid = userName.isNotEmpty;
-    if(!valid) {
+    if (!valid) {
       emit(UserNameInvalid());
     }
     return valid;
   }
 
-  bool checkPassword(String password){
+  bool checkPassword(String password) {
     bool valid = password.isNotEmpty;
-    if(!valid) {
+    if (!valid) {
       emit(PasswordInvalid());
     }
     return valid;
   }
 
-  bool checkFullName(String fullName){
+  bool checkFullName(String fullName) {
     bool valid = fullName.isNotEmpty;
-    if(!valid) {
+    if (!valid) {
       emit(FullNameInvalid());
     }
     return valid;
   }
 
-  bool checkPhone(String phone){
+  bool checkPhone(String phone) {
     bool valid = phone.isNotEmpty;
-    if(!valid) {
+    if (!valid) {
       emit(PhoneInvalid());
     }
     return valid;
   }
 
-  bool checkEmail(String email){
+  bool checkEmail(String email) {
     bool valid = email.isNotEmpty;
-    if(!valid) {
+    if (!valid) {
       emit(EmailInvalid());
     }
     return valid;
   }
 
-  Future<void> signOut() async{
+  Future<void> signOut() async {
     emit(SignOutLoading());
     final response = await repository.signOut();
     response.fold((error) {
@@ -85,9 +86,13 @@ class AuthCubit extends Cubit<AuthState> {
     required String password,
     required String fullName,
     required String phone,
-  }) async{
+  }) async {
     emit(RegisterLoading());
-    final response = await repository.register(userName: userName, password: password, fullName: fullName, phone: phone);
+    final response = await repository.register(
+        userName: userName,
+        password: password,
+        fullName: fullName,
+        phone: phone);
     response.fold((error) {
       emit(RegisterFail());
     }, (data) {
@@ -95,11 +100,11 @@ class AuthCubit extends Cubit<AuthState> {
     });
   }
 
-  Future<void> forgotPassword(String userName) async{
+  Future<void> forgotPassword(String userName) async {
     emit(ForgotPasswordLoading());
     final response = await repository.forgotPassword(userName: userName);
     response.fold((error) {
-      if(error is DetailFailure){
+      if (error is DetailFailure) {
         emit(ForgotPasswordFail(message: error.message ?? ''));
       } else {
         emit(ForgotPasswordFail(message: 'something wrong, unknown error'));

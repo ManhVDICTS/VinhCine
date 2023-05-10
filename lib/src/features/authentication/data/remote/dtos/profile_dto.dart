@@ -42,19 +42,9 @@ class ProfileDTO extends Equatable {
   @override
   bool get stringify => true;
 
-
-
   @override
-  List<Object?> get props => [
-    isCard,
-    point,
-    forgetPasswordToken,
-    v,
-    phone,
-    fullName,
-    barCode,
-    id
-  ];
+  List<Object?> get props =>
+      [isCard, point, forgetPasswordToken, v, phone, fullName, barCode, id];
 
   ProfileDTO copyWith({
     bool? isCard,

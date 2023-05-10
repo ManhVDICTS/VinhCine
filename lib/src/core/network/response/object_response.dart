@@ -18,16 +18,18 @@ class ObjectResponse<T> {
   @JsonKey()
   final double expiresIn;
 
-  ObjectResponse({
-    this.code = -1,
-    this.message = '',
-    this.data,
-    this.token = '',
-    this.expiresIn = -1,
-    this.errors = const []
-  });
+  ObjectResponse(
+      {this.code = -1,
+      this.message = '',
+      this.data,
+      this.token = '',
+      this.expiresIn = -1,
+      this.errors = const []});
 
-  factory ObjectResponse.fromJson(Map<String, dynamic> json, T Function(Object? json) fromJsonT) => _$ObjectResponseFromJson(json, fromJsonT);
+  factory ObjectResponse.fromJson(
+          Map<String, dynamic> json, T Function(Object? json) fromJsonT) =>
+      _$ObjectResponseFromJson(json, fromJsonT);
 
-  Map<String, dynamic> toJson(Object? Function(T value) toJsonT) => _$ObjectResponseToJson(this, toJsonT);
+  Map<String, dynamic> toJson(Object? Function(T value) toJsonT) =>
+      _$ObjectResponseToJson(this, toJsonT);
 }

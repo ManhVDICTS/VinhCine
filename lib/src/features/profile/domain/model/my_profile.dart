@@ -13,6 +13,4 @@ class MyProfile {
       required this.seenFilmNumber,
       required this.point,
       required this.barCode});
-
-
 }

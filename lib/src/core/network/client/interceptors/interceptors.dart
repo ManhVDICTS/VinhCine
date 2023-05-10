@@ -39,11 +39,11 @@ class InterceptorBuilder {
 
   static Interceptor refreshToken(Dio dio) {
     return Fresh<String>(
-        shouldRefresh: (Response? response){
+        shouldRefresh: (Response? response) {
           return response?.statusCode == 401;
         },
         tokenStorage: di<AccessTokenStorage>(),
-        refreshToken: (token, client) async{
+        refreshToken: (token, client) async {
           var result = await di<AuthService>().refreshToken();
           return result.token;
         },
@@ -52,7 +52,6 @@ class InterceptorBuilder {
           return {
             'Authorization': 'Bearer $token',
           };
-        }
-    );
+        });
   }
 }

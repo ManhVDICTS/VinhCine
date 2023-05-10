@@ -19,7 +19,10 @@ class CinemaDirection extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Vinh Cine - Nghệ An', style: TextStyle(color: Color(0xFFcbc0b8), fontSize: 17),),
+            Text(
+              'Vinh Cine - Nghệ An',
+              style: TextStyle(color: Color(0xFFcbc0b8), fontSize: 17),
+            ),
             Row(
               children: [
                 Text(
@@ -27,7 +30,11 @@ class CinemaDirection extends StatelessWidget {
                   style: TextStyle(color: Color(0xFFae2d34)),
                 ),
                 const SizedBox(width: 5),
-                Icon(Icons.directions, size: 32, color: Color(0xFFae2d34),)
+                Icon(
+                  Icons.directions,
+                  size: 32,
+                  color: Color(0xFFae2d34),
+                )
               ],
             )
           ],

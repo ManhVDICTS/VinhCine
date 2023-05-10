@@ -1,6 +1,5 @@
-import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/src/features/detail/domain/models/genre.dart';
 
 import '../../domain/repositories/movie_repository.dart';

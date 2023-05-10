@@ -13,8 +13,8 @@ class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});
 
   late BuildContext _currentContext;
-  final _userNameController = TextEditingController(
-      text: 'manhptit123@gmail.com');
+  final _userNameController =
+      TextEditingController(text: 'manhptit123@gmail.com');
   final _passwordController = TextEditingController(text: '111111');
   final _fullNameController = TextEditingController(text: 'Manh Dep Trai');
   final _phoneController = TextEditingController(text: '0856787877');
@@ -149,8 +149,10 @@ class RegisterScreen extends StatelessWidget {
     final fullName = _fullNameController.text;
     final phone = _phoneController.text;
     bool validUser = _currentContext.read<AuthCubit>().checkUserName(userName);
-    bool validPassword = _currentContext.read<AuthCubit>().checkPassword(password);
-    bool validFullName = _currentContext.read<AuthCubit>().checkFullName(fullName);
+    bool validPassword =
+        _currentContext.read<AuthCubit>().checkPassword(password);
+    bool validFullName =
+        _currentContext.read<AuthCubit>().checkFullName(fullName);
     bool validPhone = _currentContext.read<AuthCubit>().checkPhone(phone);
 
     if (validUser && validPassword && validFullName && validPhone) {
@@ -158,8 +160,7 @@ class RegisterScreen extends StatelessWidget {
           userName: userName,
           password: password,
           fullName: fullName,
-          phone: phone
-      );
+          phone: phone);
     }
   }
 
@@ -170,5 +171,4 @@ class RegisterScreen extends StatelessWidget {
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
-
 }

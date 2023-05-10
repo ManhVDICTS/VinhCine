@@ -26,6 +26,7 @@ abstract class AuthRepository {
   Future<Either<Failure, bool>> forgotPassword({
     required String userName,
   });
+
   /// cancel token
   void cancelRequest();
 }
@@ -42,14 +43,12 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this._authServiceNoToken, this._authService);
 
   @override
-  Future<Either<Failure, String>> signIn({
-    required String userName, required String password}) async {
+  Future<Either<Failure, String>> signIn(
+      {required String userName, required String password}) async {
     _signInCancelToken = CancelToken();
     try {
-      final result = await _authServiceNoToken.signIn({
-        "username": userName,
-        "password": password
-      }, _signInCancelToken!);
+      final result = await _authServiceNoToken.signIn(
+          {"username": userName, "password": password}, _signInCancelToken!);
       if (result.code == 0) {
         return Right(SignInMapper.mapToModel(result));
       } else {
@@ -106,15 +105,15 @@ class AuthRepositoryImpl implements AuthRepository {
   }) async {
     _forgotPasswordCancelToken = CancelToken();
     try {
-      final result = await _authServiceNoToken.forgotPassword({"username": userName},
-          _forgotPasswordCancelToken!);
+      final result = await _authServiceNoToken
+          .forgotPassword({"username": userName}, _forgotPasswordCancelToken!);
       if (result.code == 0) {
         return const Right(true);
       } else {
         return Left(DetailFailure(message: result.message));
       }
     } catch (e) {
-      if(e is DioError) {
+      if (e is DioError) {
         return Left(DetailFailure(message: e.response?.statusMessage ?? ''));
       }
       return Left(DetailFailure(message: e.toString()));

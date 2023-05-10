@@ -91,7 +91,7 @@ class ProfileCard extends StatelessWidget {
     );
   }
 
-  Widget _buildBarCode(){
+  Widget _buildBarCode() {
     return Row(
       children: [
         Expanded(

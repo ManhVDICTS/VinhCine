@@ -14,7 +14,11 @@ class RegisterDTO extends Equatable {
   @JsonKey()
   final String phone;
 
-  const RegisterDTO({required this.userName, required this.password, required this.fullName, required this.phone});
+  const RegisterDTO(
+      {required this.userName,
+      required this.password,
+      required this.fullName,
+      required this.phone});
 
   factory RegisterDTO.fromJson(Map<String, dynamic> json) =>
       _$RegisterDTOFromJson(json);

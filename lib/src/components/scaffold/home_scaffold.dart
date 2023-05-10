@@ -5,9 +5,7 @@ import 'my_scaffold.dart';
 
 class HomeScaffold extends MyScaffold {
   const HomeScaffold(
-      {super.key,
-      required this.onProfileTap,
-      required super.child});
+      {super.key, required this.onProfileTap, required super.child});
 
   final VoidCallback onProfileTap;
 

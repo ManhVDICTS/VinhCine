@@ -12,5 +12,4 @@ part 'profile_service_no_token.g.dart';
 @RestApi()
 abstract class ProfileServiceNoToken {
   factory ProfileServiceNoToken(Dio dio) = _ProfileServiceNoToken;
-
 }

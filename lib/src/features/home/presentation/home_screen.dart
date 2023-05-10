@@ -3,7 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:vinhcine/src/components/button/icon_button.dart';
 import 'package:vinhcine/src/components/button/text_button.dart';
-import 'package:vinhcine/src/features/home/presentation/widgets/banner.dart';
+import 'package:vinhcine/src/features/banner/presentation/widgets/banner.dart';
 import 'package:vinhcine/src/features/home/presentation/widgets/cinema_direction.dart';
 import 'package:vinhcine/src/features/home/presentation/widgets/movies_carousel.dart';
 import 'package:vinhcine/src/router/route_names.dart';
@@ -31,7 +31,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late int _indexBanner;
   late int _indexCarousel;
   late double _appBarHeight;
 
@@ -39,7 +38,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _appBarHeight = 48;
-    _indexBanner = 0;
     _indexCarousel = (moviesList.length / 2).round();
   }
 
@@ -110,10 +108,9 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(children: [
         SizedBox(height: _appBarHeight + 20),
         BannerSlider(
-            imgList: bannerList,
-            width: MediaQuery.of(context).size.width - 80,
-            height: 170,
-            index: _indexBanner),
+          width: MediaQuery.of(context).size.width - 80,
+          height: 170,
+        ),
         Container(
           padding: EdgeInsets.only(top: 20, left: 20, right: 20),
           child: Row(

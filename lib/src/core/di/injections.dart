@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:vinhcine/src/configs/app_configs/app_config.dart';
 import 'package:vinhcine/src/core/network/client/client_provider.dart';
@@ -16,6 +15,7 @@ import '../../features/authentication/data/remote/services/auth_service.dart';
 import '../../features/authentication/data/remote/services/auth_service_no_token.dart';
 import '../../features/detail/data/remote/services/genre_service.dart';
 import '../../features/detail/domain/repositories/movie_repository.dart';
+import 'banner_di.dart';
 
 final di = GetIt.instance;
 
@@ -24,39 +24,44 @@ Future<void> initDependencies() async {
     ..registerSingleton<AppConfig>(AppConfig.init())
     ..registerSingleton<RootRouter>(RootRouter())
     ..registerSingleton<GenreService>(
-      GenreService(dio(di<AppConfig>())),
+      GenreService(baseDio(di<AppConfig>())),
     )
     ..registerSingleton<MovieGenreRepository>(
       MovieGenreRepositoryImpl(di<GenreService>()),
     )
     ..registerFactory<DetailCubit>(
         () => DetailCubit(di<MovieGenreRepository>()))
+
     /// shared preference
-    ..registerFactory<AccessTokenStorage>(
-        AccessTokenStorage.new)
+    ..registerFactory<AccessTokenStorage>(AccessTokenStorage.new)
+
     /// sign in, sign out
     ..registerSingleton<AuthService>(
       AuthService(authDio(di<AppConfig>())),
     )
     ..registerSingleton<AuthServiceNoToken>(
-      AuthServiceNoToken(dio(di<AppConfig>())),
+      AuthServiceNoToken(baseDio(di<AppConfig>())),
     )
     ..registerSingleton<AuthRepository>(
       AuthRepositoryImpl(di<AuthServiceNoToken>(), di<AuthService>()),
     )
     ..registerFactory<AuthCubit>(
-            () => AuthCubit(di<AuthRepository>()),
-    ) /// profile
+      () => AuthCubit(di<AuthRepository>()),
+    )
+
+    /// profile
     ..registerSingleton<ProfileService>(
       ProfileService(authDio(di<AppConfig>())),
     )
     ..registerSingleton<ProfileServiceNoToken>(
-      ProfileServiceNoToken(dio(di<AppConfig>())),
+      ProfileServiceNoToken(baseDio(di<AppConfig>())),
     )
     ..registerSingleton<ProfileRepository>(
       ProfileRepositoryImpl(di<ProfileServiceNoToken>(), di<ProfileService>()),
     )
     ..registerFactory<ProfileCubit>(
-          () => ProfileCubit(di<ProfileRepository>()),
+      () => ProfileCubit(di<ProfileRepository>()),
     );
+
+  initBanner(di);
 }

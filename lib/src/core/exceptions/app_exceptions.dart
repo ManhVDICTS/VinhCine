@@ -9,5 +9,5 @@ class NotAuthenticatedException extends AppException {
 }
 
 class GetMovieGenresException extends AppException {
-  GetMovieGenresException(): super(message: 'Failed to get movie genres.');
+  GetMovieGenresException() : super(message: 'Failed to get movie genres.');
 }

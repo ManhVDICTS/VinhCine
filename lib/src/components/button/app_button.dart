@@ -29,7 +29,8 @@ class _AppButton extends StatelessWidget {
         padding: const EdgeInsets.all(0),
         child: TextButton(
           style: ButtonStyle(
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0))),
+            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0))),
           ),
           onPressed: onPressed,
           child: _buildBodyWidget(),
