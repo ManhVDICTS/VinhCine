@@ -10,7 +10,7 @@ void initBanner(GetIt di) {
 
     /// Service
     ..registerSingleton<BannerService>(
-      BannerService(baseDio(di<AppConfig>())),
+      BannerService(di<AppDio>().baseDio),
     )
 
     /// Repository

@@ -22,9 +22,10 @@ final di = GetIt.instance;
 Future<void> initDependencies() async {
   di
     ..registerSingleton<AppConfig>(AppConfig.init())
+    ..registerSingleton<AppDio>(AppDio.init(di<AppConfig>()))
     ..registerSingleton<RootRouter>(RootRouter())
     ..registerSingleton<GenreService>(
-      GenreService(baseDio(di<AppConfig>())),
+      GenreService(di<AppDio>().baseDio),
     )
     ..registerSingleton<MovieGenreRepository>(
       MovieGenreRepositoryImpl(di<GenreService>()),
@@ -37,10 +38,10 @@ Future<void> initDependencies() async {
 
     /// sign in, sign out
     ..registerSingleton<AuthService>(
-      AuthService(authDio(di<AppConfig>())),
+      AuthService(di<AppDio>().authDio),
     )
     ..registerSingleton<AuthServiceNoToken>(
-      AuthServiceNoToken(baseDio(di<AppConfig>())),
+      AuthServiceNoToken(di<AppDio>().baseDio),
     )
     ..registerSingleton<AuthRepository>(
       AuthRepositoryImpl(di<AuthServiceNoToken>(), di<AuthService>()),
@@ -51,10 +52,10 @@ Future<void> initDependencies() async {
 
     /// profile
     ..registerSingleton<ProfileService>(
-      ProfileService(authDio(di<AppConfig>())),
+      ProfileService(di<AppDio>().authDio),
     )
     ..registerSingleton<ProfileServiceNoToken>(
-      ProfileServiceNoToken(baseDio(di<AppConfig>())),
+      ProfileServiceNoToken(di<AppDio>().baseDio),
     )
     ..registerSingleton<ProfileRepository>(
       ProfileRepositoryImpl(di<ProfileServiceNoToken>(), di<ProfileService>()),
