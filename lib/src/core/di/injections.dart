@@ -22,6 +22,8 @@ final di = GetIt.instance;
 Future<void> initDependencies() async {
   di
     ..registerSingleton<AppConfig>(AppConfig.init())
+    /// shared preference
+    ..registerFactory<AccessTokenStorage>(AccessTokenStorage.new)
     ..registerSingleton<AppDio>(AppDio.init(di<AppConfig>()))
     ..registerSingleton<RootRouter>(RootRouter())
     ..registerSingleton<GenreService>(
@@ -32,10 +34,6 @@ Future<void> initDependencies() async {
     )
     ..registerFactory<DetailCubit>(
         () => DetailCubit(di<MovieGenreRepository>()))
-
-    /// shared preference
-    ..registerFactory<AccessTokenStorage>(AccessTokenStorage.new)
-
     /// sign in, sign out
     ..registerSingleton<AuthService>(
       AuthService(di<AppDio>().authDio),

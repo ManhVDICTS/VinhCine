@@ -7,6 +7,7 @@ import 'package:vinhcine/src/features/banner/presentation/widgets/banner.dart';
 import 'package:vinhcine/src/features/home/presentation/widgets/cinema_direction.dart';
 import 'package:vinhcine/src/features/home/presentation/widgets/movies_carousel.dart';
 import 'package:vinhcine/src/router/route_names.dart';
+import 'package:vinhcine/src/router/router.dart';
 
 final List<String> moviesList = [
   'https://www.cgv.vn/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/7/0/700x1000_2_.jpg',
@@ -81,7 +82,9 @@ class _HomeScreenState extends State<HomeScreen> {
               CustomIconButton(
                 icon: const Icon(Icons.account_circle,
                     size: 32, color: Colors.white),
-                onTap: () {},
+                onTap: () {
+                  context.router.push(ProfileScreenRoute());
+                },
               ),
               Text(
                 'Vinh Cine',
@@ -96,7 +99,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   size: 32,
                   color: Colors.white,
                 ),
-                onTap: () {},
+                onTap: () {
+                  context.router.push(SignInScreenRoute());
+                },
               ),
             ],
           ),

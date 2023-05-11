@@ -6,12 +6,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/src/components/button/app_button.dart';
 import 'package:vinhcine/src/configs/app_themes/app_colors.dart';
 import 'package:vinhcine/src/router/router.dart';
+import '../../../../core/di/injections.dart';
 import '../../../../router/route_names.dart';
 import '../cubit/auth_cubit.dart';
 
 @RoutePage(name: signInScreenRoute)
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatelessWidget implements AutoRouteWrapper{
   SignInScreen({super.key});
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return MultiBlocProvider(providers: [
+      BlocProvider<AuthCubit>(
+          create: ((context) => di<AuthCubit>()))
+    ], child: this);
+  }
 
   final _usernameController =
       TextEditingController(text: 'manhptit123@gmail.com');
@@ -27,7 +36,7 @@ class SignInScreen extends StatelessWidget {
         if (state is SignInFail) {
           _showMessage(message: 'Login fail', context: context);
         } else if (state is SignInSuccess) {
-          _showMessage(message: 'Login success', context: context);
+          _currentContext.router.pop();
         } else if (state is GetTokenSuccess) {
           if (state.token.isNotEmpty) {
             _showMessage(message: state.token, context: context);
@@ -36,10 +45,6 @@ class SignInScreen extends StatelessWidget {
           _showMessage(message: "User name invalid", context: context);
         } else if (state is PasswordInvalid) {
           _showMessage(message: "Password invalid", context: context);
-        } else if (state is SignOutSuccess) {
-          _showMessage(message: "Logout success", context: context);
-        } else if (state is SignOutFail) {
-          _showMessage(message: "Logout fail", context: context);
         }
       },
       child: _buildBodyWidget(),
@@ -126,38 +131,11 @@ class SignInScreen extends StatelessWidget {
     );
   }
 
-  Widget buildSignOutWidget() {
-    return Center(
-      child: BlocBuilder<AuthCubit, AuthState>(
-        builder: (context, state) {
-          final isLoading = state is SignOutLoading;
-          return Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: AppWhiteButton(
-              title: 'Sign Out',
-              onPressed:
-                  isLoading ? null : _currentContext.read<AuthCubit>().signOut,
-              isLoading: isLoading,
-            ),
-          );
-        },
-      ),
-    );
-  }
-
   Widget _buildBodyWidget() {
     return Scaffold(
       backgroundColor: AppColors.main,
       appBar: AppBar(title: const Text('Sign In Screen')),
-      body: BlocBuilder<AuthCubit, AuthState>(
-        builder: (context, state) {
-          final showLogOut = state is SignOutLoading ||
-              state is SignOutFail ||
-              (state is GetTokenSuccess && state.token.isNotEmpty) ||
-              (state is SignInSuccess && state.token.isNotEmpty);
-          return showLogOut ? buildSignOutWidget() : buildSignInWidget();
-        },
-      ),
+      body: buildSignInWidget(),
     );
   }
 
@@ -167,8 +145,9 @@ class SignInScreen extends StatelessWidget {
     bool validUser = _currentContext.read<AuthCubit>().checkUserName(username);
     bool validPassword =
         _currentContext.read<AuthCubit>().checkPassword(password);
-    if (validUser && validPassword)
+    if (validUser && validPassword) {
       _currentContext.read<AuthCubit>().signIn(username, password);
+    }
   }
 
   void _showMessage({required String message, required BuildContext context}) {

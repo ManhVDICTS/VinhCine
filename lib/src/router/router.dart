@@ -11,6 +11,7 @@ import 'package:vinhcine/src/features/detail/presentation/views/detail_screen.da
 import 'package:vinhcine/src/features/authentication/presentation/views/signin_screen.dart';
 import 'package:vinhcine/src/features/home/presentation/home_screen.dart';
 import 'package:vinhcine/src/features/profile/presentation/views/profile_screen.dart';
+import 'package:vinhcine/src/router/routes/guards/secure_guards.dart';
 
 part './routes/home_routes.dart';
 part './routes/detail_routes.dart';

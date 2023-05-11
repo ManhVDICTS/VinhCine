@@ -9,20 +9,26 @@ import 'package:vinhcine/src/features/profile/presentation/cubit/profile_cubit.d
 import 'package:vinhcine/src/features/profile/presentation/views/widgets/profile_card.dart';
 import 'package:vinhcine/src/router/route_names.dart';
 
+import '../../../authentication/presentation/cubit/auth_cubit.dart';
+
 @RoutePage(name: profileScreenName)
 class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
-  const ProfileScreen({super.key});
+  ProfileScreen({super.key});
 
   @override
   Widget wrappedRoute(BuildContext context) {
     return MultiBlocProvider(providers: [
       BlocProvider<ProfileCubit>(
-          create: ((context) => di<ProfileCubit>()..getMyProfile()))
+          create: ((context) => di<ProfileCubit>()..getMyProfile())),
+      BlocProvider<AuthCubit>(
+          create: ((context) => di<AuthCubit>()))
     ], child: this);
   }
+  late BuildContext _currentContext;
 
   @override
   Widget build(BuildContext context) {
+    _currentContext = context;
     return BlocConsumer<ProfileCubit, ProfileState>(
       listener: (context, state) {
         // TODO: implement listener
@@ -92,9 +98,34 @@ class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
               onPressed: () => {},
               isLoading: false,
             ),
-          )
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: _buildSignOutButton(),
+          ),
         ],
       ),
+    );
+  }
+
+  Widget _buildSignOutButton() {
+    return BlocConsumer<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (state is SignOutSuccess) {
+          _currentContext.router.pop();
+        } else if (state is SignOutFail) {
+          _showMessage(message: "Logout fail", context: context);
+        }
+      },
+      builder: (context, state) {
+        final isLoading = state is SignOutLoading;
+        return AppWhiteButton(
+          title: 'Sign Out',
+          onPressed:
+          isLoading ? null : _currentContext.read<AuthCubit>().signOut,
+          isLoading: isLoading,
+        );
+      },
     );
   }
 
