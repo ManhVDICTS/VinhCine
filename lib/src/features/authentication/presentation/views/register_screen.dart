@@ -4,13 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/src/components/button/app_button.dart';
-import 'package:vinhcine/src/configs/app_themes/app_colors.dart';
 import 'package:vinhcine/src/core/di/injections.dart';
 import 'package:vinhcine/src/features/authentication/presentation/cubit/auth_cubit.dart';
 import 'package:vinhcine/src/router/route_names.dart';
-
-import '../widgets/app_text_field.dart';
-import 'widgets/custom_app_bar.dart';
+import '../../../../configs/app_themes/app_colors.dart';
+import '../widgets/custom_text_field.dart';
+import '../widgets/custom_app_bar.dart';
 
 @RoutePage(name: registerScreenName)
 class RegisterScreen extends StatelessWidget implements AutoRouteWrapper {
@@ -25,10 +24,10 @@ class RegisterScreen extends StatelessWidget implements AutoRouteWrapper {
 
   late BuildContext _currentContext;
   final _userNameController =
-      TextEditingController(text: 'manhptit123@gmail.com');
-  final _passwordController = TextEditingController(text: '111111');
-  final _fullNameController = TextEditingController(text: 'Manh Dep Trai');
-  final _phoneController = TextEditingController(text: '0856787877');
+      TextEditingController(text: '');
+  final _passwordController = TextEditingController(text: '');
+  final _fullNameController = TextEditingController(text: '');
+  final _phoneController = TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
@@ -65,14 +64,14 @@ class RegisterScreen extends StatelessWidget implements AutoRouteWrapper {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: _buildTextFormField(
-              child: AppTextField(
+              child: CustomTextField(
                 controller: _userNameController,
                 keyboardType: TextInputType.emailAddress,
-                hintText: 'User name',
+                hintText: 'Email',
                 hintStyle: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
-                    color: Colors.black),
+                    color: AppColors.borderColor),
               ),
             ),
           ),
@@ -80,7 +79,7 @@ class RegisterScreen extends StatelessWidget implements AutoRouteWrapper {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: _buildTextFormField(
-              child: AppTextField(
+              child: CustomTextField(
                 controller: _passwordController,
                 keyboardType: TextInputType.visiblePassword,
                 obscureText: true,
@@ -88,7 +87,7 @@ class RegisterScreen extends StatelessWidget implements AutoRouteWrapper {
                 hintStyle: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
-                    color: Colors.black),
+                    color: AppColors.borderColor),
               ),
             ),
           ),
@@ -96,14 +95,14 @@ class RegisterScreen extends StatelessWidget implements AutoRouteWrapper {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: _buildTextFormField(
-              child: AppTextField(
+              child: CustomTextField(
                 controller: _fullNameController,
                 keyboardType: TextInputType.emailAddress,
                 hintText: 'Họ tên',
                 hintStyle: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
-                    color: Colors.black),
+                    color: AppColors.borderColor),
               ),
             ),
           ),
@@ -111,14 +110,14 @@ class RegisterScreen extends StatelessWidget implements AutoRouteWrapper {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: _buildTextFormField(
-              child: AppTextField(
+              child: CustomTextField(
                 controller: _phoneController,
                 keyboardType: TextInputType.phone,
                 hintText: 'Số điện thoại',
                 hintStyle: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
-                    color: Colors.black),
+                    color: AppColors.borderColor),
               ),
             ),
           ),

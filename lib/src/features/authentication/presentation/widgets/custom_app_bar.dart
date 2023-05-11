@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {
-  CustomAppBar({super.key, required this.onPressed, required this.title});
+  CustomAppBar({super.key, required this.onPressed, required this.title, this.brightness = true});
 
   Function onPressed;
   String title;
+  bool brightness;
 
   late BuildContext _currentContext;
 
@@ -14,7 +15,9 @@ class CustomAppBar extends StatelessWidget {
     _currentContext = context;
     return Stack(
       children: [
-        _backgroundShadow(),
+        Visibility(
+            visible: brightness,
+            child: _backgroundShadow()),
         _appBar(),
       ],
     );

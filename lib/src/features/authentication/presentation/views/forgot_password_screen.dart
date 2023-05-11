@@ -7,7 +7,8 @@ import 'package:vinhcine/src/core/di/injections.dart';
 import 'package:vinhcine/src/router/route_names.dart';
 import 'package:vinhcine/src/router/router.dart';
 import '../cubit/auth_cubit.dart';
-import 'widgets/custom_app_bar.dart';
+import '../widgets/custom_text_field.dart';
+import '../widgets/custom_app_bar.dart';
 
 // ignore_for_file: must_be_immutable
 @RoutePage(name: forgotPasswordScreenName)
@@ -46,48 +47,63 @@ class ForgotPasswordScreen extends StatelessWidget implements AutoRouteWrapper{
 
   Widget _buildBodyWidget() {
     return Scaffold(
-      backgroundColor: AppColors.main,
-      appBar: AppBar(title: const Text('Forgot Password Screen')),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      backgroundColor: Colors.white,
+      body: Stack(
         children: [
-          Container(
-            height: 48,
-            margin: const EdgeInsets.symmetric(horizontal: 20),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: TextFormField(
-              controller: _userNameController,
-              keyboardType: TextInputType.emailAddress,
-              decoration: const InputDecoration(
-                hintText: 'Username',
-                hintStyle: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black),
-                contentPadding:
-                    EdgeInsets.symmetric(horizontal: 12, vertical: 0),
-              ),
-            ),
-          ),
-          const SizedBox(height: 32),
-          BlocBuilder<AuthCubit, AuthState>(
-            builder: (context, state) {
-              final isLoading = state is ForgotPasswordLoading;
-              return Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: AppWhiteButton(
-                  title: 'Create new password',
-                  onPressed: isLoading ? null : _forgotPassword,
-                  isLoading: isLoading,
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                _buildBanner(),
+                const SizedBox(height: 12),
+                Container(
+                  height: 48,
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: CustomTextField(
+                    controller: _userNameController,
+                    keyboardType: TextInputType.emailAddress,
+                    hintText: 'Email hoặc số điện thoại',
+                    hintStyle: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.borderColor),
+                  ),
                 ),
-              );
-            },
+                const SizedBox(height: 32),
+                BlocBuilder<AuthCubit, AuthState>(
+                  builder: (context, state) {
+                    final isLoading = state is ForgotPasswordLoading;
+                    return Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: AppCrimsonButton(
+                        title: 'Tạo mật khẩu mới',
+                        onPressed: isLoading ? null : _forgotPassword,
+                        isLoading: isLoading,
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
+          CustomAppBar(
+              title: "Quên mật khẩu",
+              brightness: false,
+              onPressed: () => _currentContext.router.pop()),
         ],
       ),
+    );
+  }
+
+  Widget _buildBanner(){
+    var statusBarHeight = MediaQuery.of(_currentContext).viewPadding.top;
+    return Container(
+      width: MediaQuery.of(_currentContext).size.width,
+      height: statusBarHeight + 48,
+      color: AppColors.crimson,
     );
   }
 

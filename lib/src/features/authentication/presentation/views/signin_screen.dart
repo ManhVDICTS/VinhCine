@@ -11,8 +11,8 @@ import '../../../../components/button/icon_button.dart';
 import '../../../../core/di/injections.dart';
 import '../../../../router/route_names.dart';
 import '../cubit/auth_cubit.dart';
-import '../widgets/app_text_field.dart';
-import 'widgets/custom_app_bar.dart';
+import '../widgets/custom_text_field.dart';
+import '../widgets/custom_app_bar.dart';
 
 @RoutePage(name: signInScreenRoute)
 class SignInScreen extends StatelessWidget implements AutoRouteWrapper{
@@ -63,20 +63,20 @@ class SignInScreen extends StatelessWidget implements AutoRouteWrapper{
           const SizedBox(height: 12),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: AppTextField(
+            child: CustomTextField(
               controller: _usernameController,
               keyboardType: TextInputType.emailAddress,
               hintText: 'Email hoặc số điện thoại',
               hintStyle: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  color: Colors.black),
+                  color: AppColors.borderColor),
             ),
           ),
           const SizedBox(height: 12),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: AppTextField(
+            child: CustomTextField(
               controller: _passwordController,
               keyboardType: TextInputType.visiblePassword,
               obscureText: true,
@@ -84,7 +84,7 @@ class SignInScreen extends StatelessWidget implements AutoRouteWrapper{
               hintStyle: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  color: Colors.black),
+                  color: AppColors.borderColor),
             ),
           ),
           const SizedBox(height: 32),
