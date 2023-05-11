@@ -8,8 +8,9 @@ import 'package:vinhcine/src/features/profile/domain/model/my_profile.dart';
 import 'package:vinhcine/src/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:vinhcine/src/features/profile/presentation/views/widgets/profile_card.dart';
 import 'package:vinhcine/src/router/route_names.dart';
-
+import '../../../../components/appbar/custom_app_bar.dart';
 import '../../../authentication/presentation/cubit/auth_cubit.dart';
+import 'widgets/optional_item.dart';
 
 @RoutePage(name: profileScreenName)
 class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
@@ -20,10 +21,10 @@ class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
     return MultiBlocProvider(providers: [
       BlocProvider<ProfileCubit>(
           create: ((context) => di<ProfileCubit>()..getMyProfile())),
-      BlocProvider<AuthCubit>(
-          create: ((context) => di<AuthCubit>()))
+      BlocProvider<AuthCubit>(create: ((context) => di<AuthCubit>())),
     ], child: this);
   }
+
   late BuildContext _currentContext;
 
   @override
@@ -47,61 +48,74 @@ class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
   }
 
   Widget _buildLoading() {
-    return Scaffold(
-      backgroundColor: AppColors.main,
-      appBar: AppBar(title: const Text('Profile Screen')),
-      body: const Center(
-        child: Text("Loading"),
+    return _buildSafeWidget(
+      child: const Center(
+        child: Text("Loading..."),
       ),
     );
   }
 
   Widget _buildFail() {
-    return Scaffold(
-      backgroundColor: AppColors.main,
-      appBar: AppBar(title: const Text('Profile Screen')),
-      body: const Center(
+    return _buildSafeWidget(
+      child: const Center(
         child: Text("Fail"),
       ),
     );
   }
 
   Widget _buildBodyWidget(MyProfile myProfile) {
-    return Scaffold(
-      backgroundColor: AppColors.main,
-      appBar: AppBar(title: const Text('Profile Screen')),
-      body: Column(
+    return _buildSafeWidget(
+      child: Stack(
         children: [
-          ProfileCard(
-            myProfile: myProfile,
+          Column(
+            children: [
+              ProfileCard(
+                myProfile: myProfile,
+              ),
+              const SizedBox(height: 12),
+              Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Container(color: AppColors.borderColor, height: 1)),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: OptionalItem(
+                  text: 'Thay đổi thông tin tài khoản',
+                  leadingIcon: const Icon(Icons.person, color: AppColors.crimson),
+                  onTap: (){
+                    /// todo do something here
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: OptionalItem(
+                  text: 'Thay đổi mật khẩu',
+                  leadingIcon: const Icon(Icons.password_outlined, color: AppColors.crimson),
+                  onTap: (){
+                    /// todo do something here
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: OptionalItem(
+                  text: 'Lịch sử giao dịch',
+                  leadingIcon: const Icon(Icons.history, color: AppColors.crimson,),
+                  onTap: (){
+                    /// todo do something here
+                  },
+                ),
+              ),
+            ],
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-            child: AppWhiteButton(
-              title: 'Thay đổi thông tin tài khoản',
-              onPressed: () => {},
-              isLoading: false,
+          Positioned.fill(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                child: _buildSignOutButton(),
+              ),
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: AppWhiteButton(
-              title: 'Thay đổi mật khẩu',
-              onPressed: () => {},
-              isLoading: false,
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-            child: AppWhiteButton(
-              title: 'Lịch sử giao dịch',
-              onPressed: () => {},
-              isLoading: false,
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: _buildSignOutButton(),
           ),
         ],
       ),
@@ -119,13 +133,43 @@ class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
       },
       builder: (context, state) {
         final isLoading = state is SignOutLoading;
-        return AppWhiteButton(
-          title: 'Sign Out',
+        return AppCrimsonButton(
+          title: 'Đăng xuất',
           onPressed:
-          isLoading ? null : _currentContext.read<AuthCubit>().signOut,
+              isLoading ? null : _currentContext.read<AuthCubit>().signOut,
           isLoading: isLoading,
         );
       },
+    );
+  }
+
+  Widget _buildBanner() {
+    var statusBarHeight = MediaQuery.of(_currentContext).viewPadding.top;
+    return Container(
+      width: MediaQuery.of(_currentContext).size.width,
+      height: statusBarHeight + 48,
+      color: AppColors.crimson,
+    );
+  }
+
+  Widget _buildSafeWidget({required Widget child}) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Stack(
+        children: [
+          Column(
+            children: [
+              _buildBanner(),
+              const SizedBox(height: 12),
+              Expanded(child: child)
+            ],
+          ),
+          CustomAppBar(
+              brightness: false,
+              title: "Thành viên",
+              onPressed: () => _currentContext.router.pop()),
+        ],
+      ),
     );
   }
 

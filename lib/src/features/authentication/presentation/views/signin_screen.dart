@@ -7,12 +7,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/src/components/button/app_button.dart';
 import 'package:vinhcine/src/configs/app_themes/app_colors.dart';
 import 'package:vinhcine/src/router/router.dart';
+import '../../../../components/appbar/custom_app_bar.dart';
 import '../../../../components/button/icon_button.dart';
+import '../../../../components/text_field/custom_text_field.dart';
 import '../../../../core/di/injections.dart';
 import '../../../../router/route_names.dart';
 import '../cubit/auth_cubit.dart';
-import '../widgets/custom_text_field.dart';
-import '../widgets/custom_app_bar.dart';
 
 @RoutePage(name: signInScreenRoute)
 class SignInScreen extends StatelessWidget implements AutoRouteWrapper{

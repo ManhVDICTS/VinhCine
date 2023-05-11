@@ -7,9 +7,9 @@ import 'package:vinhcine/src/components/button/app_button.dart';
 import 'package:vinhcine/src/core/di/injections.dart';
 import 'package:vinhcine/src/features/authentication/presentation/cubit/auth_cubit.dart';
 import 'package:vinhcine/src/router/route_names.dart';
+import '../../../../components/appbar/custom_app_bar.dart';
+import '../../../../components/text_field/custom_text_field.dart';
 import '../../../../configs/app_themes/app_colors.dart';
-import '../widgets/custom_text_field.dart';
-import '../widgets/custom_app_bar.dart';
 
 @RoutePage(name: registerScreenName)
 class RegisterScreen extends StatelessWidget implements AutoRouteWrapper {
