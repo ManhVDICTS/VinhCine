@@ -1,14 +1,17 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/src/components/button/app_button.dart';
 import 'package:vinhcine/src/configs/app_themes/app_colors.dart';
 import 'package:vinhcine/src/router/router.dart';
+import '../../../../components/button/icon_button.dart';
 import '../../../../core/di/injections.dart';
 import '../../../../router/route_names.dart';
 import '../cubit/auth_cubit.dart';
+import '../widgets/app_text_field.dart';
 
 @RoutePage(name: signInScreenRoute)
 class SignInScreen extends StatelessWidget implements AutoRouteWrapper{
@@ -52,90 +55,176 @@ class SignInScreen extends StatelessWidget implements AutoRouteWrapper{
   }
 
   Widget buildSignInWidget() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          height: 48,
-          margin: const EdgeInsets.symmetric(horizontal: 20),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: TextFormField(
-            controller: _usernameController,
-            keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(
-              hintText: 'Username',
-              hintStyle: TextStyle(
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          _buildBanner(),
+          const SizedBox(height: 12),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: AppTextField(
+              controller: _usernameController,
+              keyboardType: TextInputType.emailAddress,
+              hintText: 'Email hoặc số điện thoại',
+              hintStyle: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
                   color: Colors.black),
-              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 0),
             ),
           ),
-        ),
-        const SizedBox(height: 12),
-        Container(
-          height: 48,
-          margin: const EdgeInsets.symmetric(horizontal: 20),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: TextFormField(
-            controller: _passwordController,
-            keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(
-              hintText: 'Password',
-              hintStyle: TextStyle(
+          const SizedBox(height: 12),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: AppTextField(
+              controller: _passwordController,
+              keyboardType: TextInputType.visiblePassword,
+              obscureText: true,
+              hintText: 'Mật khẩu',
+              hintStyle: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
                   color: Colors.black),
-              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 0),
             ),
           ),
-        ),
-        const SizedBox(height: 32),
-        BlocBuilder<AuthCubit, AuthState>(
-          builder: (context, state) {
-            final isLoading = state is SignInLoading;
-            return Container(
+          const SizedBox(height: 32),
+          BlocBuilder<AuthCubit, AuthState>(
+            builder: (context, state) {
+              final isLoading = state is SignInLoading;
+              return Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: AppCrimsonButton(
+                  title: 'Đăng nhập',
+                  onPressed: isLoading ? null : _signIn,
+                  isLoading: isLoading,
+                ),
+              );
+            },
+          ),
+          const SizedBox(height: 24),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: AppWhiteButton(
+              title: 'Quên mật khẩu?',
+              fontStyle: FontStyle.italic,
+              fontWeight: FontWeight.normal,
+              onPressed: () =>
+              {_currentContext.pushRoute(ForgotPasswordScreenRoute())},
+              isLoading: false,
+            ),
+          ),
+          const SizedBox(height: 24),
+          Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: AppWhiteButton(
-                title: 'Sign In',
-                onPressed: isLoading ? null : _signIn,
-                isLoading: isLoading,
-              ),
-            );
-          },
-        ),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-          child: AppWhiteButton(
-            title: 'Register',
-            onPressed: () => {_currentContext.pushRoute(RegisterScreenRoute())},
-            isLoading: false,
+              child: _buildOr(),
           ),
+          const SizedBox(height: 24),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: AppBorderButton(
+              title: 'Đăng ký tài khoản',
+              onPressed: () => {_currentContext.pushRoute(RegisterScreenRoute())},
+              isLoading: false,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBodyWidget() {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Stack(
+        children: [
+          buildSignInWidget(),
+          _backgroundShadow(),
+          _appBar(),
+        ],
+      ),
+    );
+  }
+
+  Widget _appBar() => SafeArea(
+    child: SizedBox(
+      height: 48,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          IconButton(
+            icon: const Icon(
+                Icons.arrow_back_outlined,
+                size: 32,
+                color: Colors.white),
+            onPressed: () {
+              _currentContext.router.pop();
+            },
+          ),
+          const SizedBox(width: 12),
+          const Expanded(
+            child: Text(
+              'Đăng nhập',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.normal),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+
+  Widget _backgroundShadow() {
+    return Container(
+      height: MediaQuery.of(_currentContext).size.width / 3,
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          stops: [0.2, 0.5, 0.7, 1],
+          colors: [
+            Color.fromRGBO(0, 0, 0, 0.6),
+            Color.fromRGBO(0, 0, 0, 0.45),
+            Color.fromRGBO(0, 0, 0, 0.3),
+            Colors.transparent,
+          ],
         ),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: AppWhiteButton(
-            title: 'Forgot password',
-            onPressed: () =>
-                {_currentContext.pushRoute(ForgotPasswordScreenRoute())},
-            isLoading: false,
+      ),
+    );
+  }
+
+  Widget _buildOr(){
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: Align(
+              alignment: Alignment.center,
+              child: Container(color: AppColors.borderColor, height: 1)),
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            color: Colors.white,
+            child: const Text("hoặc", style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                fontStyle: FontStyle.italic,
+                color: Colors.black),
+            ),
           ),
         )
       ],
     );
   }
 
-  Widget _buildBodyWidget() {
-    return Scaffold(
-      backgroundColor: AppColors.main,
-      appBar: AppBar(title: const Text('Sign In Screen')),
-      body: buildSignInWidget(),
+  Widget _buildBanner(){
+    return AspectRatio(
+        aspectRatio: 2/1,
+        child: CachedNetworkImage(
+          imageUrl: 'https://s3-media0.fl.yelpcdn.com/bphoto/nNA9lP0gkEnFTI3CQrq8lA/o.jpg',
+          fit: BoxFit.cover,
+        ),
     );
   }
 

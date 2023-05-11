@@ -4,14 +4,28 @@ import 'package:vinhcine/src/configs/app_themes/app_colors.dart';
 import 'package:vinhcine/src/configs/app_themes/app_shadow.dart';
 
 class _AppButton extends StatelessWidget {
-  String? title;
+  String title;
   bool? isLoading;
   VoidCallback? onPressed;
-
+  FontStyle? fontStyle;
+  FontWeight? fontWeight;
   Color? textColor;
   Color? backgroundColor;
+  BoxBorder? border;
+  double fontSize;
 
-  _AppButton({this.title = '', this.isLoading = false, this.onPressed});
+  _AppButton(
+      {super.key,
+      this.title = '',
+      this.isLoading = false,
+      this.onPressed,
+      this.border,
+      this.fontStyle,
+      this.textColor,
+      this.backgroundColor,
+      this.fontWeight,
+      this.fontSize = 16,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +34,9 @@ class _AppButton extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         color: backgroundColor,
+        border: border,
         borderRadius: const BorderRadius.all(Radius.circular(8)),
-        boxShadow: AppShadow.boxShadow,
+        // boxShadow: AppShadow.boxShadow,
       ),
       child: ButtonTheme(
         minWidth: 0.0,
@@ -44,10 +59,11 @@ class _AppButton extends StatelessWidget {
       return const LoadingIndicatorWidget(color: Colors.white);
     } else {
       return Text(
-        title ?? "",
+        title,
         style: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w800,
+          fontSize: fontSize,
+          fontWeight: fontWeight,
+          fontStyle: fontStyle,
           color: textColor,
         ),
       );
@@ -57,30 +73,61 @@ class _AppButton extends StatelessWidget {
 
 class AppWhiteButton extends _AppButton {
   AppWhiteButton({
-    String title = '',
-    bool isLoading = false,
-    VoidCallback? onPressed,
-  }) {
-    this.title = title;
-    this.isLoading = isLoading;
-    this.onPressed = onPressed;
-    //SetupUI
-    textColor = AppColors.main;
-    backgroundColor = Colors.white;
-  }
+    super.key,
+    super.title = '',
+    super.isLoading = false,
+    super.onPressed,
+    super.fontStyle,
+    super.fontWeight,
+    super.fontSize,
+  }) : super(
+      textColor: AppColors.blue,
+      backgroundColor: Colors.white,
+  );
 }
 
 class AppTintButton extends _AppButton {
   AppTintButton({
-    String title = '',
-    bool isLoading = false,
-    VoidCallback? onPressed,
-  }) {
-    this.title = title;
-    this.isLoading = isLoading;
-    this.onPressed = onPressed;
-    //SetupUI
-    textColor = Colors.white;
-    backgroundColor = AppColors.main;
-  }
+    super.key,
+    super.title = '',
+    super.isLoading = false,
+    super.onPressed,
+    super.fontStyle,
+    super.fontWeight,
+    super.fontSize,
+  }) : super(
+    textColor: Colors.white,
+    backgroundColor: AppColors.main,
+  );
+}
+
+class AppCrimsonButton extends _AppButton {
+  AppCrimsonButton({
+    super.key,
+    super.title = '',
+    super.isLoading = false,
+    super.onPressed,
+    super.fontStyle,
+    super.fontWeight,
+    super.fontSize,
+  }) : super(
+    textColor: Colors.white,
+    backgroundColor: AppColors.crimson,
+  );
+}
+
+class AppBorderButton extends _AppButton {
+  AppBorderButton({
+    super.key,
+    super.title = '',
+    super.isLoading = false,
+    super.onPressed,
+    super.fontStyle,
+    super.fontWeight,
+    super.fontSize,
+  }) : super(
+    textColor: Colors.black.withOpacity(0.5),
+    backgroundColor: Colors.white,
+    border: Border.all(color: Colors.grey, width: 1),
+  );
 }
