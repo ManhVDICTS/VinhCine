@@ -126,7 +126,7 @@ class AppBorderButton extends _AppButton {
     super.fontWeight,
     super.fontSize,
   }) : super(
-    textColor: Colors.black.withOpacity(0.5),
+    textColor: Colors.black,
     backgroundColor: Colors.white,
     border: Border.all(color: Colors.grey, width: 1),
   );

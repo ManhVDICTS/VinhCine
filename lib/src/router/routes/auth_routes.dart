@@ -1,10 +1,8 @@
 part of '../router.dart';
 
 final _authRoutes = [
-  AutoRoute(path: 'auth', page: AuthWrapperPageRoute.page, children: [
-    AutoRoute(path: 'register', page: RegisterScreenRoute.page),
-    AutoRoute(path: 'forgot_password', page: ForgotPasswordScreenRoute.page)
-  ]),
+  AutoRoute(path: 'register', page: RegisterScreenRoute.page),
+  AutoRoute(path: 'forgot_password', page: ForgotPasswordScreenRoute.page),
   AutoRoute(path: 'signin', page: SignInScreenRoute.page),
 ];
 

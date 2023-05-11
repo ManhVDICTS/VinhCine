@@ -7,11 +7,20 @@ import 'package:vinhcine/src/core/di/injections.dart';
 import 'package:vinhcine/src/router/route_names.dart';
 import 'package:vinhcine/src/router/router.dart';
 import '../cubit/auth_cubit.dart';
+import 'widgets/custom_app_bar.dart';
 
 // ignore_for_file: must_be_immutable
 @RoutePage(name: forgotPasswordScreenName)
-class ForgotPasswordScreen extends StatelessWidget {
+class ForgotPasswordScreen extends StatelessWidget implements AutoRouteWrapper{
   ForgotPasswordScreen({super.key});
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return MultiBlocProvider(providers: [
+      BlocProvider<AuthCubit>(
+          create: ((context) => di<AuthCubit>()))
+    ], child: this);
+  }
 
   final _userNameController =
       TextEditingController(text: 'manhptit123@gmail.com');

@@ -12,6 +12,7 @@ import '../../../../core/di/injections.dart';
 import '../../../../router/route_names.dart';
 import '../cubit/auth_cubit.dart';
 import '../widgets/app_text_field.dart';
+import 'widgets/custom_app_bar.dart';
 
 @RoutePage(name: signInScreenRoute)
 class SignInScreen extends StatelessWidget implements AutoRouteWrapper{
@@ -137,58 +138,11 @@ class SignInScreen extends StatelessWidget implements AutoRouteWrapper{
       body: Stack(
         children: [
           buildSignInWidget(),
-          _backgroundShadow(),
-          _appBar(),
-        ],
-      ),
-    );
-  }
-
-  Widget _appBar() => SafeArea(
-    child: SizedBox(
-      height: 48,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          IconButton(
-            icon: const Icon(
-                Icons.arrow_back_outlined,
-                size: 32,
-                color: Colors.white),
-            onPressed: () {
-              _currentContext.router.pop();
-            },
-          ),
-          const SizedBox(width: 12),
-          const Expanded(
-            child: Text(
-              'Đăng nhập',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                  fontWeight: FontWeight.normal),
-            ),
+          CustomAppBar(
+              title: "Đăng nhập",
+              onPressed: () => _currentContext.router.pop(),
           ),
         ],
-      ),
-    ),
-  );
-
-  Widget _backgroundShadow() {
-    return Container(
-      height: MediaQuery.of(_currentContext).size.width / 3,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          stops: [0.2, 0.5, 0.7, 1],
-          colors: [
-            Color.fromRGBO(0, 0, 0, 0.6),
-            Color.fromRGBO(0, 0, 0, 0.45),
-            Color.fromRGBO(0, 0, 0, 0.3),
-            Colors.transparent,
-          ],
-        ),
       ),
     );
   }

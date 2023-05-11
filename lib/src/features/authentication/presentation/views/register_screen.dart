@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,9 +9,19 @@ import 'package:vinhcine/src/core/di/injections.dart';
 import 'package:vinhcine/src/features/authentication/presentation/cubit/auth_cubit.dart';
 import 'package:vinhcine/src/router/route_names.dart';
 
+import '../widgets/app_text_field.dart';
+import 'widgets/custom_app_bar.dart';
+
 @RoutePage(name: registerScreenName)
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatelessWidget implements AutoRouteWrapper {
   RegisterScreen({super.key});
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return MultiBlocProvider(providers: [
+      BlocProvider<AuthCubit>(create: ((context) => di<AuthCubit>()))
+    ], child: this);
+  }
 
   late BuildContext _currentContext;
   final _userNameController =
@@ -31,115 +42,184 @@ class RegisterScreen extends StatelessWidget {
         }
       },
       child: Scaffold(
-        backgroundColor: AppColors.main,
-        appBar: AppBar(title: const Text('Register Screen')),
-        body: _buildRegisterWidget(),
+        backgroundColor: Colors.white,
+        body: Stack(
+          children: [
+            _buildRegisterWidget(),
+            CustomAppBar(
+                title: "Đăng ký",
+                onPressed: () => _currentContext.router.pop()),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildRegisterWidget() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          height: 48,
-          margin: const EdgeInsets.symmetric(horizontal: 20),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: TextFormField(
-            controller: _userNameController,
-            keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(
-              hintText: 'User name',
-              hintStyle: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black),
-              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 0),
-            ),
-          ),
-        ),
-        const SizedBox(height: 12),
-        Container(
-          height: 48,
-          margin: const EdgeInsets.symmetric(horizontal: 20),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: TextFormField(
-            controller: _passwordController,
-            keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(
-              hintText: 'Password',
-              hintStyle: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black),
-              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 0),
-            ),
-          ),
-        ),
-        const SizedBox(height: 12),
-        Container(
-          height: 48,
-          margin: const EdgeInsets.symmetric(horizontal: 20),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: TextFormField(
-            controller: _fullNameController,
-            keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(
-              hintText: 'Full name',
-              hintStyle: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black),
-              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 0),
-            ),
-          ),
-        ),
-        const SizedBox(height: 12),
-        Container(
-          height: 48,
-          margin: const EdgeInsets.symmetric(horizontal: 20),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: TextFormField(
-            controller: _phoneController,
-            keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(
-              hintText: 'Phone',
-              hintStyle: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black),
-              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 0),
-            ),
-          ),
-        ),
-        const SizedBox(height: 32),
-        BlocBuilder<AuthCubit, AuthState>(
-          builder: (context, state) {
-            final isLoading = state is RegisterLoading;
-            return Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: AppWhiteButton(
-                title: 'Register',
-                onPressed: isLoading ? null : _register,
-                isLoading: isLoading,
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildBanner(),
+          const SizedBox(height: 12),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: _buildTextFormField(
+              child: AppTextField(
+                controller: _userNameController,
+                keyboardType: TextInputType.emailAddress,
+                hintText: 'User name',
+                hintStyle: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black),
               ),
-            );
-          },
+            ),
+          ),
+          const SizedBox(height: 12),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: _buildTextFormField(
+              child: AppTextField(
+                controller: _passwordController,
+                keyboardType: TextInputType.visiblePassword,
+                obscureText: true,
+                hintText: 'Mật khẩu',
+                hintStyle: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black),
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: _buildTextFormField(
+              child: AppTextField(
+                controller: _fullNameController,
+                keyboardType: TextInputType.emailAddress,
+                hintText: 'Họ tên',
+                hintStyle: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black),
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: _buildTextFormField(
+              child: AppTextField(
+                controller: _phoneController,
+                keyboardType: TextInputType.phone,
+                hintText: 'Số điện thoại',
+                hintStyle: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black),
+              ),
+            ),
+          ),
+          const SizedBox(height: 22),
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: _buildDescription()),
+          const SizedBox(height: 32),
+          BlocBuilder<AuthCubit, AuthState>(
+            builder: (context, state) {
+              final isLoading = state is RegisterLoading;
+              return Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: AppCrimsonButton(
+                  title: 'Đăng ký',
+                  onPressed: isLoading ? null : _register,
+                  isLoading: isLoading,
+                ),
+              );
+            },
+          ),
+          const SizedBox(height: 12),
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: _buildPolicy()),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBanner() {
+    return AspectRatio(
+      aspectRatio: 2 / 1,
+      child: CachedNetworkImage(
+        imageUrl:
+            'https://s3-media0.fl.yelpcdn.com/bphoto/nNA9lP0gkEnFTI3CQrq8lA/o.jpg',
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+
+  Widget _buildTextFormField({required Widget child}) {
+    return Row(
+      children: [
+        const Text(
+          "*",
+          style: TextStyle(
+              fontSize: 16, fontWeight: FontWeight.w400, color: Colors.red),
         ),
+        const SizedBox(width: 12),
+        Expanded(child: child),
       ],
+    );
+  }
+
+  Widget _buildDescription() {
+    return Row(
+      children: const [
+        Text(
+          "*",
+          style: TextStyle(
+              fontSize: 16, fontWeight: FontWeight.w400, color: Colors.red),
+        ),
+        SizedBox(width: 12),
+        Text(
+          "Thông tin bắt buộc",
+          style: TextStyle(
+              fontSize: 16, fontWeight: FontWeight.w400, color: Colors.black),
+        ),
+      ]);
+  }
+
+  Widget _buildPolicy() {
+    return RichText(
+      text: const TextSpan(children: [
+        TextSpan(
+          text: "Tôi đồng ý với ",
+          style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+              color: Colors.black,
+              fontStyle: FontStyle.italic),
+        ),
+        TextSpan(
+          text: "Điều khoản sử dụng",
+          style: TextStyle(
+              decoration: TextDecoration.underline,
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+              color: Colors.red,
+              fontStyle: FontStyle.italic),
+        ),
+        TextSpan(
+          text: " và đang mua vé cho người có độ tuổi phù hợp.",
+          style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+              color: Colors.black,
+              fontStyle: FontStyle.italic),
+        ),
+      ]),
     );
   }
 
