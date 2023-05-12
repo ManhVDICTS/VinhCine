@@ -6,6 +6,7 @@ import 'package:vinhcine/src/features/detail/presentation/cubit/detail_cubit.dar
 import 'package:vinhcine/src/features/profile/data/remote/services/profile_service.dart';
 import 'package:vinhcine/src/features/profile/data/remote/services/profile_service_no_token.dart';
 import 'package:vinhcine/src/features/profile/domain/repositories/profile_repository.dart';
+import 'package:vinhcine/src/features/profile/presentation/cubit/change_password/change_password_cubit.dart';
 import 'package:vinhcine/src/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:vinhcine/src/router/router.dart';
 import 'package:vinhcine/src/features/authentication/domain/repositories/auth_repository.dart';
@@ -60,6 +61,9 @@ Future<void> initDependencies() async {
     )
     ..registerFactory<ProfileCubit>(
       () => ProfileCubit(di<ProfileRepository>()),
+    )
+    ..registerFactory<ChangePasswordCubit>(
+          () => ChangePasswordCubit(di<ProfileRepository>()),
     );
 
   initBanner(di);

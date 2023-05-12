@@ -6,10 +6,12 @@ import 'package:vinhcine/src/configs/app_themes/app_colors.dart';
 import 'package:vinhcine/src/core/di/injections.dart';
 import 'package:vinhcine/src/features/profile/domain/model/my_profile.dart';
 import 'package:vinhcine/src/features/profile/presentation/cubit/profile_cubit.dart';
-import 'package:vinhcine/src/features/profile/presentation/views/widgets/profile_card.dart';
+import 'package:vinhcine/src/features/profile/presentation/views/widgets/profile_header.dart';
 import 'package:vinhcine/src/router/route_names.dart';
+import 'package:vinhcine/src/router/router.dart';
 import '../../../../components/appbar/custom_app_bar.dart';
 import '../../../authentication/presentation/cubit/auth_cubit.dart';
+import 'change_password_screen.dart';
 import 'widgets/optional_item.dart';
 
 @RoutePage(name: profileScreenName)
@@ -69,52 +71,54 @@ class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
         children: [
           Container(
             color: Colors.white,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ProfileCard(
-                  myProfile: myProfile,
-                ),
-                const SizedBox(height: 12),
-                Padding(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ProfileHeader(
+                    myProfile: myProfile,
+                  ),
+                  const SizedBox(height: 12),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Container(color: AppColors.borderColor, height: 1)),
+                  Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Container(color: AppColors.borderColor, height: 1)),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: OptionalItem(
-                    text: 'Thay đổi thông tin tài khoản',
-                    leadingIcon:
-                        const Icon(Icons.person, color: AppColors.crimson),
-                    onTap: () {
-                      /// todo do something here
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: OptionalItem(
-                    text: 'Thay đổi mật khẩu',
-                    leadingIcon: const Icon(Icons.password_outlined,
-                        color: AppColors.crimson),
-                    onTap: () {
-                      /// todo do something here
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: OptionalItem(
-                    text: 'Lịch sử giao dịch',
-                    leadingIcon: const Icon(
-                      Icons.history,
-                      color: AppColors.crimson,
+                    child: OptionalItem(
+                      text: 'Thay đổi thông tin tài khoản',
+                      leadingIcon:
+                          const Icon(Icons.person, color: AppColors.crimson),
+                      onTap: () {
+                        /// todo do something here
+                      },
                     ),
-                    onTap: () {
-                      /// todo do something here
-                    },
                   ),
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: OptionalItem(
+                      text: 'Thay đổi mật khẩu',
+                      leadingIcon: const Icon(Icons.password_outlined,
+                          color: AppColors.crimson),
+                      onTap: () {
+                        _currentContext.router.push(ChangePasswordScreenRoute());
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: OptionalItem(
+                      text: 'Lịch sử giao dịch',
+                      leadingIcon: const Icon(
+                        Icons.history,
+                        color: AppColors.crimson,
+                      ),
+                      onTap: () {
+                        /// todo do something here
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           Positioned.fill(
@@ -164,7 +168,7 @@ class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
 
   Widget _buildScaffoldWidget({required Widget child}) {
     return Scaffold(
-      backgroundColor: AppColors.borderColor,
+      backgroundColor: AppColors.brown,
       body: Stack(
         children: [
           Column(

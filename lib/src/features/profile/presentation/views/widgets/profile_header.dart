@@ -6,10 +6,10 @@ import 'package:vinhcine/src/configs/app_themes/app_colors.dart';
 import 'package:vinhcine/src/features/profile/domain/model/my_profile.dart';
 import 'package:barcode_widget/barcode_widget.dart';
 
-class ProfileCard extends StatelessWidget {
+class ProfileHeader extends StatelessWidget {
   MyProfile myProfile;
 
-  ProfileCard({super.key, required this.myProfile});
+  ProfileHeader({super.key, required this.myProfile});
 
   @override
   Widget build(BuildContext context) {

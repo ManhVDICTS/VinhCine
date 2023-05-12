@@ -4,6 +4,8 @@ class AppColors {
   ///Common
   static const Color main = Color(0xFF00C8A0);
   static const Color background = Color(0xFFFFFFFF);
+  static const Color brown = Color(0xFFD9D5CB);
+  static const Color darkBrown = Color(0xFF796451);
 
   ///Gradient
   static const Color gradientEnd = Color(0xFF00C8A0);
