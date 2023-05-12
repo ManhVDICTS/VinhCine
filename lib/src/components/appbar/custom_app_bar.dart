@@ -30,15 +30,15 @@ class CustomAppBar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           IconButton(
+            padding: EdgeInsets.all(5),
             icon: const Icon(
                 Icons.arrow_back_outlined,
-                size: 32,
+                size: 25,
                 color: Colors.white),
             onPressed: () {
               onPressed();
             },
           ),
-          const SizedBox(width: 5),
           Expanded(
             child: Text(
               title,
