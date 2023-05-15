@@ -4,6 +4,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:vinhcine/src/core/di/injections.dart';
 import 'package:vinhcine/src/router/router.dart';
 
+import 'src/configs/app_themes/app_themes.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initDependencies();
@@ -40,6 +42,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
+      theme: getThemeDefault(),
     );
   }
 }
