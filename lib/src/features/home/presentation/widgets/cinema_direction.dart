@@ -22,20 +22,20 @@ class CinemaDirection extends StatelessWidget {
             Text(
               'Vinh Cine - Nghệ An',
               style: AppStyles.titleMediumRegular(context)
-                      .copyWith(color: appColors?.hintGray),
+                  .copyWith(color: appColors?.hintGray),
             ),
             Row(
               children: [
                 Text(
                   '500m',
                   style: AppStyles.titleMediumRegular(context)
-                      .copyWith(color: appColors?.cinemaRed),
+                      .copyWith(color: appColors?.red),
                 ),
                 const SizedBox(width: 5),
                 Icon(
                   Icons.directions,
                   size: 32,
-                  color: appColors?.cinemaRed,
+                  color: appColors?.red,
                 )
               ],
             )

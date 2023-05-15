@@ -6,7 +6,7 @@ ThemeData getThemeDefault() {
   return ThemeData.light().copyWith(
     extensions: <ThemeExtension<dynamic>>[
       const AppColors(
-        cinemaRed: Color(0xFFdb1b2a),
+        red: Color(0xFFdb1b2a),
         hintGray: Color(0xFFcbc0b8),
         gray: Color(0xFFcccdcd),
         backgroundDark: Color(0xFF081012),

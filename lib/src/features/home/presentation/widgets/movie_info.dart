@@ -23,7 +23,10 @@ class MovieInfo extends StatelessWidget {
             padding: EdgeInsets.all(10),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [_info(context, data), _bookingButton(context, data)]),
+                children: [
+                  _info(context, data),
+                  _bookingButton(context, data)
+                ]),
           );
         } else {
           return const SizedBox.shrink();
@@ -46,13 +49,13 @@ class MovieInfo extends StatelessWidget {
       )
     ]);
   }
- 
+
   Widget _bookingButton(BuildContext context, MovieModel movie) {
     final appColors = Theme.of(context).extension<AppColors>();
     return CustomTextButton(
       border: Border.all(color: Colors.white, width: 1.5),
       padding: EdgeInsets.symmetric(horizontal: 22, vertical: 10),
-      backgroundColor: appColors?.cinemaRed,
+      backgroundColor: appColors?.red,
       textStyle: AppStyles.titleMediumBold(context),
       text: 'Đặt Vé',
       onTap: () {},
