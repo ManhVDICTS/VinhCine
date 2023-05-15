@@ -26,5 +26,4 @@ class BannerRepositoryImpl extends BannerRepository {
       return Left(DetailFailure(message: e.toString()));
     }
   }
-
 }

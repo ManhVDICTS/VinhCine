@@ -1,12 +1,20 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/src/components/button/icon_button.dart';
-import 'package:vinhcine/src/components/button/text_button.dart';
-import 'package:vinhcine/src/features/banner/presentation/widgets/banner.dart';
+import 'package:vinhcine/src/features/banner/presentation/views/banner.dart';
+import 'package:vinhcine/src/features/home/domain/models/movie.dart';
 import 'package:vinhcine/src/features/home/presentation/widgets/cinema_direction.dart';
+import 'package:vinhcine/src/features/home/presentation/widgets/movie_info.dart';
 import 'package:vinhcine/src/features/home/presentation/widgets/movies_carousel.dart';
+import 'package:vinhcine/src/features/home/presentation/cubit/movie_data_cubit.dart';
+import 'package:vinhcine/src/features/home/presentation/cubit/movie_selector_cubit.dart';
 import 'package:vinhcine/src/router/route_names.dart';
+
+import '../../../core/di/injections.dart';
 
 final List<String> moviesList = [
   'https://www.cgv.vn/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/7/0/700x1000_2_.jpg',
@@ -17,37 +25,42 @@ final List<String> moviesList = [
   'https://www.cgv.vn/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/7/0/700x1000_4_.jpg'
 ];
 
-final List<String> bannerList = [
-  'http://api.vinhcine.vn/files/ffb5b1964e09ef4c5db15831e932629d.jpeg',
-  'http://api.vinhcine.vn/files/8aa0840df3e926cfc757d3e426c71ab8.jpeg',
-];
-
 @RoutePage(name: homeScreenName)
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatelessWidget implements AutoRouteWrapper {
+  HomeScreen({super.key});
+  final double _appBarHeight = 48;
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  late int _indexCarousel;
-  late double _appBarHeight;
-
-  @override
-  void initState() {
-    super.initState();
-    _appBarHeight = 48;
-    _indexCarousel = (moviesList.length / 2).round();
+  Widget wrappedRoute(BuildContext context) {
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider<MovieDataCubit>(
+              create: (context) => di<MovieDataCubit>()..getTopPage()),
+          BlocProvider(
+            create: (context) => di<MovieSelectorCubit>(),
+          ),
+        ],
+        child: MultiBlocListener(listeners: [
+          BlocListener<MovieDataCubit, MovieDataState>(
+              listener: (context, state) {
+            if (state is MovieDataLoaded && state.data.isNotEmpty) {
+              int initialIndex = (state.data.length / 2).round();
+              MovieModel data = state.data[initialIndex];
+              context.read<MovieSelectorCubit>().onSelected(initialIndex, data);
+            } else if (state is MovieDataFailure) {
+              context.read<MovieSelectorCubit>().unSelected();
+            }
+          })
+        ], child: this));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(children: [
-      _backgroundAnimation(),
+      _backgroundMovieSwitcher(context),
       _backgroundShadow(),
-      _body(),
+      _body(context),
       _appBar()
     ]));
   }
@@ -103,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       );
 
-  Widget _body() {
+  Widget _body(BuildContext context) {
     return SafeArea(
       child: Column(children: [
         SizedBox(height: _appBarHeight + 20),
@@ -134,55 +147,36 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-        Expanded(
-            child: MoviesCarousel(
-                imgList: moviesList,
-                width: 300,
-                height: 400,
-                currentIndex: _indexCarousel)),
-        Container(
-          color: Color(0xFF081012),
-          padding: EdgeInsets.all(10),
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                'LẬT MẶT 6',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 5),
-              Text(
-                '1giờ 52phút 28 Thg 4, 2023',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontStyle: FontStyle.italic),
-              )
-            ]),
-            BookingButton()
-          ]),
-        ),
+        const Expanded(child: MoviesCarousel(width: 300, height: 400)),
+        MovieInfo(),
         CinemaDirection()
       ]),
     );
   }
 
-  Widget _backgroundAnimation() {
-    return AnimatedSwitcher(
-        duration: const Duration(milliseconds: 500),
-        switchOutCurve: Curves.easeInOut,
-        child: CachedNetworkImage(
-          width: double.maxFinite,
-          height: double.maxFinite,
-          key: ValueKey(_indexCarousel),
-          fit: BoxFit.cover,
-          imageUrl: moviesList[_indexCarousel],
-          placeholder: (context, url) => CircularProgressIndicator(),
-          errorWidget: (context, url, error) => Icon(Icons.error),
-        ));
+  Widget _backgroundMovieSwitcher(BuildContext context) {
+    return BlocBuilder<MovieSelectorCubit, MovieSelectorState>(
+      builder: (context, state) {
+        if (state is MovieSelectorSelected) {
+          int index = state.index;
+          String imageUrl = state.movie.avatarUrl ?? '';
+          return AnimatedSwitcher(
+              duration: const Duration(milliseconds: 500),
+              switchOutCurve: Curves.easeInOut,
+              child: CachedNetworkImage(
+                width: double.maxFinite,
+                height: double.maxFinite,
+                key: ValueKey(index),
+                fit: BoxFit.cover,
+                imageUrl: imageUrl,
+                placeholder: (context, url) => const CircularProgressIndicator(),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+              ));
+        } else {
+          return const SizedBox.shrink();
+        }
+      },
+    );
   }
 
   Widget _backgroundImage() {

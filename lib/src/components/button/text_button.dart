@@ -37,19 +37,3 @@ class CustomTextButton extends StatelessWidget {
     );
   }
 }
-
-class BookingButton extends StatelessWidget {
-  const BookingButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomTextButton(
-      border: Border.all(color: Colors.white, width: 1.5),
-      padding: EdgeInsets.symmetric(horizontal: 22, vertical: 10),
-      backgroundColor: Color(0xFFdb1b2a),
-      textStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-      text: 'Đặt Vé',
-      onTap: () {},
-    );
-  }
-}

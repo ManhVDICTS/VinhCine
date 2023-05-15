@@ -18,7 +18,7 @@ class BannerCubit extends Cubit<BannerState> {
       emit(BannerFailure());
     }, (data) {
       data = data
-        ..removeWhere((element) => element.disabled == true)
+        ..removeWhere((e) => e.disabled == true)
         ..forEach((e) => e.url = '${di<AppConfig>().baseUrl}${(e.url ?? '')}');
       emit(BannerSuccess(data));
     });

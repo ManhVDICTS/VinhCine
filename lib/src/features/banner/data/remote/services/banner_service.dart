@@ -3,7 +3,6 @@ import 'package:retrofit/retrofit.dart';
 import 'package:vinhcine/src/core/network/response/array_response.dart';
 import 'package:vinhcine/src/features/banner/data/remote/dtos/banner_dto.dart';
 
-
 part 'banner_service.g.dart';
 
 @RestApi()

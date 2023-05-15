@@ -6,14 +6,11 @@ import 'package:vinhcine/src/features/authentication/presentation/cubit/auth_cub
 import 'package:vinhcine/src/features/authentication/presentation/views/forgot_password_screen.dart';
 import 'package:vinhcine/src/features/authentication/presentation/views/register_screen.dart';
 import 'package:vinhcine/src/features/banner/presentation/cubit/banner_cubit.dart';
-import 'package:vinhcine/src/features/detail/presentation/cubit/detail_cubit.dart';
-import 'package:vinhcine/src/features/detail/presentation/views/detail_screen.dart';
 import 'package:vinhcine/src/features/authentication/presentation/views/signin_screen.dart';
 import 'package:vinhcine/src/features/home/presentation/home_screen.dart';
 import 'package:vinhcine/src/features/profile/presentation/views/profile_screen.dart';
 
 part './routes/home_routes.dart';
-part './routes/detail_routes.dart';
 part 'routes/auth_routes.dart';
 part 'routes/profile_routes.dart';
 
@@ -25,7 +22,6 @@ class RootRouter extends _$RootRouter {
   List<AutoRoute> get routes => [
         AutoRoute(path: '/', page: RootWrapperPageRoute.page, children: [
           ..._homeRoutes,
-          ..._detailsRoutes,
           ..._authRoutes,
           ..._profileRoutes
         ]),
@@ -39,8 +35,8 @@ class RootWrapperPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
-      BlocProvider<DetailCubit>(create: ((context) => di<DetailCubit>())),
-      BlocProvider<BannerCubit>(create: (context) => di<BannerCubit>()..getBanner())
+      BlocProvider<BannerCubit>(
+          create: (context) => di<BannerCubit>()..getBanner()),
     ], child: const AutoRouter());
   }
 }
