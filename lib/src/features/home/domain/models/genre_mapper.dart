@@ -1,7 +1,8 @@
-import 'package:vinhcine/src/features/detail/data/remote/dtos/genre_dto.dart';
+
+import '../../data/remote/dtos/genre_dto.dart';
 import 'genre.dart';
 
-extension GenreData on GenreDTO {
+extension GenreData on GenreDto {
   GenreModel toModel() => GenreModel(
       id: id,
       updatedAt: updatedAt,

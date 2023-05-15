@@ -20,7 +20,7 @@ class AppDio {
 
   Dio get baseDio => _baseDio;
 
-  set baseDio(Dio dio){
+  set baseDio(Dio dio) {
     dio.interceptors.add(InterceptorBuilder.logger);
     dio.options.baseUrl = appConfig.baseUrl;
     _baseDio = dio;
@@ -28,7 +28,7 @@ class AppDio {
 
   Dio get authDio => _authDio;
 
-  set authDio(Dio dio){
+  set authDio(Dio dio) {
     dio.interceptors.addAll([
       InterceptorBuilder.authorization,
       InterceptorBuilder.logger,
@@ -37,5 +37,4 @@ class AppDio {
     dio.options.baseUrl = appConfig.baseUrl;
     _authDio = dio;
   }
-
 }

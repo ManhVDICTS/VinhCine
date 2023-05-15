@@ -11,8 +11,8 @@ void main() async {
   runApp(
     EasyLocalization(
       supportedLocales: const [
-        Locale('en'),
-        Locale('vi'),
+        Locale('en', 'US'),
+        Locale('vi', 'VN'),
       ],
       path: 'assets/translations',
       fallbackLocale: const Locale('vi'),
@@ -37,6 +37,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       routerConfig: _rootRouter.config(),
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
     );
   }
 }

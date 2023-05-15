@@ -1,24 +1,22 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'genre_dto.g.dart';
+part 'type.g.dart';
 
 @JsonSerializable()
-class GenreDTO extends Equatable {
+class TypeDto extends Equatable {
   @JsonKey(name: '_id')
   final String? id;
   @JsonKey(name: 'updated_at')
   final DateTime? updatedAt;
   @JsonKey(name: 'created_at')
   final DateTime? createdAt;
-  @JsonKey(name: 'code')
   final String? code;
-  @JsonKey(name: 'name')
   final String? name;
   @JsonKey(name: '__v')
   final int? v;
 
-  const GenreDTO({
+  const TypeDto({
     this.id,
     this.updatedAt,
     this.createdAt,
@@ -27,13 +25,11 @@ class GenreDTO extends Equatable {
     this.v,
   });
 
-  factory GenreDTO.fromJson(Map<String, dynamic> json) {
-    return _$GenreDTOFromJson(json);
-  }
+  factory TypeDto.fromJson(Map<String, dynamic> json) => _$TypeFromJson(json);
 
-  Map<String, dynamic> toJson() => _$GenreDTOToJson(this);
+  Map<String, dynamic> toJson() => _$TypeToJson(this);
 
-  GenreDTO copyWith({
+  TypeDto copyWith({
     String? id,
     DateTime? updatedAt,
     DateTime? createdAt,
@@ -41,7 +37,7 @@ class GenreDTO extends Equatable {
     String? name,
     int? v,
   }) {
-    return GenreDTO(
+    return TypeDto(
       id: id ?? this.id,
       updatedAt: updatedAt ?? this.updatedAt,
       createdAt: createdAt ?? this.createdAt,
