@@ -1,17 +1,30 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/src/components/button/app_button.dart';
 import 'package:vinhcine/src/configs/app_themes/app_colors.dart';
 import 'package:vinhcine/src/router/router.dart';
+import '../../../../components/appbar/custom_app_bar.dart';
+import '../../../../components/button/icon_button.dart';
+import '../../../../components/text_field/custom_text_field.dart';
+import '../../../../core/di/injections.dart';
 import '../../../../router/route_names.dart';
 import '../cubit/auth_cubit.dart';
 
 @RoutePage(name: signInScreenRoute)
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatelessWidget implements AutoRouteWrapper{
   SignInScreen({super.key});
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return MultiBlocProvider(providers: [
+      BlocProvider<AuthCubit>(
+          create: ((context) => di<AuthCubit>()))
+    ], child: this);
+  }
 
   final _usernameController =
       TextEditingController(text: 'manhptit123@gmail.com');
@@ -27,7 +40,7 @@ class SignInScreen extends StatelessWidget {
         if (state is SignInFail) {
           _showMessage(message: 'Login fail', context: context);
         } else if (state is SignInSuccess) {
-          _showMessage(message: 'Login success', context: context);
+          _currentContext.router.pop();
         } else if (state is GetTokenSuccess) {
           if (state.token.isNotEmpty) {
             _showMessage(message: state.token, context: context);
@@ -36,10 +49,6 @@ class SignInScreen extends StatelessWidget {
           _showMessage(message: "User name invalid", context: context);
         } else if (state is PasswordInvalid) {
           _showMessage(message: "Password invalid", context: context);
-        } else if (state is SignOutSuccess) {
-          _showMessage(message: "Logout success", context: context);
-        } else if (state is SignOutFail) {
-          _showMessage(message: "Logout fail", context: context);
         }
       },
       child: _buildBodyWidget(),
@@ -47,117 +56,129 @@ class SignInScreen extends StatelessWidget {
   }
 
   Widget buildSignInWidget() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          height: 48,
-          margin: const EdgeInsets.symmetric(horizontal: 20),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: TextFormField(
-            controller: _usernameController,
-            keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(
-              hintText: 'Username',
-              hintStyle: TextStyle(
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          _buildBanner(),
+          const SizedBox(height: 12),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: CustomTextField(
+              controller: _usernameController,
+              keyboardType: TextInputType.emailAddress,
+              hintText: 'Email hoặc số điện thoại',
+              hintStyle: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  color: Colors.black),
-              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 0),
+                  color: AppColors.borderColor),
             ),
           ),
-        ),
-        const SizedBox(height: 12),
-        Container(
-          height: 48,
-          margin: const EdgeInsets.symmetric(horizontal: 20),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: TextFormField(
-            controller: _passwordController,
-            keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(
-              hintText: 'Password',
-              hintStyle: TextStyle(
+          const SizedBox(height: 12),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: CustomTextField(
+              controller: _passwordController,
+              keyboardType: TextInputType.visiblePassword,
+              obscureText: true,
+              hintText: 'Mật khẩu',
+              hintStyle: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  color: Colors.black),
-              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 0),
+                  color: AppColors.borderColor),
             ),
           ),
-        ),
-        const SizedBox(height: 32),
-        BlocBuilder<AuthCubit, AuthState>(
-          builder: (context, state) {
-            final isLoading = state is SignInLoading;
-            return Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: AppWhiteButton(
-                title: 'Sign In',
-                onPressed: isLoading ? null : _signIn,
-                isLoading: isLoading,
-              ),
-            );
-          },
-        ),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-          child: AppWhiteButton(
-            title: 'Register',
-            onPressed: () => {_currentContext.pushRoute(RegisterScreenRoute())},
-            isLoading: false,
+          const SizedBox(height: 32),
+          BlocBuilder<AuthCubit, AuthState>(
+            builder: (context, state) {
+              final isLoading = state is SignInLoading;
+              return Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: AppCrimsonButton(
+                  title: 'Đăng nhập',
+                  onPressed: isLoading ? null : _signIn,
+                  isLoading: isLoading,
+                ),
+              );
+            },
           ),
-        ),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: AppWhiteButton(
-            title: 'Forgot password',
-            onPressed: () =>
-                {_currentContext.pushRoute(ForgotPasswordScreenRoute())},
-            isLoading: false,
-          ),
-        )
-      ],
-    );
-  }
-
-  Widget buildSignOutWidget() {
-    return Center(
-      child: BlocBuilder<AuthCubit, AuthState>(
-        builder: (context, state) {
-          final isLoading = state is SignOutLoading;
-          return Container(
+          const SizedBox(height: 24),
+          Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: AppWhiteButton(
-              title: 'Sign Out',
-              onPressed:
-                  isLoading ? null : _currentContext.read<AuthCubit>().signOut,
-              isLoading: isLoading,
+              title: 'Quên mật khẩu?',
+              fontStyle: FontStyle.italic,
+              fontWeight: FontWeight.normal,
+              onPressed: () =>
+              {_currentContext.pushRoute(ForgotPasswordScreenRoute())},
+              isLoading: false,
             ),
-          );
-        },
+          ),
+          const SizedBox(height: 24),
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: _buildOr(),
+          ),
+          const SizedBox(height: 24),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: AppBorderButton(
+              title: 'Đăng ký tài khoản',
+              onPressed: () => {_currentContext.pushRoute(RegisterScreenRoute())},
+              isLoading: false,
+            ),
+          ),
+        ],
       ),
     );
   }
 
   Widget _buildBodyWidget() {
     return Scaffold(
-      backgroundColor: AppColors.main,
-      appBar: AppBar(title: const Text('Sign In Screen')),
-      body: BlocBuilder<AuthCubit, AuthState>(
-        builder: (context, state) {
-          final showLogOut = state is SignOutLoading ||
-              state is SignOutFail ||
-              (state is GetTokenSuccess && state.token.isNotEmpty) ||
-              (state is SignInSuccess && state.token.isNotEmpty);
-          return showLogOut ? buildSignOutWidget() : buildSignInWidget();
-        },
+      backgroundColor: Colors.white,
+      body: Stack(
+        children: [
+          buildSignInWidget(),
+          CustomAppBar(
+              title: "Đăng nhập",
+              onPressed: () => _currentContext.router.pop(),
+          ),
+        ],
       ),
+    );
+  }
+
+  Widget _buildOr(){
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: Align(
+              alignment: Alignment.center,
+              child: Container(color: AppColors.borderColor, height: 1)),
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            color: Colors.white,
+            child: const Text("hoặc", style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                fontStyle: FontStyle.italic,
+                color: Colors.black),
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _buildBanner(){
+    return AspectRatio(
+        aspectRatio: 2/1,
+        child: CachedNetworkImage(
+          imageUrl: 'https://s3-media0.fl.yelpcdn.com/bphoto/nNA9lP0gkEnFTI3CQrq8lA/o.jpg',
+          fit: BoxFit.cover,
+        ),
     );
   }
 
@@ -167,8 +188,9 @@ class SignInScreen extends StatelessWidget {
     bool validUser = _currentContext.read<AuthCubit>().checkUserName(username);
     bool validPassword =
         _currentContext.read<AuthCubit>().checkPassword(password);
-    if (validUser && validPassword)
+    if (validUser && validPassword) {
       _currentContext.read<AuthCubit>().signIn(username, password);
+    }
   }
 
   void _showMessage({required String message, required BuildContext context}) {

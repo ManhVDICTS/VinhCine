@@ -15,5 +15,9 @@ abstract class ProfileService {
   factory ProfileService(Dio dio) = _ProfileService;
 
   @GET('/api/client/profile')
-  Future<ObjectResponse<ProfileDTO>> getMyProfile();
+  Future<ObjectResponse<ProfileDTO>> getMyProfile(@CancelRequest() CancelToken cancelToken);
+
+  @PUT('/api/client/profile')
+  Future<ObjectResponse<dynamic>> changePassword(@Body() Map<String, dynamic> body,
+      @CancelRequest() CancelToken cancelToken);
 }

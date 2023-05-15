@@ -13,6 +13,7 @@ import 'package:vinhcine/src/features/home/presentation/widgets/movies_carousel.
 import 'package:vinhcine/src/features/home/presentation/cubit/movie_data_cubit.dart';
 import 'package:vinhcine/src/features/home/presentation/cubit/movie_selector_cubit.dart';
 import 'package:vinhcine/src/router/route_names.dart';
+import 'package:vinhcine/src/router/router.dart';
 
 import '../../../core/di/injections.dart';
 
@@ -94,7 +95,9 @@ class HomeScreen extends StatelessWidget implements AutoRouteWrapper {
               CustomIconButton(
                 icon: const Icon(Icons.account_circle,
                     size: 32, color: Colors.white),
-                onTap: () {},
+                onTap: () {
+                  context.router.push(ProfileScreenRoute());
+                },
               ),
               Text(
                 'Vinh Cine',
@@ -109,7 +112,9 @@ class HomeScreen extends StatelessWidget implements AutoRouteWrapper {
                   size: 32,
                   color: Colors.white,
                 ),
-                onTap: () {},
+                onTap: () {
+                  context.router.push(SignInScreenRoute());
+                },
               ),
             ],
           ),
