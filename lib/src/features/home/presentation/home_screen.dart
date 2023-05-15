@@ -5,6 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/src/components/button/icon_button.dart';
+import 'package:vinhcine/src/configs/app_themes/app_themes.dart';
 import 'package:vinhcine/src/features/banner/presentation/views/banner.dart';
 import 'package:vinhcine/src/features/home/domain/models/movie.dart';
 import 'package:vinhcine/src/features/home/presentation/widgets/cinema_direction.dart';
@@ -92,10 +93,7 @@ class HomeScreen extends StatelessWidget implements AutoRouteWrapper {
               ),
               Text(
                 'Vinh Cine',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold),
+                style: AppStyles.headerMediumBold(context),
               ),
               CustomIconButton(
                 icon: const Icon(
@@ -113,6 +111,7 @@ class HomeScreen extends StatelessWidget implements AutoRouteWrapper {
       );
 
   Widget _body(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColors>();
     return SafeArea(
       child: Column(children: [
         SizedBox(height: _appBarHeight + 20),
@@ -127,18 +126,17 @@ class HomeScreen extends StatelessWidget implements AutoRouteWrapper {
             children: [
               Text(
                 'Đang Chiếu',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16),
+                style: AppStyles.titleMediumBold(context)
               ),
               Text(
                 'Đặc Biệt',
-                style: TextStyle(color: Color(0xFFcccdcd), fontSize: 16),
+                style: AppStyles.titleMediumRegular(context)
+                    .copyWith(color: appColors?.gray),
               ),
               Text(
                 'Sắp Chiếu',
-                style: TextStyle(color: Color(0xFFcccdcd), fontSize: 16),
+                style: AppStyles.titleMediumRegular(context)
+                    .copyWith(color: appColors?.gray),
               )
             ],
           ),
@@ -149,7 +147,6 @@ class HomeScreen extends StatelessWidget implements AutoRouteWrapper {
       ]),
     );
   }
-
 }
 
 extension ContextUtils on BuildContext {

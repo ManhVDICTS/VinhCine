@@ -33,6 +33,6 @@ class AppFonts extends ThemeExtension<AppFonts> {
 extension AssetPathAppFonts on AppFonts {
   String get mainFontRegularAssetPath {
     //The asset path to the font file
-    return 'lib/assets/fonts/$mainFont-Regular.ttf';
+    return 'assets/fonts/$mainFont-Regular.ttf';
   }
 }

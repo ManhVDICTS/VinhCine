@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import '../../../../configs/app_themes/app_themes.dart';
 
 class CinemaDirection extends StatelessWidget {
   const CinemaDirection({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColors>();
     return Container(
       width: double.maxFinite,
       height: 48,
@@ -21,19 +21,21 @@ class CinemaDirection extends StatelessWidget {
           children: [
             Text(
               'Vinh Cine - Nghệ An',
-              style: TextStyle(color: Color(0xFFcbc0b8), fontSize: 17),
+              style: AppStyles.titleMediumRegular(context)
+                      .copyWith(color: appColors?.hintGray),
             ),
             Row(
               children: [
                 Text(
                   '500m',
-                  style: TextStyle(color: Color(0xFFae2d34)),
+                  style: AppStyles.titleMediumRegular(context)
+                      .copyWith(color: appColors?.cinemaRed),
                 ),
                 const SizedBox(width: 5),
                 Icon(
                   Icons.directions,
                   size: 32,
-                  color: Color(0xFFae2d34),
+                  color: appColors?.cinemaRed,
                 )
               ],
             )
