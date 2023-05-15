@@ -49,6 +49,7 @@ class AppStyles {
         color: Colors.white,
         fontSize: 16,
         fontStyle: FontStyle.italic,
+        fontWeight: FontWeight.normal,
         fontFamily: getAppFonts(context).mainFont);
   }
 
