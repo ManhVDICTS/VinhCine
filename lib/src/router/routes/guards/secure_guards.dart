@@ -13,13 +13,13 @@ class AuthGuard extends AutoRouteGuard {
       if (token?.isEmpty ?? true) {
         // If session is null it means user is logged out
         // redirect to login page
-        router.replaceAll([const HomeScreenRoute(),SignInScreenRoute()]);
+        router.replaceAll([HomeScreenRoute(),SignInScreenRoute()]);
       } else {
         // else continue navigation
         return resolver.next();
       }
     } catch (e) {
-      router.replaceAll([const HomeScreenRoute(),SignInScreenRoute()]);
+      router.replaceAll([HomeScreenRoute(),SignInScreenRoute()]);
     }
   }
 }

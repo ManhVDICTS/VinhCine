@@ -62,7 +62,7 @@ class HomeScreen extends StatelessWidget implements AutoRouteWrapper {
       _backgroundMovieSwitcher(context),
       _backgroundShadow(),
       _body(context),
-      _appBar()
+      _appBar(context)
     ]));
   }
 
@@ -86,7 +86,7 @@ class HomeScreen extends StatelessWidget implements AutoRouteWrapper {
     );
   }
 
-  Widget _appBar() => SafeArea(
+  Widget _appBar(BuildContext context) => SafeArea(
         child: Container(
           height: _appBarHeight,
           child: Row(
