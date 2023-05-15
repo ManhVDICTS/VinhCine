@@ -16,6 +16,7 @@ import 'package:vinhcine/src/router/route_names.dart';
 import 'package:vinhcine/src/router/router.dart';
 
 import '../../../core/di/injections.dart';
+import 'widgets/background.dart';
 
 final List<String> moviesList = [
   'https://www.cgv.vn/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/7/0/700x1000_2_.jpg',
@@ -59,7 +60,7 @@ class HomeScreen extends StatelessWidget implements AutoRouteWrapper {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(children: [
-      _backgroundMovieSwitcher(context),
+      _backgroundMovieSwitcher(),
       _backgroundShadow(),
       _body(context),
       _appBar(context)
@@ -67,23 +68,13 @@ class HomeScreen extends StatelessWidget implements AutoRouteWrapper {
   }
 
   Widget _backgroundShadow() {
-    return Positioned.fill(
-      child: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: [0.2, 0.5, 0.7, 1],
-            colors: [
-              Color.fromRGBO(0, 0, 0, 0.6),
-              Color.fromRGBO(0, 0, 0, 0.45),
-              Color.fromRGBO(0, 0, 0, 0.3),
-              Colors.transparent,
-            ],
-          ),
-        ),
-      ),
+    return const Positioned.fill(
+      child: HomeBackgroundShadow(),
     );
+  }
+
+  Widget _backgroundMovieSwitcher() {
+    return const HomeBackgroundSwitcher();
   }
 
   Widget _appBar(BuildContext context) => SafeArea(
@@ -156,31 +147,6 @@ class HomeScreen extends StatelessWidget implements AutoRouteWrapper {
         MovieInfo(),
         CinemaDirection()
       ]),
-    );
-  }
-
-  Widget _backgroundMovieSwitcher(BuildContext context) {
-    return BlocBuilder<MovieSelectorCubit, MovieSelectorState>(
-      builder: (context, state) {
-        if (state is MovieSelectorSelected) {
-          int index = state.index;
-          String imageUrl = state.movie.avatarUrl ?? '';
-          return AnimatedSwitcher(
-              duration: const Duration(milliseconds: 500),
-              switchOutCurve: Curves.easeInOut,
-              child: CachedNetworkImage(
-                width: double.maxFinite,
-                height: double.maxFinite,
-                key: ValueKey(index),
-                fit: BoxFit.cover,
-                imageUrl: imageUrl,
-                placeholder: (context, url) => const CircularProgressIndicator(),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-              ));
-        } else {
-          return const SizedBox.shrink();
-        }
-      },
     );
   }
 
