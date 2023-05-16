@@ -33,9 +33,16 @@ class ProfileHeader extends StatelessWidget {
           const SizedBox(height: 12),
           Row(
             children: [
-              Expanded(child: _buildInfoItem("Tổng chi tiêu:", "${myProfile.totalPay} đ")),
-              Expanded(child: _buildInfoItem("Điểm tích luỹ:", "${myProfile.point}")),
-              Expanded(child: _buildInfoItem("Số phim đã xem:", "${myProfile.seenFilmNumber}"),),
+              Expanded(
+                  child: _buildInfoItem(
+                      "Tổng chi tiêu:", "${myProfile.totalPay} đ")),
+              Expanded(
+                  child:
+                      _buildInfoItem("Điểm tích luỹ:", "${myProfile.point}")),
+              Expanded(
+                child: _buildInfoItem(
+                    "Số phim đã xem:", "${myProfile.seenFilmNumber}"),
+              ),
             ],
           ),
         ],
@@ -65,7 +72,7 @@ class ProfileHeader extends StatelessWidget {
             height: 80,
             padding: const EdgeInsets.all(2),
             decoration: const BoxDecoration(
-              color: AppColors.borderColor,
+              color: AppColorss.borderColor,
               shape: BoxShape.circle,
             ),
             child: const Icon(
@@ -96,7 +103,7 @@ class ProfileHeader extends StatelessWidget {
 
   Widget _buildBarCode() {
     return Container(
-      color: AppColors.borderColor.withAlpha(50),
+      color: AppColorss.borderColor.withAlpha(50),
       padding: const EdgeInsets.all(12),
       child: AspectRatio(
         aspectRatio: 5 / 1,

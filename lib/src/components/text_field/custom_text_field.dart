@@ -33,7 +33,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      onChanged: (String text){
+      onChanged: (String text) {
         setState(() {
           _clearVisible = widget.controller?.text.isNotEmpty == true;
         });
@@ -54,23 +54,26 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   });
                 },
               )
-            : _clearVisible ? IconButton(
-                icon: Container(
-                    width: 15,
-                    height: 15,
-                    padding: const EdgeInsets.all(2),
-                    decoration: const BoxDecoration(
-                      color: Colors.grey,
-                      shape: BoxShape.circle,
-                    ),
-                    child: const FittedBox(child: Icon(Icons.close, color: Colors.white))),
-                onPressed: () {
-                  setState(() {
-                    _clearVisible = false;
-                  });
-                  widget.controller?.clear();
-                },
-              ) : null,
+            : _clearVisible
+                ? IconButton(
+                    icon: Container(
+                        width: 15,
+                        height: 15,
+                        padding: const EdgeInsets.all(2),
+                        decoration: const BoxDecoration(
+                          color: Colors.grey,
+                          shape: BoxShape.circle,
+                        ),
+                        child: const FittedBox(
+                            child: Icon(Icons.close, color: Colors.white))),
+                    onPressed: () {
+                      setState(() {
+                        _clearVisible = false;
+                      });
+                      widget.controller?.clear();
+                    },
+                  )
+                : null,
         focusedBorder: const UnderlineInputBorder(
           borderSide: BorderSide(
             color: Colors.blue,
@@ -78,7 +81,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         ),
         enabledBorder: const UnderlineInputBorder(
           borderSide: BorderSide(
-            color: AppColors.borderColor,
+            color: AppColorss.borderColor,
           ),
         ),
       ),

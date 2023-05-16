@@ -15,14 +15,13 @@ import '../../../../router/route_names.dart';
 import '../cubit/auth_cubit.dart';
 
 @RoutePage(name: signInScreenRoute)
-class SignInScreen extends StatelessWidget implements AutoRouteWrapper{
+class SignInScreen extends StatelessWidget implements AutoRouteWrapper {
   SignInScreen({super.key});
 
   @override
   Widget wrappedRoute(BuildContext context) {
     return MultiBlocProvider(providers: [
-      BlocProvider<AuthCubit>(
-          create: ((context) => di<AuthCubit>()))
+      BlocProvider<AuthCubit>(create: ((context) => di<AuthCubit>()))
     ], child: this);
   }
 
@@ -70,7 +69,7 @@ class SignInScreen extends StatelessWidget implements AutoRouteWrapper{
               hintStyle: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  color: AppColors.borderColor),
+                  color: AppColorss.borderColor),
             ),
           ),
           const SizedBox(height: 12),
@@ -84,7 +83,7 @@ class SignInScreen extends StatelessWidget implements AutoRouteWrapper{
               hintStyle: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  color: AppColors.borderColor),
+                  color: AppColorss.borderColor),
             ),
           ),
           const SizedBox(height: 32),
@@ -109,21 +108,22 @@ class SignInScreen extends StatelessWidget implements AutoRouteWrapper{
               fontStyle: FontStyle.italic,
               fontWeight: FontWeight.normal,
               onPressed: () =>
-              {_currentContext.pushRoute(ForgotPasswordScreenRoute())},
+                  {_currentContext.pushRoute(ForgotPasswordScreenRoute())},
               isLoading: false,
             ),
           ),
           const SizedBox(height: 24),
           Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: _buildOr(),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: _buildOr(),
           ),
           const SizedBox(height: 24),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: AppBorderButton(
               title: 'Đăng ký tài khoản',
-              onPressed: () => {_currentContext.pushRoute(RegisterScreenRoute())},
+              onPressed: () =>
+                  {_currentContext.pushRoute(RegisterScreenRoute())},
               isLoading: false,
             ),
           ),
@@ -139,32 +139,34 @@ class SignInScreen extends StatelessWidget implements AutoRouteWrapper{
         children: [
           buildSignInWidget(),
           CustomAppBar(
-              title: "Đăng nhập",
-              onPressed: () => _currentContext.router.pop(),
+            title: "Đăng nhập",
+            onPressed: () => _currentContext.router.pop(),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildOr(){
+  Widget _buildOr() {
     return Stack(
       children: [
         Positioned.fill(
           child: Align(
               alignment: Alignment.center,
-              child: Container(color: AppColors.borderColor, height: 1)),
+              child: Container(color: AppColorss.borderColor, height: 1)),
         ),
         Align(
           alignment: Alignment.center,
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             color: Colors.white,
-            child: const Text("hoặc", style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-                fontStyle: FontStyle.italic,
-                color: Colors.black),
+            child: const Text(
+              "hoặc",
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                  fontStyle: FontStyle.italic,
+                  color: Colors.black),
             ),
           ),
         )
@@ -172,13 +174,14 @@ class SignInScreen extends StatelessWidget implements AutoRouteWrapper{
     );
   }
 
-  Widget _buildBanner(){
+  Widget _buildBanner() {
     return AspectRatio(
-        aspectRatio: 2/1,
-        child: CachedNetworkImage(
-          imageUrl: 'https://s3-media0.fl.yelpcdn.com/bphoto/nNA9lP0gkEnFTI3CQrq8lA/o.jpg',
-          fit: BoxFit.cover,
-        ),
+      aspectRatio: 2 / 1,
+      child: CachedNetworkImage(
+        imageUrl:
+            'https://s3-media0.fl.yelpcdn.com/bphoto/nNA9lP0gkEnFTI3CQrq8lA/o.jpg',
+        fit: BoxFit.cover,
+      ),
     );
   }
 

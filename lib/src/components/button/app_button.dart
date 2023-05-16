@@ -14,17 +14,17 @@ class _AppButton extends StatelessWidget {
   BoxBorder? border;
   double fontSize;
 
-  _AppButton(
-      {super.key,
-      this.title = '',
-      this.isLoading = false,
-      this.onPressed,
-      this.border,
-      this.fontStyle,
-      this.textColor,
-      this.backgroundColor,
-      this.fontWeight,
-      this.fontSize = 16,
+  _AppButton({
+    super.key,
+    this.title = '',
+    this.isLoading = false,
+    this.onPressed,
+    this.border,
+    this.fontStyle,
+    this.textColor,
+    this.backgroundColor,
+    this.fontWeight,
+    this.fontSize = 16,
   });
 
   @override
@@ -81,9 +81,9 @@ class AppWhiteButton extends _AppButton {
     super.fontWeight,
     super.fontSize,
   }) : super(
-      textColor: AppColors.blue,
-      backgroundColor: Colors.white,
-  );
+          textColor: AppColorss.blue,
+          backgroundColor: Colors.white,
+        );
 }
 
 class AppTintButton extends _AppButton {
@@ -96,9 +96,9 @@ class AppTintButton extends _AppButton {
     super.fontWeight,
     super.fontSize,
   }) : super(
-    textColor: Colors.white,
-    backgroundColor: AppColors.main,
-  );
+          textColor: Colors.white,
+          backgroundColor: AppColorss.main,
+        );
 }
 
 class AppCrimsonButton extends _AppButton {
@@ -111,9 +111,9 @@ class AppCrimsonButton extends _AppButton {
     super.fontWeight,
     super.fontSize,
   }) : super(
-    textColor: Colors.white,
-    backgroundColor: AppColors.crimson,
-  );
+          textColor: Colors.white,
+          backgroundColor: AppColorss.crimson,
+        );
 }
 
 class AppBorderButton extends _AppButton {
@@ -126,8 +126,8 @@ class AppBorderButton extends _AppButton {
     super.fontWeight,
     super.fontSize,
   }) : super(
-    textColor: Colors.black,
-    backgroundColor: Colors.white,
-    border: Border.all(color: Colors.grey, width: 1),
-  );
+          textColor: Colors.black,
+          backgroundColor: Colors.white,
+          border: Border.all(color: Colors.grey, width: 1),
+        );
 }

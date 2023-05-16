@@ -23,8 +23,7 @@ class RegisterScreen extends StatelessWidget implements AutoRouteWrapper {
   }
 
   late BuildContext _currentContext;
-  final _userNameController =
-      TextEditingController(text: '');
+  final _userNameController = TextEditingController(text: '');
   final _passwordController = TextEditingController(text: '');
   final _fullNameController = TextEditingController(text: '');
   final _phoneController = TextEditingController(text: '');
@@ -71,7 +70,7 @@ class RegisterScreen extends StatelessWidget implements AutoRouteWrapper {
                 hintStyle: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
-                    color: AppColors.borderColor),
+                    color: AppColorss.borderColor),
               ),
             ),
           ),
@@ -87,7 +86,7 @@ class RegisterScreen extends StatelessWidget implements AutoRouteWrapper {
                 hintStyle: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
-                    color: AppColors.borderColor),
+                    color: AppColorss.borderColor),
               ),
             ),
           ),
@@ -102,7 +101,7 @@ class RegisterScreen extends StatelessWidget implements AutoRouteWrapper {
                 hintStyle: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
-                    color: AppColors.borderColor),
+                    color: AppColorss.borderColor),
               ),
             ),
           ),
@@ -117,7 +116,7 @@ class RegisterScreen extends StatelessWidget implements AutoRouteWrapper {
                 hintStyle: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
-                    color: AppColors.borderColor),
+                    color: AppColorss.borderColor),
               ),
             ),
           ),
@@ -174,20 +173,19 @@ class RegisterScreen extends StatelessWidget implements AutoRouteWrapper {
   }
 
   Widget _buildDescription() {
-    return Row(
-      children: const [
-        Text(
-          "*",
-          style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w400, color: Colors.red),
-        ),
-        SizedBox(width: 12),
-        Text(
-          "Thông tin bắt buộc",
-          style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w400, color: Colors.black),
-        ),
-      ]);
+    return Row(children: const [
+      Text(
+        "*",
+        style: TextStyle(
+            fontSize: 16, fontWeight: FontWeight.w400, color: Colors.red),
+      ),
+      SizedBox(width: 12),
+      Text(
+        "Thông tin bắt buộc",
+        style: TextStyle(
+            fontSize: 16, fontWeight: FontWeight.w400, color: Colors.black),
+      ),
+    ]);
   }
 
   Widget _buildPolicy() {

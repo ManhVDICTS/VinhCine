@@ -11,14 +11,13 @@ import '../cubit/auth_cubit.dart';
 
 // ignore_for_file: must_be_immutable
 @RoutePage(name: forgotPasswordScreenName)
-class ForgotPasswordScreen extends StatelessWidget implements AutoRouteWrapper{
+class ForgotPasswordScreen extends StatelessWidget implements AutoRouteWrapper {
   ForgotPasswordScreen({super.key});
 
   @override
   Widget wrappedRoute(BuildContext context) {
     return MultiBlocProvider(providers: [
-      BlocProvider<AuthCubit>(
-          create: ((context) => di<AuthCubit>()))
+      BlocProvider<AuthCubit>(create: ((context) => di<AuthCubit>()))
     ], child: this);
   }
 
@@ -68,7 +67,7 @@ class ForgotPasswordScreen extends StatelessWidget implements AutoRouteWrapper{
                     hintStyle: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
-                        color: AppColors.borderColor),
+                        color: AppColorss.borderColor),
                   ),
                 ),
                 const SizedBox(height: 32),
@@ -97,12 +96,12 @@ class ForgotPasswordScreen extends StatelessWidget implements AutoRouteWrapper{
     );
   }
 
-  Widget _buildBanner(){
+  Widget _buildBanner() {
     var statusBarHeight = MediaQuery.of(_currentContext).viewPadding.top;
     return Container(
       width: MediaQuery.of(_currentContext).size.width,
       height: statusBarHeight + 48,
-      color: AppColors.crimson,
+      color: AppColorss.crimson,
     );
   }
 

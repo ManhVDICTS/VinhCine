@@ -81,13 +81,14 @@ class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
                   const SizedBox(height: 12),
                   Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Container(color: AppColors.borderColor, height: 1)),
+                      child:
+                          Container(color: AppColorss.borderColor, height: 1)),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: OptionalItem(
                       text: 'Thay đổi thông tin tài khoản',
                       leadingIcon:
-                          const Icon(Icons.person, color: AppColors.crimson),
+                          const Icon(Icons.person, color: AppColorss.crimson),
                       onTap: () {
                         /// todo do something here
                       },
@@ -98,9 +99,10 @@ class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
                     child: OptionalItem(
                       text: 'Thay đổi mật khẩu',
                       leadingIcon: const Icon(Icons.password_outlined,
-                          color: AppColors.crimson),
+                          color: AppColorss.crimson),
                       onTap: () {
-                        _currentContext.router.push(ChangePasswordScreenRoute());
+                        _currentContext.router
+                            .push(ChangePasswordScreenRoute());
                       },
                     ),
                   ),
@@ -110,7 +112,7 @@ class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
                       text: 'Lịch sử giao dịch',
                       leadingIcon: const Icon(
                         Icons.history,
-                        color: AppColors.crimson,
+                        color: AppColorss.crimson,
                       ),
                       onTap: () {
                         /// todo do something here
@@ -162,13 +164,13 @@ class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
     return Container(
       width: MediaQuery.of(_currentContext).size.width,
       height: statusBarHeight + 48,
-      color: AppColors.crimson,
+      color: AppColorss.crimson,
     );
   }
 
   Widget _buildScaffoldWidget({required Widget child}) {
     return Scaffold(
-      backgroundColor: AppColors.brown,
+      backgroundColor: AppColorss.brown,
       body: Stack(
         children: [
           Column(

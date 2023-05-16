@@ -32,7 +32,7 @@ class ChangePasswordScreen extends StatelessWidget implements AutoRouteWrapper {
   Widget build(BuildContext context) {
     _currentContext = context;
     return Scaffold(
-      backgroundColor: AppColors.brown,
+      backgroundColor: AppColorss.brown,
       body: Stack(
         children: [
           _buildRegisterWidget(),
@@ -68,7 +68,7 @@ class ChangePasswordScreen extends StatelessWidget implements AutoRouteWrapper {
               hintStyle: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  color: AppColors.borderColor),
+                  color: AppColorss.borderColor),
             ),
           ),
           Container(height: 12, color: Colors.white),
@@ -83,7 +83,7 @@ class ChangePasswordScreen extends StatelessWidget implements AutoRouteWrapper {
               hintStyle: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  color: AppColors.borderColor),
+                  color: AppColorss.borderColor),
             ),
           ),
           Container(height: 12, color: Colors.white),
@@ -98,7 +98,7 @@ class ChangePasswordScreen extends StatelessWidget implements AutoRouteWrapper {
               hintStyle: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  color: AppColors.borderColor),
+                  color: AppColorss.borderColor),
             ),
           ),
           const SizedBox(height: 32),
@@ -106,7 +106,8 @@ class ChangePasswordScreen extends StatelessWidget implements AutoRouteWrapper {
             listener: (context, state) {
               if (state is ChangePasswordSuccess) {
                 _currentContext.router.pop();
-                _showMessage(message: "Đổi mật khẩu thành công", context: context);
+                _showMessage(
+                    message: "Đổi mật khẩu thành công", context: context);
               } else if (state is ChangePasswordFail) {
                 _showMessage(message: state.message, context: context);
               } else if (state is PasswordInvalid) {
@@ -139,7 +140,7 @@ class ChangePasswordScreen extends StatelessWidget implements AutoRouteWrapper {
     return Container(
       width: MediaQuery.of(_currentContext).size.width,
       height: statusBarHeight + 48,
-      color: AppColors.crimson,
+      color: AppColorss.crimson,
     );
   }
 
@@ -149,7 +150,7 @@ class ChangePasswordScreen extends StatelessWidget implements AutoRouteWrapper {
       style: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.normal,
-          color: AppColors.darkBrown),
+          color: AppColorss.darkBrown),
     );
   }
 
@@ -169,9 +170,10 @@ class ChangePasswordScreen extends StatelessWidget implements AutoRouteWrapper {
             newPassword: newPassword, repeatPassword: repeatPassword);
 
     if (validPassword && validNewPassword && validRepeatPassword) {
-      _currentContext.read<ChangePasswordCubit>().changePassword(password: password, newPassword: newPassword);
+      _currentContext
+          .read<ChangePasswordCubit>()
+          .changePassword(password: password, newPassword: newPassword);
     }
-
   }
 
   void _showMessage({required String message, required BuildContext context}) {
