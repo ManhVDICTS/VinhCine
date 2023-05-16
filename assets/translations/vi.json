@@ -1,3 +1,13 @@
 {
-    "hello": "Xin Chào!"
+    "home" : {
+        "title": "Vinh Cine",
+        "tab": {
+            "comming_soon": "Sắp Chiếu",
+            "now": "Đang Chiếu",
+            "special": "Đặc Biệt"
+        },
+        "button" : {
+            "booking": "Đặt Vé"
+        }
+    }
 }

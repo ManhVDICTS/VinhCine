@@ -1,3 +1,13 @@
 {
-    "hello": "Hello world!"
+    "home" : {
+        "title": "Vinh Cine",
+        "tab": {
+            "comming_soon": "Comming Soon",
+            "now": "Now Showing",
+            "special": "Special"
+        },
+        "button" : {
+            "booking": "Book Now"
+        }
+    }
 }

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/src/components/button/text_button.dart';
@@ -41,7 +42,6 @@ class MovieInfo extends StatelessWidget {
         movie.name ?? '',
         style: AppStyles.titleLargeBold(context),
       ),
-      const SizedBox(height: 5),
       Text(
         DateTimeUtil.formatDurationAndCinemaDate(
             durationInMinutes: movie.duration, dateTime: movie.startDate),
@@ -54,10 +54,10 @@ class MovieInfo extends StatelessWidget {
     final appColors = Theme.of(context).extension<AppColors>();
     return CustomTextButton(
       border: Border.all(color: Colors.white, width: 1.5),
-      padding: EdgeInsets.symmetric(horizontal: 22, vertical: 10),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
       backgroundColor: appColors?.red,
       textStyle: AppStyles.titleMediumBold(context),
-      text: 'Đặt Vé',
+      text: 'home.button.booking'.tr(),
       onTap: () {},
     );
   }

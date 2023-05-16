@@ -23,7 +23,7 @@ class AppStyles {
   static TextStyle titleMediumBold(BuildContext context) {
     return TextStyle(
         color: Colors.white,
-        fontSize: 16,
+        fontSize: 15,
         fontWeight: FontWeight.bold,
         fontFamily: getAppFonts(context).mainFont);
   }
@@ -31,7 +31,7 @@ class AppStyles {
   static TextStyle titleMediumRegular(BuildContext context) {
     return TextStyle(
         color: Colors.white,
-        fontSize: 16,
+        fontSize: 15,
         fontWeight: FontWeight.normal,
         fontFamily: getAppFonts(context).mainFont);
   }
@@ -39,15 +39,25 @@ class AppStyles {
   static TextStyle titleLargeBold(BuildContext context) {
     return TextStyle(
         color: Colors.white,
-        fontSize: 18,
+        fontSize: 17,
         fontWeight: FontWeight.bold,
+        fontFamily: getAppFonts(context).mainFont,
+        letterSpacing: -0.16,
+        height: 1.25);
+  }
+
+  static TextStyle titleLargeRegular(BuildContext context) {
+    return TextStyle(
+        color: Colors.white,
+        fontSize: 17,
+        fontWeight: FontWeight.normal,
         fontFamily: getAppFonts(context).mainFont);
   }
 
   static TextStyle titleMediumItalic(BuildContext context) {
     return TextStyle(
         color: Colors.white,
-        fontSize: 16,
+        fontSize: 15,
         fontStyle: FontStyle.italic,
         fontWeight: FontWeight.normal,
         fontFamily: getAppFonts(context).mainFont);

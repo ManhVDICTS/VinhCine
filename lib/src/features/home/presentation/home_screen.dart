@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/src/components/button/icon_button.dart';
@@ -91,7 +92,7 @@ class HomeScreen extends StatelessWidget implements AutoRouteWrapper {
                 },
               ),
               Text(
-                'Vinh Cine',
+                'home.title'.tr(),
                 style: AppStyles.headerMediumBold(context),
               ),
               CustomIconButton(
@@ -124,17 +125,17 @@ class HomeScreen extends StatelessWidget implements AutoRouteWrapper {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Đang Chiếu',
-                style: AppStyles.titleMediumBold(context)
+                 'home.tab.now'.tr(),
+                style: AppStyles.titleLargeBold(context)
               ),
               Text(
-                'Đặc Biệt',
-                style: AppStyles.titleMediumRegular(context)
+                'home.tab.special'.tr(),
+                style: AppStyles.titleLargeRegular(context)
                     .copyWith(color: appColors?.gray),
               ),
               Text(
-                'Sắp Chiếu',
-                style: AppStyles.titleMediumRegular(context)
+                'home.tab.comming_soon'.tr(),
+                style: AppStyles.titleLargeRegular(context)
                     .copyWith(color: appColors?.gray),
               )
             ],
