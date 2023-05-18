@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'genre.g.dart';
+part 'genre_dto.g.dart';
 
 @JsonSerializable()
 class GenreDto extends Equatable {
@@ -25,9 +25,9 @@ class GenreDto extends Equatable {
     this.v,
   });
 
-  factory GenreDto.fromJson(Map<String, dynamic> json) => _$GenreFromJson(json);
+  factory GenreDto.fromJson(Map<String, dynamic> json) => _$GenreDtoFromJson(json);
 
-  Map<String, dynamic> toJson() => _$GenreToJson(this);
+  Map<String, dynamic> toJson() => _$GenreDtoToJson(this);
 
   GenreDto copyWith({
     String? id,

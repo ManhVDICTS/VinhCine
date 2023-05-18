@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'type.g.dart';
+part 'type_dto.g.dart';
 
 @JsonSerializable()
 class TypeDto extends Equatable {
@@ -25,9 +25,9 @@ class TypeDto extends Equatable {
     this.v,
   });
 
-  factory TypeDto.fromJson(Map<String, dynamic> json) => _$TypeFromJson(json);
+  factory TypeDto.fromJson(Map<String, dynamic> json) => _$TypeDtoFromJson(json);
 
-  Map<String, dynamic> toJson() => _$TypeToJson(this);
+  Map<String, dynamic> toJson() => _$TypeDtoToJson(this);
 
   TypeDto copyWith({
     String? id,
