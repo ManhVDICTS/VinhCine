@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/src/components/button/app_button.dart';
@@ -11,7 +12,6 @@ import 'package:vinhcine/src/router/route_names.dart';
 import 'package:vinhcine/src/router/router.dart';
 import '../../../../components/appbar/custom_app_bar.dart';
 import '../../../authentication/presentation/cubit/auth_cubit.dart';
-import 'change_password_screen.dart';
 import 'widgets/optional_item.dart';
 
 @RoutePage(name: profileScreenName)
@@ -116,6 +116,19 @@ class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
                       ),
                       onTap: () {
                         /// todo do something here
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: OptionalItem(
+                      text: 'setting.title'.tr(),
+                      leadingIcon: const Icon(
+                        Icons.settings,
+                        color: AppColorss.crimson,
+                      ),
+                      onTap: () {
+                        _currentContext.router.push(const SettingScreenRoute());
                       },
                     ),
                   ),

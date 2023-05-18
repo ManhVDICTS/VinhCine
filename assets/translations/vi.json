@@ -9,5 +9,8 @@
         "button" : {
             "booking": "Đặt Vé"
         }
+    },
+    "setting" : {
+        "title": "Cài đặt"
     }
 }

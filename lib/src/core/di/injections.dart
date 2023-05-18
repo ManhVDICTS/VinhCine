@@ -14,6 +14,8 @@ import 'package:vinhcine/src/features/profile/data/remote/services/profile_servi
 import 'package:vinhcine/src/features/profile/domain/repositories/profile_repository.dart';
 import 'package:vinhcine/src/features/profile/presentation/cubit/change_password/change_password_cubit.dart';
 import 'package:vinhcine/src/features/profile/presentation/cubit/profile_cubit.dart';
+import 'package:vinhcine/src/features/setting/presentation/cubit/setting_cubit.dart';
+import 'package:vinhcine/src/features/setting/presentation/views/widgets/language/cubit/language_cubit.dart';
 import 'package:vinhcine/src/router/router.dart';
 import 'package:vinhcine/src/features/authentication/domain/repositories/auth_repository.dart';
 import 'package:vinhcine/src/features/authentication/presentation/cubit/auth_cubit.dart';
@@ -60,6 +62,12 @@ Future<void> initDependencies() async {
     )
     ..registerFactory<ChangePasswordCubit>(
           () => ChangePasswordCubit(di<ProfileRepository>()),
+    )
+    ..registerFactory<SettingCubit>(
+          () => SettingCubit(),
+    )
+    ..registerFactory<LanguageCubit>(
+          () => LanguageCubit(),
     );
 
   initBanner(di);

@@ -9,6 +9,7 @@ import 'package:vinhcine/src/features/banner/presentation/cubit/banner_cubit.dar
 import 'package:vinhcine/src/features/authentication/presentation/views/signin_screen.dart';
 import 'package:vinhcine/src/features/home/presentation/home_screen.dart';
 import 'package:vinhcine/src/features/profile/presentation/views/profile_screen.dart';
+import 'package:vinhcine/src/features/setting/presentation/views/setting_screen.dart';
 import 'package:vinhcine/src/router/routes/guards/secure_guards.dart';
 
 import '../features/profile/presentation/views/change_password_screen.dart';
@@ -16,6 +17,7 @@ import '../features/profile/presentation/views/change_password_screen.dart';
 part './routes/home_routes.dart';
 part 'routes/auth_routes.dart';
 part 'routes/profile_routes.dart';
+part 'routes/setting_routes.dart';
 
 part 'router.gr.dart';
 
@@ -26,7 +28,8 @@ class RootRouter extends _$RootRouter {
         AutoRoute(path: '/', page: RootWrapperPageRoute.page, children: [
           ..._homeRoutes,
           ..._authRoutes,
-          ..._profileRoutes
+          ..._profileRoutes,
+          ..._settingRoutes,
         ]),
       ];
 }

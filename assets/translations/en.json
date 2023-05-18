@@ -9,5 +9,8 @@
         "button" : {
             "booking": "Book Now"
         }
+    },
+    "setting" : {
+        "title": "Setting"
     }
 }
