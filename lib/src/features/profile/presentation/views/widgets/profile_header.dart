@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vinhcine/src/components/button/app_button.dart';
@@ -35,13 +36,13 @@ class ProfileHeader extends StatelessWidget {
             children: [
               Expanded(
                   child: _buildInfoItem(
-                      "Tổng chi tiêu:", "${myProfile.totalPay} đ")),
+                      "${'profile.total_pay'.tr()}:", "${myProfile.totalPay} đ")),
               Expanded(
                   child:
-                      _buildInfoItem("Điểm tích luỹ:", "${myProfile.point}")),
+                      _buildInfoItem("${'profile.point'.tr()}:", "${myProfile.point}")),
               Expanded(
                 child: _buildInfoItem(
-                    "Số phim đã xem:", "${myProfile.seenFilmNumber}"),
+                    "${'profile.watched_film_number'.tr()}:", "${myProfile.seenFilmNumber}"),
               ),
             ],
           ),

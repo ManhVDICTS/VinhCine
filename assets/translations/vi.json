@@ -12,5 +12,15 @@
     },
     "setting" : {
         "title": "Cài đặt"
+    },
+    "profile" : {
+        "member": "Thành viên",
+        "total_pay": "Tổng chi tiêu",
+        "point": "Điểm tích luỹ",
+        "watched_film_number": "Số phim đã xem",
+        "update_info": "Thay đổi thông tin tài khoản",
+        "change_password": "Thay đổi mật khẩu",
+        "transaction_history": "Lịch sử giao dịch",
+        "logout": "Đăng xuất"
     }
 }

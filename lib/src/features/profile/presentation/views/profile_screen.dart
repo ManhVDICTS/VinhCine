@@ -86,7 +86,7 @@ class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: OptionalItem(
-                      text: 'Thay đổi thông tin tài khoản',
+                      text: 'profile.update_info'.tr(),
                       leadingIcon:
                           const Icon(Icons.person, color: AppColorss.crimson),
                       onTap: () {
@@ -97,7 +97,7 @@ class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: OptionalItem(
-                      text: 'Thay đổi mật khẩu',
+                      text: 'profile.change_password'.tr(),
                       leadingIcon: const Icon(Icons.password_outlined,
                           color: AppColorss.crimson),
                       onTap: () {
@@ -109,7 +109,7 @@ class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: OptionalItem(
-                      text: 'Lịch sử giao dịch',
+                      text: 'profile.transaction_history'.tr(),
                       leadingIcon: const Icon(
                         Icons.history,
                         color: AppColorss.crimson,
@@ -163,7 +163,7 @@ class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
       builder: (context, state) {
         final isLoading = state is SignOutLoading;
         return AppCrimsonButton(
-          title: 'Đăng xuất',
+          title: 'profile.logout'.tr(),
           onPressed:
               isLoading ? null : _currentContext.read<AuthCubit>().signOut,
           isLoading: isLoading,
@@ -196,7 +196,7 @@ class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
           ),
           CustomAppBar(
               brightness: false,
-              title: "Thành viên",
+              title: 'profile.member'.tr(),
               onPressed: () => _currentContext.router.pop()),
         ],
       ),
