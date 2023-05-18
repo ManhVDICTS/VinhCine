@@ -22,12 +22,10 @@ class MovieInfo extends StatelessWidget {
           return Container(
             color: appColors?.backgroundDark,
             padding: EdgeInsets.all(10),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _info(context, data),
-                  _bookingButton(context, data)
-                ]),
+            child: Row(children: [
+              Expanded(flex: 1, child: _info(context, data)),
+              Expanded(flex: 0, child: _bookingButton(context, data))
+            ]),
           );
         } else {
           return const SizedBox.shrink();
@@ -40,7 +38,9 @@ class MovieInfo extends StatelessWidget {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(
         movie.name ?? '',
-        style: AppStyles.titleLargeBold(context),
+        overflow: TextOverflow.ellipsis,
+        maxLines: 1,
+        style: AppStyles.titleMediumBold(context),
       ),
       Text(
         DateTimeUtil.formatDurationAndCinemaDate(
