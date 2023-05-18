@@ -13,9 +13,11 @@ class LanguageItem extends StatelessWidget {
   bool enableSeparate;
   Function? onTap;
   bool isSelected;
+  late AppColors? appColors;
 
   @override
   Widget build(BuildContext context) {
+    appColors = Theme.of(context).extension<AppColors>();
     return GestureDetector(
       onTap: onTap != null
           ? () {
@@ -23,7 +25,7 @@ class LanguageItem extends StatelessWidget {
             }
           : null,
       child: Container(
-        color: Colors.white,
+        color: appColors!.light,
         child: Column(
           children: [
             const SizedBox(height: 16),
@@ -35,8 +37,8 @@ class LanguageItem extends StatelessWidget {
                     text,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
-                    style: const TextStyle(
-                        color: Colors.black,
+                    style: TextStyle(
+                        color: appColors!.dark,
                         fontSize: 16,
                         fontWeight: FontWeight.normal),
                   ),
@@ -44,7 +46,7 @@ class LanguageItem extends StatelessWidget {
                 const SizedBox(width: 12),
                 Visibility(
                     visible: isSelected,
-                    child: const Icon(Icons.check_circle_outline_outlined, color: AppColorss.crimson, size: 20,)),
+                    child: Icon(Icons.check_circle_outline_outlined, color: appColors!.red, size: 20,)),
                 Visibility(
                     visible: !isSelected,
                     child: const SizedBox(width: 20, height: 20)),
@@ -54,7 +56,7 @@ class LanguageItem extends StatelessWidget {
             const SizedBox(height: 16),
             Visibility(
               visible: enableSeparate,
-              child: Container(color: AppColorss.borderColor, height: 1),
+              child: Container(color: appColors!.darkGray, height: 1),
             ),
           ],
         ),

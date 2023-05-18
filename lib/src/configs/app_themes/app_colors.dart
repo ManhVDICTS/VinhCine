@@ -9,6 +9,11 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.backgroundDark,
     required this.crimson,
     required this.brown,
+    required this.white,
+    required this.dark,
+    required this.light,
+    required this.darkBrown,
+    required this.darkGray,
   });
   final Color red;
   final Color hintGray;
@@ -16,10 +21,26 @@ class AppColors extends ThemeExtension<AppColors> {
   final Color gray;
   final Color crimson;
   final Color brown;
+  final Color white;
+  final Color dark;
+  final Color light;
+  final Color darkBrown;
+  final Color darkGray;
 
   @override
-  AppColors copyWith(
-      {Color? red, Color? hintGray, Color? backgroundDark, Color? gray, Color? crimson, Color? brown}) {
+  AppColors copyWith({
+    Color? red,
+    Color? hintGray,
+    Color? backgroundDark,
+    Color? gray,
+    Color? crimson,
+    Color? brown,
+    Color? white,
+    Color? dark,
+    Color? light,
+    Color? darkBrown,
+    Color? darkGray,
+  }) {
     return AppColors(
       red: red ?? this.red,
       hintGray: hintGray ?? this.hintGray,
@@ -27,6 +48,11 @@ class AppColors extends ThemeExtension<AppColors> {
       gray: gray ?? this.gray,
       crimson: crimson ?? this.crimson,
       brown: brown ?? this.brown,
+      white: white ?? this.white,
+      dark: dark ?? this.dark,
+      light: light ?? this.light,
+      darkBrown: darkBrown ?? this.darkBrown,
+      darkGray: darkGray ?? this.darkGray,
     );
   }
 
@@ -43,6 +69,11 @@ class AppColors extends ThemeExtension<AppColors> {
       gray: Color.lerp(gray, other.gray, t) ?? gray,
       crimson: Color.lerp(crimson, other.crimson, t) ?? crimson,
       brown: Color.lerp(brown, other.brown, t) ?? brown,
+      white: Color.lerp(white, other.white, t) ?? white,
+      dark: Color.lerp(dark, other.dark, t) ?? dark,
+      light: Color.lerp(light, other.light, t) ?? light,
+      darkBrown: Color.lerp(darkBrown, other.darkBrown, t) ?? darkBrown,
+      darkGray: Color.lerp(darkGray, other.darkGray, t) ?? darkGray,
     );
   }
 }

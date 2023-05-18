@@ -8,7 +8,6 @@ import 'package:vinhcine/src/components/button/app_button.dart';
 import 'package:vinhcine/src/configs/app_themes/app_colors.dart';
 import 'package:vinhcine/src/core/di/injections.dart';
 import 'package:vinhcine/src/features/setting/presentation/cubit/setting_cubit.dart';
-import 'package:vinhcine/src/features/setting/presentation/views/widgets/language/cubit/language_cubit.dart';
 import 'package:vinhcine/src/features/setting/presentation/views/widgets/language/language_widget.dart';
 import 'package:vinhcine/src/features/setting/presentation/views/widgets/theme/theme_widget.dart';
 import 'package:vinhcine/src/router/route_names.dart';
@@ -64,17 +63,17 @@ class SettingScreen extends StatelessWidget implements AutoRouteWrapper{
                     print('on Changed isDark = ${_themeController.isDark}');
                   },
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  child: AppCrimsonButton(
-                    title: 'Hiện ngôn ngữ đang được chọn',
-                    onPressed: (){
-                      print('ngôn ngữ = ${_controller.language.languageCode}');
-                      print('giao diện tối = ${_themeController.isDark}');
-                    },
-                    isLoading: false,
-                  ),
-                )
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                //   child: AppCrimsonButton(
+                //     title: 'Hiện ngôn ngữ đang được chọn',
+                //     onPressed: (){
+                //       print('ngôn ngữ = ${_controller.language.languageCode}');
+                //       print('giao diện tối = ${_themeController.isDark}');
+                //     },
+                //     isLoading: false,
+                //   ),
+                // )
               ],
             ),
           ),
@@ -99,10 +98,10 @@ class SettingScreen extends StatelessWidget implements AutoRouteWrapper{
   Widget _buildDescription(String text) {
     return Text(
       text,
-      style: const TextStyle(
+      style: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.normal,
-          color: AppColorss.darkBrown),
+          color: appColors!.darkBrown),
     );
   }
 
