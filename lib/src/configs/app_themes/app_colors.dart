@@ -7,20 +7,26 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.hintGray,
     required this.gray,
     required this.backgroundDark,
+    required this.crimson,
+    required this.brown,
   });
   final Color red;
   final Color hintGray;
   final Color backgroundDark;
   final Color gray;
+  final Color crimson;
+  final Color brown;
 
   @override
   AppColors copyWith(
-      {Color? red, Color? hintGray, Color? backgroundDark, Color? gray}) {
+      {Color? red, Color? hintGray, Color? backgroundDark, Color? gray, Color? crimson, Color? brown}) {
     return AppColors(
       red: red ?? this.red,
       hintGray: hintGray ?? this.hintGray,
       backgroundDark: backgroundDark ?? this.backgroundDark,
       gray: gray ?? this.gray,
+      crimson: crimson ?? this.crimson,
+      brown: brown ?? this.brown,
     );
   }
 
@@ -35,6 +41,8 @@ class AppColors extends ThemeExtension<AppColors> {
       backgroundDark:
           Color.lerp(backgroundDark, other.backgroundDark, t) ?? backgroundDark,
       gray: Color.lerp(gray, other.gray, t) ?? gray,
+      crimson: Color.lerp(crimson, other.crimson, t) ?? crimson,
+      brown: Color.lerp(brown, other.brown, t) ?? brown,
     );
   }
 }

@@ -29,7 +29,11 @@ class ThemeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (c) => di<ThemeCubit>()..updateTheme(false),
+        create: (c) => di<ThemeCubit>()..updateTheme(
+            MediaQuery.of(context).platformBrightness == Brightness.dark ?
+              ThemeMode.dark :
+              ThemeMode.light,
+        ),
         child: Column(
           children: [
             BlocBuilder<ThemeCubit, ThemeState>(
@@ -38,11 +42,11 @@ class ThemeWidget extends StatelessWidget {
                     text: 'setting.light'.tr(),
                     enableSeparate: true,
                     onTap: () {
-                      context.read<ThemeCubit>().updateTheme(false);
+                      context.read<ThemeCubit>().updateTheme(ThemeMode.light);
                       controller.isDark = false;
                       onChanged(false);
                     },
-                    isSelected: !state.isDark);
+                    isSelected: state.themeMode == ThemeMode.light);
               },
             ),
             BlocBuilder<ThemeCubit, ThemeState>(
@@ -51,11 +55,11 @@ class ThemeWidget extends StatelessWidget {
                     text: 'setting.dark'.tr(),
                     enableSeparate: true,
                     onTap: () {
-                      context.read<ThemeCubit>().updateTheme(true);
+                      context.read<ThemeCubit>().updateTheme(ThemeMode.dark);
                       controller.isDark = true;
                       onChanged(true);
                     },
-                    isSelected: state.isDark);
+                    isSelected: state.themeMode == ThemeMode.dark);
               },
             ),
           ],

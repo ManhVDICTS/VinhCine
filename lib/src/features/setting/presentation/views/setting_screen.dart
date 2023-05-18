@@ -26,12 +26,14 @@ class SettingScreen extends StatelessWidget implements AutoRouteWrapper{
   late BuildContext _currentContext;
   final _controller = LanguageController(initLocale: const Locale.fromSubtags(languageCode: 'vi'));
   final _themeController = ThemeController(initTheme: false);
+  late AppColors? appColors;
 
   @override
   Widget build(BuildContext context) {
+    appColors = Theme.of(context).extension<AppColors>();
     _currentContext = context;
     return Scaffold(
-      backgroundColor: AppColorss.brown,
+      backgroundColor: appColors!.brown,
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -90,7 +92,7 @@ class SettingScreen extends StatelessWidget implements AutoRouteWrapper{
     return Container(
       width: MediaQuery.of(_currentContext).size.width,
       height: statusBarHeight + 48,
-      color: AppColorss.crimson,
+      color: appColors?.crimson,
     );
   }
 
