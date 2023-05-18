@@ -11,7 +11,11 @@
         }
     },
     "setting" : {
-        "title": "Cài đặt"
+        "title": "Cài đặt",
+        "language": "Ngôn ngữ",
+        "theme": "Giao diện",
+        "light": "Sáng",
+        "dark": "Tối"
     },
     "profile" : {
         "member": "Thành viên",

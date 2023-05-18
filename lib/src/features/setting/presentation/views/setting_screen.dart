@@ -10,6 +10,7 @@ import 'package:vinhcine/src/core/di/injections.dart';
 import 'package:vinhcine/src/features/setting/presentation/cubit/setting_cubit.dart';
 import 'package:vinhcine/src/features/setting/presentation/views/widgets/language/cubit/language_cubit.dart';
 import 'package:vinhcine/src/features/setting/presentation/views/widgets/language/language_widget.dart';
+import 'package:vinhcine/src/features/setting/presentation/views/widgets/theme/theme_widget.dart';
 import 'package:vinhcine/src/router/route_names.dart';
 
 @RoutePage(name: settingScreenName)
@@ -24,6 +25,7 @@ class SettingScreen extends StatelessWidget implements AutoRouteWrapper{
 
   late BuildContext _currentContext;
   final _controller = LanguageController(initLocale: const Locale.fromSubtags(languageCode: 'vi'));
+  final _themeController = ThemeController(initTheme: false);
 
   @override
   Widget build(BuildContext context) {
@@ -32,28 +34,47 @@ class SettingScreen extends StatelessWidget implements AutoRouteWrapper{
       backgroundColor: AppColorss.brown,
       body: Stack(
         children: [
-          Column(
-            children: [
-              _buildBanner(),
-              Expanded(
-                child: LanguageWidget(
+          SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildBanner(),
+                const SizedBox(height: 36),
+                Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: _buildDescription("setting.language".tr())),
+                const SizedBox(height: 12),
+                LanguageWidget(
                     controller: _controller,
                     onChanged: (Locale? obj) {
                       print('onChanged = ${_controller.language.languageCode}');
                     },
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: AppCrimsonButton(
-                  title: 'Hiện ngôn ngữ đang được chọn',
-                  onPressed: (){
-                    print('ngôn ngữ = ${_controller.language.languageCode}');
+                const SizedBox(height: 12),
+                Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: _buildDescription("setting.theme".tr())),
+                const SizedBox(height: 12),
+                ThemeWidget(
+                  controller: _themeController,
+                  onChanged: (bool? obj) {
+                    print('on Changed isDark = ${_themeController.isDark}');
                   },
-                  isLoading: false,
                 ),
-              )
-            ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  child: AppCrimsonButton(
+                    title: 'Hiện ngôn ngữ đang được chọn',
+                    onPressed: (){
+                      print('ngôn ngữ = ${_controller.language.languageCode}');
+                      print('giao diện tối = ${_themeController.isDark}');
+                    },
+                    isLoading: false,
+                  ),
+                )
+              ],
+            ),
           ),
           CustomAppBar(
               brightness: false,
@@ -70,6 +91,16 @@ class SettingScreen extends StatelessWidget implements AutoRouteWrapper{
       width: MediaQuery.of(_currentContext).size.width,
       height: statusBarHeight + 48,
       color: AppColorss.crimson,
+    );
+  }
+
+  Widget _buildDescription(String text) {
+    return Text(
+      text,
+      style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.normal,
+          color: AppColorss.darkBrown),
     );
   }
 

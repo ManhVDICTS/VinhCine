@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/src/core/di/injections.dart';
 import 'package:vinhcine/src/features/setting/presentation/views/widgets/language/cubit/language_cubit.dart';
-import 'package:vinhcine/src/features/setting/presentation/views/widgets/language_item.dart';
+import 'package:vinhcine/src/features/setting/presentation/views/widgets/language/item/language_item.dart';
 
 class LanguageController extends ChangeNotifier {
   LanguageController({Locale? initLocale}) {

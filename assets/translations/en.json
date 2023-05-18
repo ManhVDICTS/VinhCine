@@ -11,7 +11,11 @@
         }
     },
     "setting" : {
-        "title": "Setting"
+        "title": "Setting",
+        "language": "Language",
+        "theme": "Theme",
+        "light": "Light",
+        "dark": "Dark"
     },
     "profile" : {
         "member": "Member",
