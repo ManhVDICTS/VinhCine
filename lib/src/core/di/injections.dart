@@ -9,6 +9,7 @@ import 'package:vinhcine/src/features/home/data/remote/services/toppage_service.
 import 'package:vinhcine/src/features/home/domain/repositories/movie_repository.dart';
 import 'package:vinhcine/src/features/home/presentation/cubit/movie_data_cubit.dart';
 import 'package:vinhcine/src/features/home/presentation/cubit/movie_selector_cubit.dart';
+import 'package:vinhcine/src/features/home/presentation/cubit/movie_tab_cubit.dart';
 import 'package:vinhcine/src/features/profile/data/remote/services/profile_service.dart';
 import 'package:vinhcine/src/features/profile/data/remote/services/profile_service_no_token.dart';
 import 'package:vinhcine/src/features/profile/domain/repositories/profile_repository.dart';

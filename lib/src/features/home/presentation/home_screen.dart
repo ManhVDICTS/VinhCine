@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -7,9 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/src/components/button/icon_button.dart';
 import 'package:vinhcine/src/configs/app_themes/app_themes.dart';
 import 'package:vinhcine/src/features/banner/presentation/views/banner.dart';
-import 'package:vinhcine/src/features/home/domain/models/movie.dart';
+import 'package:vinhcine/src/features/home/domain/models/movie_tab.dart';
+import 'package:vinhcine/src/features/home/presentation/cubit/movie_tab_cubit.dart';
 import 'package:vinhcine/src/features/home/presentation/widgets/cinema_direction.dart';
 import 'package:vinhcine/src/features/home/presentation/widgets/movie_info.dart';
+import 'package:vinhcine/src/features/home/presentation/widgets/movie_tab_title.dart';
 import 'package:vinhcine/src/features/home/presentation/widgets/movies_carousel.dart';
 import 'package:vinhcine/src/features/home/presentation/cubit/movie_data_cubit.dart';
 import 'package:vinhcine/src/features/home/presentation/cubit/movie_selector_cubit.dart';
@@ -37,23 +37,25 @@ class HomeScreen extends StatelessWidget implements AutoRouteWrapper {
   Widget wrappedRoute(BuildContext context) {
     return MultiBlocProvider(
         providers: [
+          BlocProvider<MovieTabCubit>(
+              create: (context) =>
+                  di<MovieTabCubit>()..onSelectedTab(MovieTab.now)),
           BlocProvider<MovieDataCubit>(
-              create: (context) => di<MovieDataCubit>()..getTopPage()),
+              create: (context) => di<MovieDataCubit>()
+                ..getTopPage(di<MovieTabCubit>().state.selectedTab)),
           BlocProvider(
             create: (context) => di<MovieSelectorCubit>(),
           ),
         ],
         child: MultiBlocListener(listeners: [
-          BlocListener<MovieDataCubit, MovieDataState>(
-              listener: (context, state) {
-            if (state is MovieDataLoaded && state.data.isNotEmpty) {
-              int initialIndex = (state.data.length / 2).round();
-              MovieModel data = state.data[initialIndex];
-              context.read<MovieSelectorCubit>().onSelected(initialIndex, data);
-            } else if (state is MovieDataFailure) {
-              context.read<MovieSelectorCubit>().unSelected();
-            }
-          })
+          BlocListener<MovieTabCubit, MovieTabState>(
+            listenWhen: (previous, current) => previous != current,
+            listener: (context, state) {
+              if (state is MovieTabSelected) {
+                context.read<MovieDataCubit>().getTopPage(state.selectedTab);
+              }
+            },
+          )
         ], child: this));
   }
 
@@ -61,22 +63,17 @@ class HomeScreen extends StatelessWidget implements AutoRouteWrapper {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(children: [
-      _backgroundMovieSwitcher(),
-      _backgroundShadow(),
+      _homeBackgroundSwitcher(),
+      _homeBackgroundShadow(),
       _body(context),
       _appBar(context)
     ]));
   }
 
-  Widget _backgroundShadow() {
-    return const Positioned.fill(
-      child: HomeBackgroundShadow(),
-    );
-  }
-
-  Widget _backgroundMovieSwitcher() {
-    return const HomeBackgroundSwitcher();
-  }
+  Widget _homeBackgroundSwitcher() => const HomeBackgroundSwitcher();
+  Widget _homeBackgroundShadow() => const Positioned.fill(
+        child: HomeBackgroundShadow(),
+      );
 
   Widget _appBar(BuildContext context) => SafeArea(
         child: Container(
@@ -111,7 +108,6 @@ class HomeScreen extends StatelessWidget implements AutoRouteWrapper {
       );
 
   Widget _body(BuildContext context) {
-    final appColors = Theme.of(context).extension<AppColors>();
     return SafeArea(
       child: Column(children: [
         SizedBox(height: _appBarHeight + 20),
@@ -119,28 +115,7 @@ class HomeScreen extends StatelessWidget implements AutoRouteWrapper {
           width: MediaQuery.of(context).size.width - 80,
           height: 170,
         ),
-        Container(
-          padding: EdgeInsets.only(top: 20, left: 20, right: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                 'home.tab.now'.tr(),
-                style: AppStyles.titleLargeBold(context)
-              ),
-              Text(
-                'home.tab.special'.tr(),
-                style: AppStyles.titleLargeRegular(context)
-                    .copyWith(color: appColors?.gray),
-              ),
-              Text(
-                'home.tab.comming_soon'.tr(),
-                style: AppStyles.titleLargeRegular(context)
-                    .copyWith(color: appColors?.gray),
-              )
-            ],
-          ),
-        ),
+        const MovieTabTitle(),
         const Expanded(child: MoviesCarousel(width: 300, height: 400)),
         const MovieInfo(),
         const CinemaDirection()

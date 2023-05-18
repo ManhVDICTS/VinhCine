@@ -12,4 +12,7 @@ abstract class TopPageService {
 
   @GET('/api/movie') 
   Future<ArrayResponse<MovieDto>> getTopPage(@Query("date") String date); // dd/MM/yyyy
+
+  @GET('/api/movie?session=true') 
+  Future<ArrayResponse<MovieDto>> getTopPagePeriod(@Query("period") String period); 
 }

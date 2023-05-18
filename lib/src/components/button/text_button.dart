@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../configs/app_themes/app_themes.dart';
+
 class CustomTextButton extends StatelessWidget {
   const CustomTextButton({
     super.key,
@@ -35,5 +37,31 @@ class CustomTextButton extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class TextTabButton extends StatelessWidget {
+  const TextTabButton(
+      {super.key,
+      required this.title,
+      required this.onTap,
+      required this.selectedStatus});
+  final String title;
+  final VoidCallback onTap;
+  final bool selectedStatus;
+
+  @override
+  Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColors>();
+    return GestureDetector(
+        onTap: onTap,
+        child: Container(
+          margin: const EdgeInsets.all(5),
+          child: Text(title,
+              style: selectedStatus
+                  ? AppStyles.titleLargeBold(context)
+                  : AppStyles.titleLargeRegular(context)
+                      .copyWith(color: appColors?.gray)),
+        ));
   }
 }

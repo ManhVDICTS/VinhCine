@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -16,26 +14,27 @@ class MoviesCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MovieSelectorCubit, MovieSelectorState>(
-        buildWhen: (previous, current) => current is MovieSelectorSelected,
-        builder: (context, movieSelectorState) {
-          if (movieSelectorState is MovieSelectorSelected) {
-            final movieDataState = context.read<MovieDataCubit>().state;
-            final data = (movieDataState as MovieDataLoaded).data;
-            final initialIndex = movieSelectorState.index;
-            return CarouselSlider.builder(
-              itemCount: data.length,
-              itemBuilder: (ctx, itemIndex, pageViewIndex) {
-                String imageUrl = data[itemIndex].avatarUrl ?? '';
-                return _carouselItemWidget(imageUrl);
-              },
-              options: _getCarouselOptions(
-                  context: context, initialIndex: initialIndex, data: data),
-            );
-          } else {
-            return const SizedBox.shrink();
-          }
-        });
+    return BlocBuilder<MovieDataCubit, MovieDataState>(
+        builder: (context, state) {
+      if (state is MovieDataLoaded) {
+        final data = state.data;
+        final int initialIndex = (state.data.length / 2).round();
+        context
+            .read<MovieSelectorCubit>()
+            .onSelected(initialIndex, data[initialIndex]);
+        return CarouselSlider.builder(
+          itemCount: data.length,
+          itemBuilder: (ctx, itemIndex, pageViewIndex) {
+            String imageUrl = data[itemIndex].avatarUrl ?? '';
+            return _carouselItemWidget(imageUrl);
+          },
+          options: _getCarouselOptions(
+              context: context, initialIndex: initialIndex, data: data),
+        );
+      } else {
+        return const SizedBox.shrink();
+      }
+    });
   }
 
   Widget _carouselItemWidget(String imageUrl) {
