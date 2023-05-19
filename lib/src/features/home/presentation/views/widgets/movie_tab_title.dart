@@ -10,23 +10,36 @@ class MovieTabTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MovieTabCubit, MovieTabState>(
-      builder: (context, state) {
-        return Container(
-          padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: MovieTab.values
-                .map((movieTab) => TextTabButton(
-                      title: movieTab.title,
-                      onTap: () {
-                        context.read<MovieTabCubit>().onSelectedTab(movieTab);
-                      },
-                      selectedStatus: state.selectedTab == movieTab,
-                    ))
-                .toList(),
-          ),
-        );
-      },
+      builder: (context, state) => Container(
+        padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: _moviesTabData(context, state.selectedTab),
+        ),
+      ),
+    );
+  }
+
+  List<Widget> _moviesTabData(BuildContext context, MovieTab selectedTab) {
+    return MovieTab.values
+        .map((movieTab) => _moviesTabItem(
+              title: movieTab.title,
+              selectedStatus: selectedTab == movieTab,
+              onTap: () {
+                context.read<MovieTabCubit>().onSelectedTab(movieTab);
+              },
+            ))
+        .toList();
+  }
+
+  Widget _moviesTabItem(
+      {required String title,
+      required bool selectedStatus,
+      required VoidCallback onTap}) {
+    return TextTabButton(
+      title: title,
+      onTap: onTap,
+      selectedStatus: selectedStatus,
     );
   }
 }

@@ -22,7 +22,7 @@ class MoviesCarousel extends StatelessWidget {
           itemCount: data.length,
           itemBuilder: (ctx, itemIndex, pageViewIndex) =>
               _carouselItemBuilder(imageUrl: data[itemIndex].avatarUrl ?? ''),
-          options: _getCarouselOptions(
+          options: _createCarouselOptions(
               initialIndex: initialIndex,
               enableInfiniteScroll: data.length > 2,
               onPagedChanged: (index) => context
@@ -49,7 +49,7 @@ class MoviesCarousel extends StatelessWidget {
     );
   }
 
-  CarouselOptions _getCarouselOptions(
+  CarouselOptions _createCarouselOptions(
       {required int initialIndex,
       required bool enableInfiniteScroll,
       required Function(int) onPagedChanged}) {
