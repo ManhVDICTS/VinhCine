@@ -29,11 +29,7 @@ class ThemeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (c) => di<ThemeCubit>()..updateTheme(
-            MediaQuery.of(context).platformBrightness == Brightness.dark ?
-              ThemeMode.dark :
-              ThemeMode.light,
-        ),
+        create: (c) => di<ThemeCubit>()..initTheme(),
         child: Column(
           children: [
             BlocBuilder<ThemeCubit, ThemeState>(

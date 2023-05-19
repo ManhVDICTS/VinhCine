@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:vinhcine/src/configs/app_configs/app_config.dart';
 import 'package:vinhcine/src/core/network/client/client_provider.dart';
 import 'package:vinhcine/src/core/shared_prefs/access_token_storage.dart';
+import 'package:vinhcine/src/core/shared_prefs/theme_mode_storage.dart';
 import 'package:vinhcine/src/features/banner/data/remote/services/banner_service.dart';
 import 'package:vinhcine/src/features/banner/domain/repositories/banner_repository.dart';
 import 'package:vinhcine/src/features/banner/presentation/cubit/banner_cubit.dart';
@@ -32,6 +33,7 @@ Future<void> initDependencies() async {
   di
     ..registerSingleton<AppConfig>(AppConfig.init())
     ..registerFactory<AccessTokenStorage>(AccessTokenStorage.new)
+    ..registerFactory<ThemeModeStorage>(ThemeModeStorage.new)
     ..registerSingleton<AppDio>(AppDio.init(di<AppConfig>()))
     ..registerSingleton<RootRouter>(RootRouter())
     /// sign in, sign out
