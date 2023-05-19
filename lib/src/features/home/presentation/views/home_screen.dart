@@ -4,20 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/src/components/button/icon_button.dart';
 import 'package:vinhcine/src/configs/app_themes/app_themes.dart';
+import 'package:vinhcine/src/core/di/injections.dart';
 import 'package:vinhcine/src/features/banner/presentation/views/banner.dart';
 import 'package:vinhcine/src/features/home/domain/models/movie_tab.dart';
 import 'package:vinhcine/src/features/home/presentation/cubit/movie_tab_cubit.dart';
-import 'package:vinhcine/src/features/home/presentation/widgets/cinema_direction.dart';
-import 'package:vinhcine/src/features/home/presentation/widgets/movie_info.dart';
-import 'package:vinhcine/src/features/home/presentation/widgets/movie_tab_title.dart';
-import 'package:vinhcine/src/features/home/presentation/widgets/movies_carousel.dart';
 import 'package:vinhcine/src/features/home/presentation/cubit/movie_data_cubit.dart';
 import 'package:vinhcine/src/features/home/presentation/cubit/movie_selector_cubit.dart';
 import 'package:vinhcine/src/router/route_names.dart';
 import 'package:vinhcine/src/router/router.dart';
 
-import '../../../core/di/injections.dart';
-import 'widgets/background.dart';
+import 'widgets/home_widgets.dart';
 
 final List<String> moviesList = [
   'https://www.cgv.vn/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/7/0/700x1000_2_.jpg',
@@ -30,7 +26,7 @@ final List<String> moviesList = [
 
 @RoutePage(name: homeScreenName)
 class HomeScreen extends StatelessWidget implements AutoRouteWrapper {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
   final double _appBarHeight = 48;
 
   @override

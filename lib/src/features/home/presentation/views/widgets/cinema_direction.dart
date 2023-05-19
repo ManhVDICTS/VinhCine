@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../configs/app_themes/app_themes.dart';
+import 'package:vinhcine/src/configs/app_themes/app_themes.dart';
 
 class CinemaDirection extends StatelessWidget {
   const CinemaDirection({super.key});

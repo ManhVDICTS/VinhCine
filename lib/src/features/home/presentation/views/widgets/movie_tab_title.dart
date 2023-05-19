@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vinhcine/src/components/button/text_button.dart';
+import 'package:vinhcine/src/features/home/domain/models/movie_tab.dart';
 import 'package:vinhcine/src/features/home/presentation/cubit/movie_tab_cubit.dart';
-
-import '../../../../components/button/text_button.dart';
-import '../../domain/models/movie_tab.dart';
 
 class MovieTabTitle extends StatelessWidget {
   const MovieTabTitle({super.key});

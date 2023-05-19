@@ -2,11 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/src/components/button/text_button.dart';
+import 'package:vinhcine/src/configs/app_themes/app_themes.dart';
 import 'package:vinhcine/src/core/utis/datetime.dart';
 import 'package:vinhcine/src/features/home/domain/models/movie.dart';
 import 'package:vinhcine/src/features/home/presentation/cubit/movie_selector_cubit.dart';
-
-import '../../../../configs/app_themes/app_themes.dart';
 
 class MovieInfo extends StatelessWidget {
   const MovieInfo({super.key});
