@@ -7,8 +7,8 @@ part 'movie_selector_state.dart';
 class MovieSelectorCubit extends Cubit<MovieSelectorState> {
   MovieSelectorCubit() : super(MovieSelectorInitial());
 
-  void onSelected(int index, MovieModel movie) {
-    emit(MovieSelectorSelected(index, movie));
+  void onSelected(MovieModel movie) {
+    emit(MovieSelectorSelected(movie));
   }
 
   void unSelected() {

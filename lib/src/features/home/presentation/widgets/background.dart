@@ -35,7 +35,6 @@ class HomeBackgroundSwitcher extends StatelessWidget {
     return BlocBuilder<MovieSelectorCubit, MovieSelectorState>(
       builder: (context, state) {
         if (state is MovieSelectorSelected) {
-          int index = state.index;
           String imageUrl = state.movie.avatarUrl ?? '';
           return AnimatedSwitcher(
               duration: const Duration(milliseconds: 500),
@@ -43,7 +42,7 @@ class HomeBackgroundSwitcher extends StatelessWidget {
               child: CachedNetworkImage(
                 width: double.maxFinite,
                 height: double.maxFinite,
-                key: ValueKey(index),
+                key: ValueKey(imageUrl),
                 fit: BoxFit.cover,
                 imageUrl: imageUrl,
                 placeholder: (context, url) =>

@@ -10,13 +10,12 @@ abstract class MovieSelectorState extends Equatable {
 class MovieSelectorInitial extends MovieSelectorState {}
 
 class MovieSelectorSelected extends MovieSelectorState {
-  final int index;
   final MovieModel movie;
 
-  const MovieSelectorSelected(this.index, this.movie);
+  const MovieSelectorSelected(this.movie);
 
   @override
-  List<Object> get props => [index];
+  List<Object> get props => [movie];
 }
 
 class MovieSelectorUnSelected extends MovieSelectorState {}

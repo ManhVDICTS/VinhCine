@@ -5,8 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/src/features/home/presentation/cubit/movie_data_cubit.dart';
 import 'package:vinhcine/src/features/home/presentation/cubit/movie_selector_cubit.dart';
 
-import '../../domain/models/movie.dart';
-
 class MoviesCarousel extends StatelessWidget {
   const MoviesCarousel({super.key, required this.width, required this.height});
   final double width;
@@ -18,18 +16,18 @@ class MoviesCarousel extends StatelessWidget {
         builder: (context, state) {
       if (state is MovieDataLoaded) {
         final data = state.data;
-        final int initialIndex = (state.data.length / 2).round();
-        context
-            .read<MovieSelectorCubit>()
-            .onSelected(initialIndex, data[initialIndex]);
+        final int initialIndex = state.data.length ~/ 2;
+        context.read<MovieSelectorCubit>().onSelected(data[initialIndex]);
         return CarouselSlider.builder(
           itemCount: data.length,
-          itemBuilder: (ctx, itemIndex, pageViewIndex) {
-            String imageUrl = data[itemIndex].avatarUrl ?? '';
-            return _carouselItemWidget(imageUrl);
-          },
+          itemBuilder: (ctx, itemIndex, pageViewIndex) =>
+              _carouselItemBuilder(imageUrl: data[itemIndex].avatarUrl ?? ''),
           options: _getCarouselOptions(
-              context: context, initialIndex: initialIndex, data: data),
+              initialIndex: initialIndex,
+              enableInfiniteScroll: data.length > 2,
+              onPagedChanged: (index) => context
+                  .read<MovieSelectorCubit>()
+                  .onSelected(data[index])),
         );
       } else {
         return const SizedBox.shrink();
@@ -37,7 +35,7 @@ class MoviesCarousel extends StatelessWidget {
     });
   }
 
-  Widget _carouselItemWidget(String imageUrl) {
+  Widget _carouselItemBuilder({required String imageUrl}) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(12),
       child: CachedNetworkImage(
@@ -52,17 +50,18 @@ class MoviesCarousel extends StatelessWidget {
   }
 
   CarouselOptions _getCarouselOptions(
-      {required BuildContext context,
-      required int initialIndex,
-      required List<MovieModel> data}) {
+      {required int initialIndex,
+      required bool enableInfiniteScroll,
+      required Function(int) onPagedChanged}) {
     return CarouselOptions(
       enlargeCenterPage: true,
       enlargeStrategy: CenterPageEnlargeStrategy.height,
+      enableInfiniteScroll: enableInfiniteScroll,
       height: height,
       initialPage: initialIndex,
       viewportFraction: 0.75,
       onPageChanged: (index, reason) {
-        context.read<MovieSelectorCubit>().onSelected(index, data[index]);
+        onPagedChanged.call(index);
       },
     );
   }
