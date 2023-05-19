@@ -25,7 +25,7 @@ class LanguageItem extends StatelessWidget {
             }
           : null,
       child: Container(
-        color: appColors!.light,
+        color: appColors!.settingItemBackground,
         child: Column(
           children: [
             const SizedBox(height: 16),
@@ -38,7 +38,7 @@ class LanguageItem extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: TextStyle(
-                        color: appColors!.dark,
+                        color: appColors!.settingTextColor,
                         fontSize: 16,
                         fontWeight: FontWeight.normal),
                   ),
@@ -56,7 +56,7 @@ class LanguageItem extends StatelessWidget {
             const SizedBox(height: 16),
             Visibility(
               visible: enableSeparate,
-              child: Container(color: appColors!.darkGray, height: 1),
+              child: Container(color: appColors!.settingSeparateColor, height: 1),
             ),
           ],
         ),

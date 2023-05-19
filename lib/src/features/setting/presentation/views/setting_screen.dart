@@ -32,7 +32,7 @@ class SettingScreen extends StatelessWidget implements AutoRouteWrapper{
     appColors = Theme.of(context).extension<AppColors>();
     _currentContext = context;
     return Scaffold(
-      backgroundColor: appColors!.brown,
+      backgroundColor: appColors!.settingBackground,
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -91,7 +91,7 @@ class SettingScreen extends StatelessWidget implements AutoRouteWrapper{
     return Container(
       width: MediaQuery.of(_currentContext).size.width,
       height: statusBarHeight + 48,
-      color: appColors?.crimson,
+      color: appColors?.settingAppbar,
     );
   }
 
@@ -101,7 +101,7 @@ class SettingScreen extends StatelessWidget implements AutoRouteWrapper{
       style: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.normal,
-          color: appColors!.darkBrown),
+          color: appColors!.settingTitleBackground),
     );
   }
 

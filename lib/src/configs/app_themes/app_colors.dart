@@ -7,25 +7,23 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.hintGray,
     required this.gray,
     required this.backgroundDark,
-    required this.crimson,
-    required this.brown,
-    required this.white,
-    required this.dark,
-    required this.light,
-    required this.darkBrown,
-    required this.darkGray,
+    required this.settingAppbar,
+    required this.settingBackground,
+    required this.settingTextColor,
+    required this.settingItemBackground,
+    required this.settingTitleBackground,
+    required this.settingSeparateColor,
   });
   final Color red;
   final Color hintGray;
   final Color backgroundDark;
   final Color gray;
-  final Color crimson;
-  final Color brown;
-  final Color white;
-  final Color dark;
-  final Color light;
-  final Color darkBrown;
-  final Color darkGray;
+  final Color settingAppbar;
+  final Color settingBackground;
+  final Color settingTextColor;
+  final Color settingItemBackground;
+  final Color settingTitleBackground;
+  final Color settingSeparateColor;
 
   @override
   AppColors copyWith({
@@ -33,26 +31,24 @@ class AppColors extends ThemeExtension<AppColors> {
     Color? hintGray,
     Color? backgroundDark,
     Color? gray,
-    Color? crimson,
-    Color? brown,
-    Color? white,
-    Color? dark,
-    Color? light,
-    Color? darkBrown,
-    Color? darkGray,
+    Color? settingAppbar,
+    Color? settingBackground,
+    Color? settingTextColor,
+    Color? settingItemBackground,
+    Color? settingTitleBackground,
+    Color? settingSeparateColor,
   }) {
     return AppColors(
       red: red ?? this.red,
       hintGray: hintGray ?? this.hintGray,
       backgroundDark: backgroundDark ?? this.backgroundDark,
       gray: gray ?? this.gray,
-      crimson: crimson ?? this.crimson,
-      brown: brown ?? this.brown,
-      white: white ?? this.white,
-      dark: dark ?? this.dark,
-      light: light ?? this.light,
-      darkBrown: darkBrown ?? this.darkBrown,
-      darkGray: darkGray ?? this.darkGray,
+      settingAppbar: settingAppbar ?? this.settingAppbar,
+      settingBackground: settingBackground ?? this.settingBackground,
+      settingTextColor: settingTextColor ?? this.settingTextColor,
+      settingItemBackground: settingItemBackground ?? this.settingItemBackground,
+      settingTitleBackground: settingTitleBackground ?? this.settingTitleBackground,
+      settingSeparateColor: settingSeparateColor ?? this.settingSeparateColor,
     );
   }
 
@@ -67,13 +63,12 @@ class AppColors extends ThemeExtension<AppColors> {
       backgroundDark:
           Color.lerp(backgroundDark, other.backgroundDark, t) ?? backgroundDark,
       gray: Color.lerp(gray, other.gray, t) ?? gray,
-      crimson: Color.lerp(crimson, other.crimson, t) ?? crimson,
-      brown: Color.lerp(brown, other.brown, t) ?? brown,
-      white: Color.lerp(white, other.white, t) ?? white,
-      dark: Color.lerp(dark, other.dark, t) ?? dark,
-      light: Color.lerp(light, other.light, t) ?? light,
-      darkBrown: Color.lerp(darkBrown, other.darkBrown, t) ?? darkBrown,
-      darkGray: Color.lerp(darkGray, other.darkGray, t) ?? darkGray,
+      settingAppbar: Color.lerp(settingAppbar, other.settingAppbar, t) ?? settingAppbar,
+      settingBackground: Color.lerp(settingBackground, other.settingBackground, t) ?? settingBackground,
+      settingTextColor: Color.lerp(settingTextColor, other.settingTextColor, t) ?? settingTextColor,
+      settingItemBackground: Color.lerp(settingItemBackground, other.settingItemBackground, t) ?? settingItemBackground,
+      settingTitleBackground: Color.lerp(settingTitleBackground, other.settingTitleBackground, t) ?? settingTitleBackground,
+      settingSeparateColor: Color.lerp(settingSeparateColor, other.settingSeparateColor, t) ?? settingSeparateColor,
     );
   }
 }
