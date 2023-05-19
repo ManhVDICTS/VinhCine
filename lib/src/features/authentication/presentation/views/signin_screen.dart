@@ -30,10 +30,12 @@ class SignInScreen extends StatelessWidget implements AutoRouteWrapper {
   final _passwordController = TextEditingController(text: '111111');
 
   late BuildContext _currentContext;
+  late AppColors? appColors;
 
   @override
   Widget build(BuildContext context) {
     _currentContext = context;
+    appColors = Theme.of(context).extension<AppColors>();
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is SignInFail) {
@@ -70,6 +72,9 @@ class SignInScreen extends StatelessWidget implements AutoRouteWrapper {
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
                   color: AppColorss.borderColor),
+              enabledBorderColor: appColors!.signInSeparateColor,
+              focusedBorderColor: appColors!.signInFocusColor,
+              closeColor: appColors!.signInBackground,
             ),
           ),
           const SizedBox(height: 12),
@@ -84,6 +89,9 @@ class SignInScreen extends StatelessWidget implements AutoRouteWrapper {
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
                   color: AppColorss.borderColor),
+              enabledBorderColor: appColors!.signInSeparateColor,
+              focusedBorderColor: appColors!.signInFocusColor,
+              closeColor: appColors!.signInBackground,
             ),
           ),
           const SizedBox(height: 32),
@@ -92,10 +100,12 @@ class SignInScreen extends StatelessWidget implements AutoRouteWrapper {
               final isLoading = state is SignInLoading;
               return Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: AppCrimsonButton(
+                child: AppButton(
                   title: 'Đăng nhập',
                   onPressed: isLoading ? null : _signIn,
                   isLoading: isLoading,
+                  backgroundColor: appColors!.signInButtonColor,
+                  textColor: appColors!.signInTextButtonColor,
                 ),
               );
             },
@@ -103,13 +113,15 @@ class SignInScreen extends StatelessWidget implements AutoRouteWrapper {
           const SizedBox(height: 24),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: AppWhiteButton(
+            child: AppButton(
               title: 'Quên mật khẩu?',
               fontStyle: FontStyle.italic,
               fontWeight: FontWeight.normal,
               onPressed: () =>
                   {_currentContext.pushRoute(ForgotPasswordScreenRoute())},
               isLoading: false,
+              backgroundColor: appColors!.signInBackground,
+              textColor: appColors!.signInFocusColor,
             ),
           ),
           const SizedBox(height: 24),
@@ -120,11 +132,14 @@ class SignInScreen extends StatelessWidget implements AutoRouteWrapper {
           const SizedBox(height: 24),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: AppBorderButton(
+            child: AppButton(
               title: 'Đăng ký tài khoản',
               onPressed: () =>
                   {_currentContext.pushRoute(RegisterScreenRoute())},
               isLoading: false,
+              backgroundColor: appColors!.signInBackground,
+              textColor: appColors!.signInTextColor,
+              border: Border.all(color: appColors!.signInSeparateColor, width: 1)
             ),
           ),
         ],
@@ -134,7 +149,7 @@ class SignInScreen extends StatelessWidget implements AutoRouteWrapper {
 
   Widget _buildBodyWidget() {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: appColors!.signInBackground,
       body: Stack(
         children: [
           buildSignInWidget(),
@@ -153,20 +168,20 @@ class SignInScreen extends StatelessWidget implements AutoRouteWrapper {
         Positioned.fill(
           child: Align(
               alignment: Alignment.center,
-              child: Container(color: AppColorss.borderColor, height: 1)),
+              child: Container(color: appColors!.signInSeparateColor, height: 1)),
         ),
         Align(
           alignment: Alignment.center,
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 10),
-            color: Colors.white,
-            child: const Text(
+            color: appColors!.signInBackground,
+            child: Text(
               "hoặc",
               style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
                   fontStyle: FontStyle.italic,
-                  color: Colors.black),
+                  color: appColors!.signInTextColor,),
             ),
           ),
         )

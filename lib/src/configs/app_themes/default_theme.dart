@@ -28,6 +28,14 @@ ThemeData getThemeDefault() {
         profileIconColor: Color(0xFFAD2F34),
         profileBarCodeBg: Color(0xFFD4D4D6),
         profileBarCodeText: Color(0xFF081012),
+        /// sign in screen
+        signInBackground: Color(0xFFD9D5CB),
+        signInButtonColor: Color(0xFFAD2F34),
+        signInTextButtonColor: Color(0xFFFFFFFF),
+        signInSeparateColor: Color(0xFF979ca8),
+        signInTextColor: Color(0xFF081012),
+        signInLinkColor: Color(0xFF195777),
+        signInFocusColor: Color(0xFFAD2F34),
       ),
       const AppFonts(mainFont: 'Poppins', subFont: 'Inter')
     ],
@@ -60,6 +68,14 @@ ThemeData getDarkDefault() {
         profileIconColor: Color(0xFF00AFA5),
         profileBarCodeBg: Color(0xFFD4D4D6),
         profileBarCodeText: Color(0xFF081012),
+        /// sign in screen
+        signInBackground: Color(0xFF4C4C4F),
+        signInButtonColor: Color(0xFF195777),
+        signInTextButtonColor: Color(0xFFD4D4D6),
+        signInSeparateColor: Color(0xFFD4D4D6),
+        signInTextColor: Color(0xFFD4D4D6),
+        signInLinkColor: Color(0xFF195777),
+        signInFocusColor: Color(0xFF00AFA5),
       ),
       const AppFonts(mainFont: 'Poppins', subFont: 'Inter')
     ],

@@ -23,6 +23,13 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.profileIconColor,
     required this.profileBarCodeBg,
     required this.profileBarCodeText,
+    required this.signInBackground,
+    required this.signInButtonColor,
+    required this.signInTextButtonColor,
+    required this.signInSeparateColor,
+    required this.signInTextColor,
+    required this.signInLinkColor,
+    required this.signInFocusColor,
   });
   final Color red;
   final Color hintGray;
@@ -44,6 +51,13 @@ class AppColors extends ThemeExtension<AppColors> {
   final Color profileTextButtonColor;
   final Color profileBarCodeBg;
   final Color profileBarCodeText;
+  final Color signInBackground;
+  final Color signInButtonColor;
+  final Color signInTextButtonColor;
+  final Color signInSeparateColor;
+  final Color signInTextColor;
+  final Color signInLinkColor;
+  final Color signInFocusColor;
 
   @override
   AppColors copyWith({
@@ -67,6 +81,13 @@ class AppColors extends ThemeExtension<AppColors> {
     Color? profileTextButtonColor,
     Color? profileBarCodeBg,
     Color? profileBarCodeText,
+    Color? signInBackground,
+    Color? signInButtonColor,
+    Color? signInTextButtonColor,
+    Color? signInSeparateColor,
+    Color? signInTextColor,
+    Color? signInLinkColor,
+    Color? signInFocusColor,
   }) {
     return AppColors(
       red: red ?? this.red,
@@ -89,6 +110,14 @@ class AppColors extends ThemeExtension<AppColors> {
       profileTextButtonColor: profileTextButtonColor ?? this.profileTextButtonColor,
       profileBarCodeBg: profileBarCodeBg ?? this.profileBarCodeBg,
       profileBarCodeText: profileBarCodeText ?? this.profileBarCodeText,
+      signInBackground: signInBackground ?? this.signInBackground,
+      signInButtonColor: signInButtonColor ?? this.signInButtonColor,
+      signInTextButtonColor: signInTextButtonColor ?? this.signInTextButtonColor,
+      signInSeparateColor: signInSeparateColor ?? this.signInSeparateColor,
+      signInTextColor: signInTextColor ?? this.signInTextColor,
+      signInLinkColor: signInLinkColor ?? this.signInLinkColor,
+      signInFocusColor: signInFocusColor ?? this.signInFocusColor,
+
     );
   }
 
@@ -119,6 +148,13 @@ class AppColors extends ThemeExtension<AppColors> {
       profileTextButtonColor: Color.lerp(profileTextButtonColor, other.profileTextButtonColor, t) ?? profileTextButtonColor,
       profileBarCodeBg: Color.lerp(profileBarCodeBg, other.profileBarCodeBg, t) ?? profileBarCodeBg,
       profileBarCodeText: Color.lerp(profileBarCodeText, other.profileBarCodeText, t) ?? profileBarCodeText,
+      signInBackground: Color.lerp(signInBackground, other.signInBackground, t) ?? signInBackground,
+      signInButtonColor: Color.lerp(signInButtonColor, other.signInButtonColor, t) ?? signInButtonColor,
+      signInTextButtonColor: Color.lerp(signInTextButtonColor, other.signInTextButtonColor, t) ?? signInTextButtonColor,
+      signInSeparateColor: Color.lerp(signInSeparateColor, other.signInSeparateColor, t) ?? signInSeparateColor,
+      signInTextColor: Color.lerp(signInTextColor, other.signInTextColor, t) ?? signInTextColor,
+      signInLinkColor: Color.lerp(signInLinkColor, other.signInLinkColor, t) ?? signInLinkColor,
+      signInFocusColor: Color.lerp(signInFocusColor, other.signInFocusColor, t) ?? signInFocusColor,
     );
   }
 }
