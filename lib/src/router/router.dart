@@ -7,13 +7,13 @@ import 'package:vinhcine/src/features/authentication/presentation/views/forgot_p
 import 'package:vinhcine/src/features/authentication/presentation/views/register_screen.dart';
 import 'package:vinhcine/src/features/banner/presentation/cubit/banner_cubit.dart';
 import 'package:vinhcine/src/features/authentication/presentation/views/signin_screen.dart';
-import 'package:vinhcine/src/features/home/presentation/home_screen.dart';
+import 'package:vinhcine/src/features/home/presentation/views/home_screen.dart';
 import 'package:vinhcine/src/features/profile/presentation/views/profile_screen.dart';
 import 'package:vinhcine/src/router/routes/guards/secure_guards.dart';
 
 import '../features/profile/presentation/views/change_password_screen.dart';
 
-part './routes/home_routes.dart';
+part 'routes/home_routes.dart';
 part 'routes/auth_routes.dart';
 part 'routes/profile_routes.dart';
 
