@@ -13,6 +13,16 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.settingItemBackground,
     required this.settingTitleBackground,
     required this.settingSeparateColor,
+    required this.profileAppbar,
+    required this.profileBackground,
+    required this.profileTextColor,
+    required this.profileItemBackground,
+    required this.profileSeparateColor,
+    required this.profileButtonColor,
+    required this.profileTextButtonColor,
+    required this.profileIconColor,
+    required this.profileBarCodeBg,
+    required this.profileBarCodeText,
   });
   final Color red;
   final Color hintGray;
@@ -24,6 +34,16 @@ class AppColors extends ThemeExtension<AppColors> {
   final Color settingItemBackground;
   final Color settingTitleBackground;
   final Color settingSeparateColor;
+  final Color profileAppbar;
+  final Color profileBackground;
+  final Color profileTextColor;
+  final Color profileItemBackground;
+  final Color profileSeparateColor;
+  final Color profileButtonColor;
+  final Color profileIconColor;
+  final Color profileTextButtonColor;
+  final Color profileBarCodeBg;
+  final Color profileBarCodeText;
 
   @override
   AppColors copyWith({
@@ -37,6 +57,16 @@ class AppColors extends ThemeExtension<AppColors> {
     Color? settingItemBackground,
     Color? settingTitleBackground,
     Color? settingSeparateColor,
+    Color? profileAppbar,
+    Color? profileBackground,
+    Color? profileTextColor,
+    Color? profileItemBackground,
+    Color? profileSeparateColor,
+    Color? profileButtonColor,
+    Color? profileIconColor,
+    Color? profileTextButtonColor,
+    Color? profileBarCodeBg,
+    Color? profileBarCodeText,
   }) {
     return AppColors(
       red: red ?? this.red,
@@ -49,6 +79,16 @@ class AppColors extends ThemeExtension<AppColors> {
       settingItemBackground: settingItemBackground ?? this.settingItemBackground,
       settingTitleBackground: settingTitleBackground ?? this.settingTitleBackground,
       settingSeparateColor: settingSeparateColor ?? this.settingSeparateColor,
+      profileAppbar: profileAppbar ?? this.profileAppbar,
+      profileBackground: profileBackground ?? this.profileBackground,
+      profileTextColor: profileTextColor ?? this.profileTextColor,
+      profileItemBackground: profileItemBackground ?? this.profileItemBackground,
+      profileSeparateColor: profileSeparateColor ?? this.profileSeparateColor,
+      profileButtonColor: profileButtonColor ?? this.profileButtonColor,
+      profileIconColor: profileIconColor ?? this.profileIconColor,
+      profileTextButtonColor: profileTextButtonColor ?? this.profileTextButtonColor,
+      profileBarCodeBg: profileBarCodeBg ?? this.profileBarCodeBg,
+      profileBarCodeText: profileBarCodeText ?? this.profileBarCodeText,
     );
   }
 
@@ -69,6 +109,16 @@ class AppColors extends ThemeExtension<AppColors> {
       settingItemBackground: Color.lerp(settingItemBackground, other.settingItemBackground, t) ?? settingItemBackground,
       settingTitleBackground: Color.lerp(settingTitleBackground, other.settingTitleBackground, t) ?? settingTitleBackground,
       settingSeparateColor: Color.lerp(settingSeparateColor, other.settingSeparateColor, t) ?? settingSeparateColor,
+      profileAppbar: Color.lerp(profileAppbar, other.profileAppbar, t) ?? profileAppbar,
+      profileBackground: Color.lerp(profileBackground, other.profileBackground, t) ?? profileBackground,
+      profileTextColor: Color.lerp(profileTextColor, other.profileTextColor, t) ?? profileTextColor,
+      profileItemBackground: Color.lerp(profileItemBackground, other.profileItemBackground, t) ?? profileItemBackground,
+      profileSeparateColor: Color.lerp(profileSeparateColor, other.profileSeparateColor, t) ?? profileSeparateColor,
+      profileButtonColor: Color.lerp(profileButtonColor, other.profileButtonColor, t) ?? profileButtonColor,
+      profileIconColor: Color.lerp(profileIconColor, other.profileIconColor, t) ?? profileIconColor,
+      profileTextButtonColor: Color.lerp(profileTextButtonColor, other.profileTextButtonColor, t) ?? profileTextButtonColor,
+      profileBarCodeBg: Color.lerp(profileBarCodeBg, other.profileBarCodeBg, t) ?? profileBarCodeBg,
+      profileBarCodeText: Color.lerp(profileBarCodeText, other.profileBarCodeText, t) ?? profileBarCodeText,
     );
   }
 }

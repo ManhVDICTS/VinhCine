@@ -17,6 +17,7 @@ import 'widgets/optional_item.dart';
 @RoutePage(name: profileScreenName)
 class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
   ProfileScreen({super.key});
+  late AppColors? appColors;
 
   @override
   Widget wrappedRoute(BuildContext context) {
@@ -32,6 +33,7 @@ class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
   @override
   Widget build(BuildContext context) {
     _currentContext = context;
+    appColors = Theme.of(context).extension<AppColors>();
     return BlocConsumer<ProfileCubit, ProfileState>(
       listener: (context, state) {
         // TODO: implement listener
@@ -70,7 +72,7 @@ class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
       child: Stack(
         children: [
           Container(
-            color: Colors.white,
+            color: appColors!.profileItemBackground,
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -79,58 +81,43 @@ class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
                     myProfile: myProfile,
                   ),
                   const SizedBox(height: 12),
-                  Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child:
-                          Container(color: AppColorss.borderColor, height: 1)),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: OptionalItem(
-                      text: 'profile.update_info'.tr(),
-                      leadingIcon:
-                          const Icon(Icons.person, color: AppColorss.crimson),
-                      onTap: () {
-                        /// todo do something here
-                      },
-                    ),
+                  Container(color: appColors!.profileSeparateColor, height: 1),
+                  OptionalItem(
+                    text: 'profile.update_info'.tr(),
+                    leadingIcon:
+                        Icon(Icons.person, color: appColors!.profileIconColor),
+                    onTap: () {
+                      /// todo do something here
+                    },
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: OptionalItem(
-                      text: 'profile.change_password'.tr(),
-                      leadingIcon: const Icon(Icons.password_outlined,
-                          color: AppColorss.crimson),
-                      onTap: () {
-                        _currentContext.router
-                            .push(ChangePasswordScreenRoute());
-                      },
-                    ),
+                  OptionalItem(
+                    text: 'profile.change_password'.tr(),
+                    leadingIcon: Icon(Icons.password_outlined,
+                        color: appColors!.profileIconColor),
+                    onTap: () {
+                      _currentContext.router
+                          .push(ChangePasswordScreenRoute());
+                    },
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: OptionalItem(
-                      text: 'profile.transaction_history'.tr(),
-                      leadingIcon: const Icon(
-                        Icons.history,
-                        color: AppColorss.crimson,
-                      ),
-                      onTap: () {
-                        /// todo do something here
-                      },
+                  OptionalItem(
+                    text: 'profile.transaction_history'.tr(),
+                    leadingIcon: Icon(
+                      Icons.history,
+                      color: appColors!.profileIconColor,
                     ),
+                    onTap: () {
+                      /// todo do something here
+                    },
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: OptionalItem(
-                      text: 'setting.title'.tr(),
-                      leadingIcon: const Icon(
-                        Icons.settings,
-                        color: AppColorss.crimson,
-                      ),
-                      onTap: () {
-                        _currentContext.router.push(const SettingScreenRoute());
-                      },
+                  OptionalItem(
+                    text: 'setting.title'.tr(),
+                    leadingIcon: Icon(
+                      Icons.settings,
+                      color: appColors!.profileIconColor,
                     ),
+                    onTap: () {
+                      _currentContext.router.push(const SettingScreenRoute());
+                    },
                   ),
                 ],
               ),
@@ -162,11 +149,13 @@ class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
       },
       builder: (context, state) {
         final isLoading = state is SignOutLoading;
-        return AppCrimsonButton(
+        return AppButton(
           title: 'profile.logout'.tr(),
           onPressed:
               isLoading ? null : _currentContext.read<AuthCubit>().signOut,
           isLoading: isLoading,
+          backgroundColor: appColors!.profileButtonColor,
+          textColor: appColors!.profileTextButtonColor,
         );
       },
     );
@@ -177,13 +166,13 @@ class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
     return Container(
       width: MediaQuery.of(_currentContext).size.width,
       height: statusBarHeight + 48,
-      color: AppColorss.crimson,
+      color: appColors!.profileAppbar,
     );
   }
 
   Widget _buildScaffoldWidget({required Widget child}) {
     return Scaffold(
-      backgroundColor: AppColorss.brown,
+      backgroundColor: appColors!.profileBackground,
       body: Stack(
         children: [
           Column(

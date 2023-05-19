@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:vinhcine/src/components/button/app_button.dart';
 import 'package:vinhcine/src/configs/app_themes/app_colors.dart';
 import 'package:vinhcine/src/features/profile/domain/model/my_profile.dart';
 import 'package:barcode_widget/barcode_widget.dart';
@@ -11,9 +10,11 @@ class ProfileHeader extends StatelessWidget {
   MyProfile myProfile;
 
   ProfileHeader({super.key, required this.myProfile});
+  late AppColors? appColors;
 
   @override
   Widget build(BuildContext context) {
+    appColors = Theme.of(context).extension<AppColors>();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -26,8 +27,8 @@ class ProfileHeader extends StatelessWidget {
           const SizedBox(height: 12),
           Text(
             myProfile.fullName,
-            style: const TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w400, color: Colors.black),
+            style: TextStyle(
+                fontSize: 16, fontWeight: FontWeight.w400, color: appColors!.profileTextColor),
           ),
           const SizedBox(height: 12),
           _buildBarCode(),
@@ -89,14 +90,14 @@ class ProfileHeader extends StatelessWidget {
       children: [
         Text(
           title,
-          style: const TextStyle(
-              fontSize: 12, fontWeight: FontWeight.w400, color: Colors.black),
+          style: TextStyle(
+              fontSize: 12, fontWeight: FontWeight.w400, color: appColors!.profileTextColor),
         ),
         const SizedBox(height: 2),
         Text(
           text,
-          style: const TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w400, color: Colors.black),
+          style: TextStyle(
+              fontSize: 16, fontWeight: FontWeight.w400, color: appColors!.profileTextColor),
         ),
       ],
     );
@@ -104,11 +105,14 @@ class ProfileHeader extends StatelessWidget {
 
   Widget _buildBarCode() {
     return Container(
-      color: AppColorss.borderColor.withAlpha(50),
+      color: appColors!.profileBarCodeBg,
       padding: const EdgeInsets.all(12),
       child: AspectRatio(
         aspectRatio: 5 / 1,
         child: BarcodeWidget(
+          // color: appColors!.profileSeparateColor,
+          style: TextStyle(
+              fontSize: 12, fontWeight: FontWeight.w400, color: appColors!.profileBarCodeText),
           barcode: Barcode.code128(),
           data: myProfile.barCode,
           errorBuilder: (context, error) => Center(child: Text(error)),
