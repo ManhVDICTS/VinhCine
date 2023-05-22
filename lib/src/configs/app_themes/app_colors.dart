@@ -30,6 +30,13 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.signInTextColor,
     required this.signInLinkColor,
     required this.signInFocusColor,
+    required this.registerBackground,
+    required this.registerButtonColor,
+    required this.registerTextButtonColor,
+    required this.registerSeparateColor,
+    required this.registerTextColor,
+    required this.registerLinkColor,
+    required this.registerFocusColor,
   });
   final Color red;
   final Color hintGray;
@@ -58,6 +65,13 @@ class AppColors extends ThemeExtension<AppColors> {
   final Color signInTextColor;
   final Color signInLinkColor;
   final Color signInFocusColor;
+  final Color registerBackground;
+  final Color registerButtonColor;
+  final Color registerTextButtonColor;
+  final Color registerSeparateColor;
+  final Color registerTextColor;
+  final Color registerLinkColor;
+  final Color registerFocusColor;
 
   @override
   AppColors copyWith({
@@ -88,6 +102,13 @@ class AppColors extends ThemeExtension<AppColors> {
     Color? signInTextColor,
     Color? signInLinkColor,
     Color? signInFocusColor,
+    Color? registerBackground,
+    Color? registerButtonColor,
+    Color? registerTextButtonColor,
+    Color? registerSeparateColor,
+    Color? registerTextColor,
+    Color? registerLinkColor,
+    Color? registerFocusColor,
   }) {
     return AppColors(
       red: red ?? this.red,
@@ -117,7 +138,13 @@ class AppColors extends ThemeExtension<AppColors> {
       signInTextColor: signInTextColor ?? this.signInTextColor,
       signInLinkColor: signInLinkColor ?? this.signInLinkColor,
       signInFocusColor: signInFocusColor ?? this.signInFocusColor,
-
+      registerBackground: registerBackground ?? this.registerBackground,
+      registerButtonColor: registerButtonColor ?? this.registerButtonColor,
+      registerTextButtonColor: registerTextButtonColor ?? this.registerTextButtonColor,
+      registerSeparateColor: registerSeparateColor ?? this.registerSeparateColor,
+      registerTextColor: registerTextColor ?? this.registerTextColor,
+      registerLinkColor: registerLinkColor ?? this.registerLinkColor,
+      registerFocusColor: registerFocusColor ?? this.registerFocusColor,
     );
   }
 
@@ -155,6 +182,13 @@ class AppColors extends ThemeExtension<AppColors> {
       signInTextColor: Color.lerp(signInTextColor, other.signInTextColor, t) ?? signInTextColor,
       signInLinkColor: Color.lerp(signInLinkColor, other.signInLinkColor, t) ?? signInLinkColor,
       signInFocusColor: Color.lerp(signInFocusColor, other.signInFocusColor, t) ?? signInFocusColor,
+      registerBackground: Color.lerp(registerBackground, other.registerBackground, t) ?? registerBackground,
+      registerButtonColor: Color.lerp(registerButtonColor, other.registerButtonColor, t) ?? registerButtonColor,
+      registerTextButtonColor: Color.lerp(registerTextButtonColor, other.registerTextButtonColor, t) ?? registerTextButtonColor,
+      registerSeparateColor: Color.lerp(registerSeparateColor, other.registerSeparateColor, t) ?? registerSeparateColor,
+      registerTextColor: Color.lerp(registerTextColor, other.registerTextColor, t) ?? registerTextColor,
+      registerLinkColor: Color.lerp(registerLinkColor, other.registerLinkColor, t) ?? registerLinkColor,
+      registerFocusColor: Color.lerp(registerFocusColor, other.registerFocusColor, t) ?? registerFocusColor,
     );
   }
 }

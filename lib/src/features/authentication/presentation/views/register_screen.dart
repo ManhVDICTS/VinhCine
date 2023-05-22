@@ -27,10 +27,12 @@ class RegisterScreen extends StatelessWidget implements AutoRouteWrapper {
   final _passwordController = TextEditingController(text: '');
   final _fullNameController = TextEditingController(text: '');
   final _phoneController = TextEditingController(text: '');
+  late AppColors? appColors;
 
   @override
   Widget build(BuildContext context) {
     _currentContext = context;
+    appColors = Theme.of(context).extension<AppColors>();
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is RegisterSuccess) {
@@ -40,7 +42,7 @@ class RegisterScreen extends StatelessWidget implements AutoRouteWrapper {
         }
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: appColors!.signInBackground,
         body: Stack(
           children: [
             _buildRegisterWidget(),
@@ -71,6 +73,9 @@ class RegisterScreen extends StatelessWidget implements AutoRouteWrapper {
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
                     color: AppColorss.borderColor),
+                enabledBorderColor: appColors!.registerSeparateColor,
+                focusedBorderColor: appColors!.registerFocusColor,
+                closeColor: appColors!.registerBackground,
               ),
             ),
           ),
@@ -86,7 +91,10 @@ class RegisterScreen extends StatelessWidget implements AutoRouteWrapper {
                 hintStyle: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
-                    color: AppColorss.borderColor),
+                    color: AppColorss.borderColor,),
+                enabledBorderColor: appColors!.registerSeparateColor,
+                focusedBorderColor: appColors!.registerFocusColor,
+                closeColor: appColors!.registerBackground,
               ),
             ),
           ),
@@ -102,6 +110,9 @@ class RegisterScreen extends StatelessWidget implements AutoRouteWrapper {
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
                     color: AppColorss.borderColor),
+                enabledBorderColor: appColors!.registerSeparateColor,
+                focusedBorderColor: appColors!.registerFocusColor,
+                closeColor: appColors!.registerBackground,
               ),
             ),
           ),
@@ -117,6 +128,9 @@ class RegisterScreen extends StatelessWidget implements AutoRouteWrapper {
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
                     color: AppColorss.borderColor),
+                enabledBorderColor: appColors!.registerSeparateColor,
+                focusedBorderColor: appColors!.registerFocusColor,
+                closeColor: appColors!.registerBackground,
               ),
             ),
           ),
@@ -130,10 +144,12 @@ class RegisterScreen extends StatelessWidget implements AutoRouteWrapper {
               final isLoading = state is RegisterLoading;
               return Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: AppCrimsonButton(
+                child: AppButton(
                   title: 'Đăng ký',
                   onPressed: isLoading ? null : _register,
                   isLoading: isLoading,
+                  backgroundColor: appColors!.registerButtonColor,
+                  textColor: appColors!.registerTextButtonColor,
                 ),
               );
             },
@@ -173,30 +189,30 @@ class RegisterScreen extends StatelessWidget implements AutoRouteWrapper {
   }
 
   Widget _buildDescription() {
-    return Row(children: const [
-      Text(
+    return Row(children: [
+      const Text(
         "*",
         style: TextStyle(
             fontSize: 16, fontWeight: FontWeight.w400, color: Colors.red),
       ),
-      SizedBox(width: 12),
+      const SizedBox(width: 12),
       Text(
         "Thông tin bắt buộc",
         style: TextStyle(
-            fontSize: 16, fontWeight: FontWeight.w400, color: Colors.black),
+            fontSize: 16, fontWeight: FontWeight.w400, color: appColors!.registerTextColor),
       ),
     ]);
   }
 
   Widget _buildPolicy() {
     return RichText(
-      text: const TextSpan(children: [
+      text: TextSpan(children: [
         TextSpan(
           text: "Tôi đồng ý với ",
           style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w400,
-              color: Colors.black,
+              color: appColors!.registerTextColor,
               fontStyle: FontStyle.italic),
         ),
         TextSpan(
@@ -205,7 +221,7 @@ class RegisterScreen extends StatelessWidget implements AutoRouteWrapper {
               decoration: TextDecoration.underline,
               fontSize: 16,
               fontWeight: FontWeight.w400,
-              color: Colors.red,
+              color: appColors!.signInFocusColor,
               fontStyle: FontStyle.italic),
         ),
         TextSpan(
@@ -213,7 +229,7 @@ class RegisterScreen extends StatelessWidget implements AutoRouteWrapper {
           style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w400,
-              color: Colors.black,
+              color: appColors!.registerTextColor,
               fontStyle: FontStyle.italic),
         ),
       ]),

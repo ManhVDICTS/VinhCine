@@ -36,6 +36,14 @@ ThemeData getThemeDefault() {
         signInTextColor: Color(0xFF081012),
         signInLinkColor: Color(0xFF195777),
         signInFocusColor: Color(0xFFAD2F34),
+        /// register screen
+        registerBackground: Color(0xFFD9D5CB),
+        registerButtonColor: Color(0xFFAD2F34),
+        registerTextButtonColor: Color(0xFFFFFFFF),
+        registerSeparateColor: Color(0xFF979ca8),
+        registerTextColor: Color(0xFF081012),
+        registerLinkColor: Color(0xFF195777),
+        registerFocusColor: Color(0xFFAD2F34),
       ),
       const AppFonts(mainFont: 'Poppins', subFont: 'Inter')
     ],
@@ -76,6 +84,14 @@ ThemeData getDarkDefault() {
         signInTextColor: Color(0xFFD4D4D6),
         signInLinkColor: Color(0xFF195777),
         signInFocusColor: Color(0xFF00AFA5),
+        /// register screen
+        registerBackground: Color(0xFF4C4C4F),
+        registerButtonColor: Color(0xFF195777),
+        registerTextButtonColor: Color(0xFFD4D4D6),
+        registerSeparateColor: Color(0xFFD4D4D6),
+        registerTextColor: Color(0xFFD4D4D6),
+        registerLinkColor: Color(0xFF195777),
+        registerFocusColor: Color(0xFF00AFA5),
       ),
       const AppFonts(mainFont: 'Poppins', subFont: 'Inter')
     ],
