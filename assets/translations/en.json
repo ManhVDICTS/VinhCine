@@ -9,5 +9,22 @@
         "button" : {
             "booking": "Book Now"
         }
+    },
+    "setting" : {
+        "title": "Setting",
+        "language": "Language",
+        "theme": "Theme",
+        "light": "Light",
+        "dark": "Dark"
+    },
+    "profile" : {
+        "member": "Member",
+        "total_pay": "Total paid",
+        "point": "Point",
+        "watched_film_number": "Watched movies",
+        "update_info": "Update information",
+        "change_password": "Change password",
+        "transaction_history": "Transaction history",
+        "logout": "Logout"
     }
 }

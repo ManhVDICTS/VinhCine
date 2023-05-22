@@ -3,7 +3,7 @@ import 'package:vinhcine/src/components/loading_indicator/loading_indicator_widg
 import 'package:vinhcine/src/configs/app_themes/app_colors.dart';
 import 'package:vinhcine/src/configs/app_themes/app_shadow.dart';
 
-class _AppButton extends StatelessWidget {
+class AppButton extends StatelessWidget {
   String title;
   bool? isLoading;
   VoidCallback? onPressed;
@@ -14,7 +14,7 @@ class _AppButton extends StatelessWidget {
   BoxBorder? border;
   double fontSize;
 
-  _AppButton({
+  AppButton({
     super.key,
     this.title = '',
     this.isLoading = false,
@@ -71,7 +71,7 @@ class _AppButton extends StatelessWidget {
   }
 }
 
-class AppWhiteButton extends _AppButton {
+class AppWhiteButton extends AppButton {
   AppWhiteButton({
     super.key,
     super.title = '',
@@ -86,7 +86,7 @@ class AppWhiteButton extends _AppButton {
         );
 }
 
-class AppTintButton extends _AppButton {
+class AppTintButton extends AppButton {
   AppTintButton({
     super.key,
     super.title = '',
@@ -101,7 +101,7 @@ class AppTintButton extends _AppButton {
         );
 }
 
-class AppCrimsonButton extends _AppButton {
+class AppCrimsonButton extends AppButton {
   AppCrimsonButton({
     super.key,
     super.title = '',
@@ -116,7 +116,7 @@ class AppCrimsonButton extends _AppButton {
         );
 }
 
-class AppBorderButton extends _AppButton {
+class AppBorderButton extends AppButton {
   AppBorderButton({
     super.key,
     super.title = '',

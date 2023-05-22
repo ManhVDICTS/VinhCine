@@ -5,3 +5,4 @@ const String forgotPasswordScreenName = 'ForgotPasswordScreenRoute';
 const String profileScreenName = 'ProfileScreenRoute';
 const String signInScreenRoute = 'SignInScreenRoute';
 const String changePasswordScreenName = 'ChangePasswordScreenRoute';
+const String settingScreenName = 'SettingScreenRoute';
