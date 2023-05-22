@@ -25,10 +25,12 @@ class ForgotPasswordScreen extends StatelessWidget implements AutoRouteWrapper {
       TextEditingController(text: 'manhptit123@gmail.com');
 
   late BuildContext _currentContext;
+  late AppColors? appColors;
 
   @override
   Widget build(BuildContext context) {
     _currentContext = context;
+    appColors = Theme.of(context).extension<AppColors>();
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is EmailInvalid) {
@@ -45,7 +47,7 @@ class ForgotPasswordScreen extends StatelessWidget implements AutoRouteWrapper {
 
   Widget _buildBodyWidget() {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: appColors!.forgotPasswordBackground,
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -53,13 +55,8 @@ class ForgotPasswordScreen extends StatelessWidget implements AutoRouteWrapper {
               children: [
                 _buildBanner(),
                 const SizedBox(height: 12),
-                Container(
-                  height: 48,
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: CustomTextField(
                     controller: _userNameController,
                     keyboardType: TextInputType.emailAddress,
@@ -68,6 +65,9 @@ class ForgotPasswordScreen extends StatelessWidget implements AutoRouteWrapper {
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
                         color: AppColorss.borderColor),
+                    enabledBorderColor: appColors!.forgotPasswordSeparateColor,
+                    focusedBorderColor: appColors!.forgotPasswordFocusColor,
+                    closeColor: appColors!.forgotPasswordBackground,
                   ),
                 ),
                 const SizedBox(height: 32),
@@ -76,10 +76,12 @@ class ForgotPasswordScreen extends StatelessWidget implements AutoRouteWrapper {
                     final isLoading = state is ForgotPasswordLoading;
                     return Container(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: AppCrimsonButton(
+                      child: AppButton(
                         title: 'Tạo mật khẩu mới',
                         onPressed: isLoading ? null : _forgotPassword,
                         isLoading: isLoading,
+                        backgroundColor: appColors!.forgotPasswordButtonColor,
+                        textColor: appColors!.forgotPasswordTextButtonColor,
                       ),
                     );
                   },
@@ -101,7 +103,7 @@ class ForgotPasswordScreen extends StatelessWidget implements AutoRouteWrapper {
     return Container(
       width: MediaQuery.of(_currentContext).size.width,
       height: statusBarHeight + 48,
-      color: AppColorss.crimson,
+      color: appColors!.forgotPasswordAppbar,
     );
   }
 

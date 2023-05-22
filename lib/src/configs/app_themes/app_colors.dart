@@ -37,6 +37,14 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.registerTextColor,
     required this.registerLinkColor,
     required this.registerFocusColor,
+    required this.forgotPasswordBackground,
+    required this.forgotPasswordButtonColor,
+    required this.forgotPasswordTextButtonColor,
+    required this.forgotPasswordSeparateColor,
+    required this.forgotPasswordTextColor,
+    required this.forgotPasswordLinkColor,
+    required this.forgotPasswordFocusColor,
+    required this.forgotPasswordAppbar,
   });
   final Color red;
   final Color hintGray;
@@ -72,6 +80,14 @@ class AppColors extends ThemeExtension<AppColors> {
   final Color registerTextColor;
   final Color registerLinkColor;
   final Color registerFocusColor;
+  final Color forgotPasswordBackground;
+  final Color forgotPasswordButtonColor;
+  final Color forgotPasswordTextButtonColor;
+  final Color forgotPasswordSeparateColor;
+  final Color forgotPasswordTextColor;
+  final Color forgotPasswordLinkColor;
+  final Color forgotPasswordFocusColor;
+  final Color forgotPasswordAppbar;
 
   @override
   AppColors copyWith({
@@ -109,6 +125,14 @@ class AppColors extends ThemeExtension<AppColors> {
     Color? registerTextColor,
     Color? registerLinkColor,
     Color? registerFocusColor,
+    Color? forgotPasswordBackground,
+    Color? forgotPasswordButtonColor,
+    Color? forgotPasswordTextButtonColor,
+    Color? forgotPasswordSeparateColor,
+    Color? forgotPasswordTextColor,
+    Color? forgotPasswordLinkColor,
+    Color? forgotPasswordFocusColor,
+    Color? forgotPasswordAppbar,
   }) {
     return AppColors(
       red: red ?? this.red,
@@ -145,6 +169,15 @@ class AppColors extends ThemeExtension<AppColors> {
       registerTextColor: registerTextColor ?? this.registerTextColor,
       registerLinkColor: registerLinkColor ?? this.registerLinkColor,
       registerFocusColor: registerFocusColor ?? this.registerFocusColor,
+      forgotPasswordBackground: forgotPasswordBackground ?? this.forgotPasswordBackground,
+      forgotPasswordButtonColor: forgotPasswordButtonColor ?? this.forgotPasswordButtonColor,
+      forgotPasswordTextButtonColor: forgotPasswordTextButtonColor ?? this.forgotPasswordTextButtonColor,
+      forgotPasswordSeparateColor: forgotPasswordSeparateColor ?? this.forgotPasswordSeparateColor,
+      forgotPasswordTextColor: forgotPasswordTextColor ?? this.forgotPasswordTextColor,
+      forgotPasswordLinkColor: forgotPasswordLinkColor ?? this.forgotPasswordLinkColor,
+      forgotPasswordFocusColor: forgotPasswordFocusColor ?? this.forgotPasswordFocusColor,
+      forgotPasswordAppbar: forgotPasswordAppbar ?? this.forgotPasswordAppbar,
+
     );
   }
 
@@ -189,6 +222,14 @@ class AppColors extends ThemeExtension<AppColors> {
       registerTextColor: Color.lerp(registerTextColor, other.registerTextColor, t) ?? registerTextColor,
       registerLinkColor: Color.lerp(registerLinkColor, other.registerLinkColor, t) ?? registerLinkColor,
       registerFocusColor: Color.lerp(registerFocusColor, other.registerFocusColor, t) ?? registerFocusColor,
+      forgotPasswordBackground: Color.lerp(forgotPasswordBackground, other.forgotPasswordBackground, t) ?? forgotPasswordBackground,
+      forgotPasswordButtonColor: Color.lerp(forgotPasswordButtonColor, other.forgotPasswordButtonColor, t) ?? forgotPasswordButtonColor,
+      forgotPasswordTextButtonColor: Color.lerp(forgotPasswordTextButtonColor, other.forgotPasswordTextButtonColor, t) ?? forgotPasswordTextButtonColor,
+      forgotPasswordSeparateColor: Color.lerp(forgotPasswordSeparateColor, other.forgotPasswordSeparateColor, t) ?? forgotPasswordSeparateColor,
+      forgotPasswordTextColor: Color.lerp(forgotPasswordTextColor, other.forgotPasswordTextColor, t) ?? forgotPasswordTextColor,
+      forgotPasswordLinkColor: Color.lerp(forgotPasswordLinkColor, other.forgotPasswordLinkColor, t) ?? forgotPasswordLinkColor,
+      forgotPasswordFocusColor: Color.lerp(forgotPasswordFocusColor, other.forgotPasswordFocusColor, t) ?? forgotPasswordFocusColor,
+      forgotPasswordAppbar: Color.lerp(forgotPasswordAppbar, other.forgotPasswordAppbar, t) ?? forgotPasswordAppbar,
     );
   }
 }

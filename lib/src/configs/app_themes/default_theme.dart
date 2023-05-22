@@ -44,6 +44,15 @@ ThemeData getThemeDefault() {
         registerTextColor: Color(0xFF081012),
         registerLinkColor: Color(0xFF195777),
         registerFocusColor: Color(0xFFAD2F34),
+        /// forgot password screen
+        forgotPasswordAppbar: Color(0xFFAD2F34),
+        forgotPasswordBackground: Color(0xFFD9D5CB),
+        forgotPasswordButtonColor: Color(0xFFAD2F34),
+        forgotPasswordTextButtonColor: Color(0xFFFFFFFF),
+        forgotPasswordSeparateColor: Color(0xFF979ca8),
+        forgotPasswordTextColor: Color(0xFF081012),
+        forgotPasswordLinkColor: Color(0xFF195777),
+        forgotPasswordFocusColor: Color(0xFFAD2F34),
       ),
       const AppFonts(mainFont: 'Poppins', subFont: 'Inter')
     ],
@@ -92,6 +101,15 @@ ThemeData getDarkDefault() {
         registerTextColor: Color(0xFFD4D4D6),
         registerLinkColor: Color(0xFF195777),
         registerFocusColor: Color(0xFF00AFA5),
+        /// forgot password screen
+        forgotPasswordAppbar: Color(0xFF195777),
+        forgotPasswordBackground: Color(0xFF4C4C4F),
+        forgotPasswordButtonColor: Color(0xFF195777),
+        forgotPasswordTextButtonColor: Color(0xFFD4D4D6),
+        forgotPasswordSeparateColor: Color(0xFFD4D4D6),
+        forgotPasswordTextColor: Color(0xFFD4D4D6),
+        forgotPasswordLinkColor: Color(0xFF195777),
+        forgotPasswordFocusColor: Color(0xFF00AFA5),
       ),
       const AppFonts(mainFont: 'Poppins', subFont: 'Inter')
     ],
