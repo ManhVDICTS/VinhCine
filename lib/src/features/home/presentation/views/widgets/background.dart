@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vinhcine/src/components/shadow/background_shadow.dart';
 
 import '../../../../../core/di/injections.dart';
 import '../../../../movie_tab/presentation/cubit/cubit.dart';
@@ -11,24 +12,10 @@ class HomeBackgroundShadow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return isFill ? Positioned.fill(child: _background()) : _background();
+    return isFill
+        ? const Positioned.fill(child: BackgroundShadow())
+        : const BackgroundShadow();
   }
-
-  Widget _background() => Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: [0.2, 0.5, 0.7, 1],
-            colors: [
-              Color.fromRGBO(0, 0, 0, 0.6),
-              Color.fromRGBO(0, 0, 0, 0.45),
-              Color.fromRGBO(0, 0, 0, 0.3),
-              Colors.transparent,
-            ],
-          ),
-        ),
-      );
 }
 
 class HomeBackgroundSwitcher extends StatelessWidget {
