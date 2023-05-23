@@ -95,8 +95,7 @@ class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
                     leadingIcon: Icon(Icons.password_outlined,
                         color: appColors!.profileIconColor),
                     onTap: () {
-                      _currentContext.router
-                          .push(ChangePasswordScreenRoute());
+                      _currentContext.router.push(ChangePasswordScreenRoute());
                     },
                   ),
                   OptionalItem(
@@ -186,7 +185,7 @@ class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
           CustomAppBar(
               brightness: false,
               title: 'profile.member'.tr(),
-              onPressed: () => _currentContext.router.pop()),
+              onPressedLeading: () => _currentContext.router.pop()),
         ],
       ),
     );

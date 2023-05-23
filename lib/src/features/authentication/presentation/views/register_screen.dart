@@ -48,7 +48,7 @@ class RegisterScreen extends StatelessWidget implements AutoRouteWrapper {
             _buildRegisterWidget(),
             CustomAppBar(
                 title: "Đăng ký",
-                onPressed: () => _currentContext.router.pop()),
+                onPressedLeading: () => _currentContext.router.pop()),
           ],
         ),
       ),
@@ -89,9 +89,10 @@ class RegisterScreen extends StatelessWidget implements AutoRouteWrapper {
                 obscureText: true,
                 hintText: 'Mật khẩu',
                 hintStyle: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    color: AppColorss.borderColor,),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                  color: AppColorss.borderColor,
+                ),
                 enabledBorderColor: appColors!.registerSeparateColor,
                 focusedBorderColor: appColors!.registerFocusColor,
                 closeColor: appColors!.registerBackground,
@@ -199,7 +200,9 @@ class RegisterScreen extends StatelessWidget implements AutoRouteWrapper {
       Text(
         "Thông tin bắt buộc",
         style: TextStyle(
-            fontSize: 16, fontWeight: FontWeight.w400, color: appColors!.registerTextColor),
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+            color: appColors!.registerTextColor),
       ),
     ]);
   }

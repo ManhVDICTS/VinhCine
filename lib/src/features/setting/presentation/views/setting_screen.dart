@@ -13,8 +13,7 @@ import 'package:vinhcine/src/features/setting/presentation/views/widgets/theme/t
 import 'package:vinhcine/src/router/route_names.dart';
 
 @RoutePage(name: settingScreenName)
-class SettingScreen extends StatelessWidget implements AutoRouteWrapper{
-
+class SettingScreen extends StatelessWidget implements AutoRouteWrapper {
   @override
   Widget wrappedRoute(BuildContext context) {
     return MultiBlocProvider(providers: [
@@ -23,7 +22,8 @@ class SettingScreen extends StatelessWidget implements AutoRouteWrapper{
   }
 
   late BuildContext _currentContext;
-  final _controller = LanguageController(initLocale: const Locale.fromSubtags(languageCode: 'vi'));
+  final _controller = LanguageController(
+      initLocale: const Locale.fromSubtags(languageCode: 'vi'));
   final _themeController = ThemeController(initTheme: false);
   late AppColors? appColors;
 
@@ -47,10 +47,10 @@ class SettingScreen extends StatelessWidget implements AutoRouteWrapper{
                     child: _buildDescription("setting.language".tr())),
                 const SizedBox(height: 12),
                 LanguageWidget(
-                    controller: _controller,
-                    onChanged: (Locale? obj) {
-                      print('onChanged = ${_controller.language.languageCode}');
-                    },
+                  controller: _controller,
+                  onChanged: (Locale? obj) {
+                    print('onChanged = ${_controller.language.languageCode}');
+                  },
                 ),
                 const SizedBox(height: 12),
                 Padding(
@@ -80,7 +80,7 @@ class SettingScreen extends StatelessWidget implements AutoRouteWrapper{
           CustomAppBar(
               brightness: false,
               title: 'setting.title'.tr(),
-              onPressed: () => _currentContext.router.pop()),
+              onPressedLeading: () => _currentContext.router.pop()),
         ],
       ),
     );
@@ -104,5 +104,4 @@ class SettingScreen extends StatelessWidget implements AutoRouteWrapper{
           color: appColors!.settingTitleBackground),
     );
   }
-
 }

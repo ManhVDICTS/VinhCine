@@ -133,14 +133,14 @@ class SignInScreen extends StatelessWidget implements AutoRouteWrapper {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: AppButton(
-              title: 'Đăng ký tài khoản',
-              onPressed: () =>
-                  {_currentContext.pushRoute(RegisterScreenRoute())},
-              isLoading: false,
-              backgroundColor: appColors!.signInBackground,
-              textColor: appColors!.signInTextColor,
-              border: Border.all(color: appColors!.signInSeparateColor, width: 1)
-            ),
+                title: 'Đăng ký tài khoản',
+                onPressed: () =>
+                    {_currentContext.pushRoute(RegisterScreenRoute())},
+                isLoading: false,
+                backgroundColor: appColors!.signInBackground,
+                textColor: appColors!.signInTextColor,
+                border: Border.all(
+                    color: appColors!.signInSeparateColor, width: 1)),
           ),
         ],
       ),
@@ -155,7 +155,7 @@ class SignInScreen extends StatelessWidget implements AutoRouteWrapper {
           buildSignInWidget(),
           CustomAppBar(
             title: "Đăng nhập",
-            onPressed: () => _currentContext.router.pop(),
+            onPressedLeading: () => _currentContext.router.pop(),
           ),
         ],
       ),
@@ -168,7 +168,8 @@ class SignInScreen extends StatelessWidget implements AutoRouteWrapper {
         Positioned.fill(
           child: Align(
               alignment: Alignment.center,
-              child: Container(color: appColors!.signInSeparateColor, height: 1)),
+              child:
+                  Container(color: appColors!.signInSeparateColor, height: 1)),
         ),
         Align(
           alignment: Alignment.center,
@@ -178,10 +179,11 @@ class SignInScreen extends StatelessWidget implements AutoRouteWrapper {
             child: Text(
               "hoặc",
               style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  fontStyle: FontStyle.italic,
-                  color: appColors!.signInTextColor,),
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                fontStyle: FontStyle.italic,
+                color: appColors!.signInTextColor,
+              ),
             ),
           ),
         )

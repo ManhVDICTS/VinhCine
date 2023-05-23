@@ -1,59 +1,73 @@
 import 'package:flutter/material.dart';
 import 'package:vinhcine/src/components/shadow/background_shadow.dart';
+import 'package:vinhcine/src/configs/app_themes/app_themes.dart';
+import 'package:vinhcine/src/core/utis/context.dart';
 
 class CustomAppBar extends StatelessWidget {
-  CustomAppBar(
+  const CustomAppBar(
       {super.key,
-      required this.onPressed,
+      required this.onPressedLeading,
       required this.title,
-      this.brightness = true});
+      this.brightness = true,
+      this.leadingIcon =
+          const Icon(Icons.arrow_back_outlined, size: 32, color: Colors.white),
+      this.trailingIcon,
+      this.onPressedTrailing});
 
-  Function onPressed;
-  String title;
-  bool brightness;
-
-  late BuildContext _currentContext;
+  final Icon leadingIcon;
+  final Function onPressedLeading;
+  final Icon? trailingIcon;
+  final Function? onPressedTrailing;
+  final String title;
+  final bool brightness;
 
   @override
   Widget build(BuildContext context) {
-    _currentContext = context;
     return Stack(
       children: [
         Visibility(
             visible: brightness,
             child: BackgroundShadow(
-              height: MediaQuery.of(_currentContext).size.width / 2.5,
+              height: context.screenWidth / 2.5,
             )),
-        _appBar(),
+        _appBar(context),
       ],
     );
   }
 
-  Widget _appBar() => SafeArea(
+  Widget _appBar(BuildContext context) => SafeArea(
         child: SizedBox(
           height: 48,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               IconButton(
-                padding: EdgeInsets.all(5),
-                icon: const Icon(Icons.arrow_back_outlined,
-                    size: 25, color: Colors.white),
+                padding: const EdgeInsets.all(5),
+                icon: leadingIcon,
                 onPressed: () {
-                  onPressed();
+                  onPressedLeading();
                 },
               ),
-              Expanded(
-                child: Text(
-                  title,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.normal),
-                ),
+              Text(
+                title,
+                style: AppStyles.titleLargeRegular(context),
               ),
+              const Spacer(),
+              _trailingIcon(),
             ],
           ),
         ),
       );
+
+  Widget _trailingIcon() {
+    return (trailingIcon != null)
+        ? IconButton(
+            padding: const EdgeInsets.all(5),
+            icon: trailingIcon!,
+            onPressed: () {
+              onPressedTrailing?.call();
+            },
+          )
+        : const SizedBox.shrink();
+  }
 }
