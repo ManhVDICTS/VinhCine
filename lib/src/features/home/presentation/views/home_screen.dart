@@ -3,9 +3,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:vinhcine/src/features/banner/presentation/views/banner.dart';
 import 'package:vinhcine/src/features/home/presentation/views/widgets/home_appbar.dart';
-import 'package:vinhcine/src/features/movie_tab/domain/models/movie.dart';
-import 'package:vinhcine/src/features/movie_tab/domain/models/movie_tab.dart';
-import 'package:vinhcine/src/features/movie_tab/presentation/views/movie_tab.dart';
+import 'package:vinhcine/src/features/movie/domain/models/movie.dart';
+import 'package:vinhcine/src/features/movie/domain/models/movie_tab.dart';
+import 'package:vinhcine/src/features/movie/presentation/views/movie_tab.dart';
 import 'package:vinhcine/src/router/route_names.dart';
 import 'package:vinhcine/src/router/router.dart';
 

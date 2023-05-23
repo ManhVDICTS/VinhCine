@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:vinhcine/src/components/button/text_button.dart';
 import 'package:vinhcine/src/configs/app_themes/app_themes.dart';
 import 'package:vinhcine/src/core/utis/datetime.dart';
-import 'package:vinhcine/src/features/movie_tab/domain/models/movie.dart';
+import 'package:vinhcine/src/features/movie/domain/models/movie.dart';
 
 class MovieTabBottom extends StatelessWidget {
   const MovieTabBottom(

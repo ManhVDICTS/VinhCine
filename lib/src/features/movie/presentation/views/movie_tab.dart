@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vinhcine/src/features/movie_tab/domain/models/movie_tab.dart';
+import 'package:vinhcine/src/features/movie/domain/models/movie_tab.dart';
 
 import '../../../../core/di/injections.dart';
 import '../../domain/models/movie.dart';

@@ -1,7 +1,7 @@
-import 'package:vinhcine/src/features/movie_tab/data/remote/dtos/movie_dto.dart';
-import 'package:vinhcine/src/features/movie_tab/domain/models/genre_mapper.dart';
-import 'package:vinhcine/src/features/movie_tab/domain/models/movie_session_mapper.dart';
-import 'package:vinhcine/src/features/movie_tab/domain/models/type_mapper.dart';
+import 'package:vinhcine/src/features/movie/data/remote/dtos/movie_dto.dart';
+import 'package:vinhcine/src/features/movie/domain/models/genre_mapper.dart';
+import 'package:vinhcine/src/features/movie/domain/models/movie_session_mapper.dart';
+import 'package:vinhcine/src/features/movie/domain/models/type_mapper.dart';
 
 import 'movie.dart';
 

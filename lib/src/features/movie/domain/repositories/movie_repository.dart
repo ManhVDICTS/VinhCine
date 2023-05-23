@@ -1,8 +1,8 @@
 import 'dart:developer';
 
 import 'package:vinhcine/src/core/failures/failure.dart';
-import 'package:vinhcine/src/features/movie_tab/data/remote/services/toppage_service.dart';
-import 'package:vinhcine/src/features/movie_tab/domain/models/movie.dart';
+import 'package:vinhcine/src/features/movie/data/remote/services/toppage_service.dart';
+import 'package:vinhcine/src/features/movie/domain/models/movie.dart';
 import '../models/movie_tab.dart';
 import 'movie_repository_mapper.dart';
 import 'package:dartz/dartz.dart';

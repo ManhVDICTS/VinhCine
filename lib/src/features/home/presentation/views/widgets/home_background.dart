@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vinhcine/src/components/shadow/background_shadow.dart';
 
 import '../../../../../core/di/injections.dart';
-import '../../../../movie_tab/presentation/cubit/cubit.dart';
+import '../../../../movie/presentation/cubit/cubit.dart';
 
 class HomeBackgroundShadow extends StatelessWidget {
   const HomeBackgroundShadow({super.key, this.isFill = true});

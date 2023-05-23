@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:vinhcine/src/features/movie_tab/domain/models/movie.dart';
+import 'package:vinhcine/src/features/movie/domain/models/movie.dart';
 
 class MovieTabBodyOptions {
   final double width;

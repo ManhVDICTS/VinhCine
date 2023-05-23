@@ -1,5 +1,5 @@
-import 'package:vinhcine/src/features/movie_tab/domain/models/genre.dart';
-import 'package:vinhcine/src/features/movie_tab/domain/models/movie_session.dart';
+import 'package:vinhcine/src/features/movie/domain/models/genre.dart';
+import 'package:vinhcine/src/features/movie/domain/models/movie_session.dart';
 import 'type.dart';
 
 class MovieModel {
