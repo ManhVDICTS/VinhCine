@@ -8,6 +8,7 @@ import 'package:vinhcine/src/features/authentication/presentation/views/register
 import 'package:vinhcine/src/features/banner/presentation/cubit/banner_cubit.dart';
 import 'package:vinhcine/src/features/authentication/presentation/views/signin_screen.dart';
 import 'package:vinhcine/src/features/home/presentation/views/home_screen.dart';
+import 'package:vinhcine/src/features/movie_tab/presentation/cubit/cubit.dart';
 import 'package:vinhcine/src/features/profile/presentation/views/profile_screen.dart';
 import 'package:vinhcine/src/features/setting/presentation/views/setting_screen.dart';
 import 'package:vinhcine/src/router/routes/guards/secure_guards.dart';
@@ -43,6 +44,9 @@ class RootWrapperPage extends StatelessWidget {
     return MultiBlocProvider(providers: [
       BlocProvider<BannerCubit>(
           create: (context) => di<BannerCubit>()..getBanner()),
+      BlocProvider<MovieSelectorCubit>(
+        create: (context) => di<MovieSelectorCubit>(),
+      )
     ], child: const AutoRouter());
   }
 }

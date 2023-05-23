@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../components/button/icon_button.dart';
@@ -9,8 +8,10 @@ class HomeAppBar extends StatelessWidget {
       {super.key,
       required this.height,
       required this.onTapLeading,
-      required this.onTapTrailing});
+      required this.onTapTrailing,
+      required this.title});
   final double height;
+  final String title;
   final VoidCallback onTapLeading;
   final VoidCallback onTapTrailing;
 
@@ -28,7 +29,7 @@ class HomeAppBar extends StatelessWidget {
               onTap: onTapLeading,
             ),
             Text(
-              'home.title'.tr(),
+              title,
               style: AppStyles.headerMediumBold(context),
             ),
             CustomIconButton(

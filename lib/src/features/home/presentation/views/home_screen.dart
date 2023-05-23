@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:vinhcine/src/features/banner/presentation/views/banner.dart';
 import 'package:vinhcine/src/features/home/presentation/views/widgets/home_appbar.dart';
@@ -34,6 +35,7 @@ class HomeScreen extends StatelessWidget {
       _body(context),
       HomeAppBar(
         height: 48,
+        title: 'home.title'.tr(),
         onTapLeading: () => context.router.push(ProfileScreenRoute()),
         onTapTrailing: () => context.router.push(SignInScreenRoute()),
       )

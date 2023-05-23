@@ -31,9 +31,6 @@ class MovieTab extends StatelessWidget {
         BlocProvider<MovieDataCubit>(
           create: (context) => di<MovieDataCubit>()..getTopPage(initialTab),
         ),
-        BlocProvider(
-          create: (context) => di<MovieSelectorCubit>(),
-        ),
       ],
       child: Expanded(
         flex: isExpanded ? 1 : 0,
