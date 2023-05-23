@@ -1,5 +1,5 @@
-import 'package:vinhcine/src/features/home/data/remote/dtos/movie_session_dto.dart';
-import 'package:vinhcine/src/features/home/domain/models/session_mapper.dart';
+import 'package:vinhcine/src/features/movie_tab/data/remote/dtos/movie_session_dto.dart';
+import 'package:vinhcine/src/features/movie_tab/domain/models/session_mapper.dart';
 
 import 'movie_session.dart';
 

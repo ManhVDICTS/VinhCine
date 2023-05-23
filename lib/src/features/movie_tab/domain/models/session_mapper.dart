@@ -1,4 +1,4 @@
-import 'package:vinhcine/src/features/home/data/remote/dtos/session_dto.dart';
+import 'package:vinhcine/src/features/movie_tab/data/remote/dtos/session_dto.dart';
 import 'session.dart';
 
 extension SessionData on SessionDto {

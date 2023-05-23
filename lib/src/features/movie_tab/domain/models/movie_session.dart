@@ -1,4 +1,4 @@
-import 'package:vinhcine/src/features/home/domain/models/session.dart';
+import 'package:vinhcine/src/features/movie_tab/domain/models/session.dart';
 
 class MovieSessionModel {
   final String? cinemaId;

@@ -6,11 +6,11 @@ import 'package:vinhcine/src/core/shared_prefs/theme_mode_storage.dart';
 import 'package:vinhcine/src/features/banner/data/remote/services/banner_service.dart';
 import 'package:vinhcine/src/features/banner/domain/repositories/banner_repository.dart';
 import 'package:vinhcine/src/features/banner/presentation/cubit/banner_cubit.dart';
-import 'package:vinhcine/src/features/home/data/remote/services/toppage_service.dart';
-import 'package:vinhcine/src/features/home/domain/repositories/movie_repository.dart';
-import 'package:vinhcine/src/features/home/presentation/cubit/movie_data_cubit.dart';
-import 'package:vinhcine/src/features/home/presentation/cubit/movie_selector_cubit.dart';
-import 'package:vinhcine/src/features/home/presentation/cubit/movie_tab_cubit.dart';
+import 'package:vinhcine/src/features/movie_tab/data/remote/services/toppage_service.dart';
+import 'package:vinhcine/src/features/movie_tab/domain/repositories/movie_repository.dart';
+import 'package:vinhcine/src/features/movie_tab/presentation/cubit/movie_data_cubit.dart';
+import 'package:vinhcine/src/features/movie_tab/presentation/cubit/movie_selector_cubit.dart';
+import 'package:vinhcine/src/features/movie_tab/presentation/cubit/movie_tab_cubit.dart';
 import 'package:vinhcine/src/features/profile/data/remote/services/profile_service.dart';
 import 'package:vinhcine/src/features/profile/data/remote/services/profile_service_no_token.dart';
 import 'package:vinhcine/src/features/profile/domain/repositories/profile_repository.dart';
@@ -37,6 +37,7 @@ Future<void> initDependencies() async {
     ..registerFactory<ThemeModeStorage>(ThemeModeStorage.new)
     ..registerSingleton<AppDio>(AppDio.init(di<AppConfig>()))
     ..registerSingleton<RootRouter>(RootRouter())
+
     /// sign in, sign out
     ..registerSingleton<AuthService>(
       AuthService(di<AppDio>().authDio),
@@ -65,16 +66,16 @@ Future<void> initDependencies() async {
       () => ProfileCubit(di<ProfileRepository>()),
     )
     ..registerFactory<ChangePasswordCubit>(
-          () => ChangePasswordCubit(di<ProfileRepository>()),
+      () => ChangePasswordCubit(di<ProfileRepository>()),
     )
     ..registerFactory<SettingCubit>(
-          () => SettingCubit(),
+      () => SettingCubit(),
     )
     ..registerFactory<LanguageCubit>(
-          () => LanguageCubit(),
+      () => LanguageCubit(),
     )
     ..registerFactory<ThemeCubit>(
-          () => ThemeCubit(),
+      () => ThemeCubit(),
     );
 
   initBanner(di);

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vinhcine/src/features/home/domain/models/movie.dart';
+import 'package:vinhcine/src/features/movie_tab/domain/models/movie.dart';
 
 part 'movie_selector_state.dart';
 

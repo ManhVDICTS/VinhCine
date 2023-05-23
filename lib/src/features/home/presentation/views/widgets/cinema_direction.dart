@@ -10,7 +10,7 @@ class CinemaDirection extends StatelessWidget {
     return Container(
       width: double.maxFinite,
       height: 48,
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       color: Colors.white,
       child: GestureDetector(
         onTap: () {
