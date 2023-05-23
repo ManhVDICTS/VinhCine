@@ -12,13 +12,15 @@ class CustomAppBar extends StatelessWidget {
       this.leadingIcon =
           const Icon(Icons.arrow_back_outlined, size: 32, color: Colors.white),
       this.trailingIcon,
-      this.onPressedTrailing});
+      this.onPressedTrailing,
+      this.titleColor = Colors.white});
 
   final Icon leadingIcon;
   final Function onPressedLeading;
   final Icon? trailingIcon;
   final Function? onPressedTrailing;
   final String title;
+  final Color titleColor;
   final bool brightness;
 
   @override
@@ -50,7 +52,8 @@ class CustomAppBar extends StatelessWidget {
               ),
               Text(
                 title,
-                style: AppStyles.titleLargeRegular(context),
+                style: AppStyles.titleLargeRegular(context)
+                    .copyWith(color: titleColor),
               ),
               const Spacer(),
               _trailingIcon(),
