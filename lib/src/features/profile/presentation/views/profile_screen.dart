@@ -183,7 +183,7 @@ class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
             ],
           ),
           CustomAppBar(
-              brightness: false,
+              hasShadow: false,
               title: 'profile.member'.tr(),
               onPressedLeading: () => _currentContext.router.pop()),
         ],

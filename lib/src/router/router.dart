@@ -9,10 +9,12 @@ import 'package:vinhcine/src/features/banner/presentation/cubit/banner_cubit.dar
 import 'package:vinhcine/src/features/authentication/presentation/views/signin_screen.dart';
 import 'package:vinhcine/src/features/home/presentation/views/home_screen.dart';
 import 'package:vinhcine/src/features/movie/presentation/cubit/cubit.dart';
+import 'package:vinhcine/src/features/movie/presentation/views/movie_detail_screen.dart';
 import 'package:vinhcine/src/features/profile/presentation/views/profile_screen.dart';
 import 'package:vinhcine/src/features/setting/presentation/views/setting_screen.dart';
 import 'package:vinhcine/src/router/routes/guards/secure_guards.dart';
 
+import '../features/movie/domain/models/movie.dart';
 import '../features/profile/presentation/views/change_password_screen.dart';
 
 part 'routes/home_routes.dart';

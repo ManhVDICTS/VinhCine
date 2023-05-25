@@ -78,7 +78,7 @@ class SettingScreen extends StatelessWidget implements AutoRouteWrapper {
             ),
           ),
           CustomAppBar(
-              brightness: false,
+              hasShadow: false,
               title: 'setting.title'.tr(),
               onPressedLeading: () => _currentContext.router.pop()),
         ],

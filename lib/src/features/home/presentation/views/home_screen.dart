@@ -57,6 +57,9 @@ class HomeScreen extends StatelessWidget {
           onTapBooking: (MovieModel movie) {
             // booking movie
           },
+          onTapMovie: (MovieModel movie) {
+            context.pushRoute(MovieDetailScreenRoute(movieData: movie));
+          },
         ),
         const CinemaDirection()
       ]),

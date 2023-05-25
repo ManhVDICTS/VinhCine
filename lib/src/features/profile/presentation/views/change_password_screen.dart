@@ -37,7 +37,7 @@ class ChangePasswordScreen extends StatelessWidget implements AutoRouteWrapper {
         children: [
           _buildRegisterWidget(),
           CustomAppBar(
-              brightness: false,
+              hasShadow: false,
               title: "Đổi mật khẩu",
               onPressedLeading: () => _currentContext.router.pop()),
         ],

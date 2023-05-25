@@ -8,27 +8,27 @@ class CustomAppBar extends StatelessWidget {
       {super.key,
       required this.onPressedLeading,
       required this.title,
-      this.brightness = true,
+      this.hasShadow = true,
       this.leadingIcon =
           const Icon(Icons.arrow_back_outlined, size: 32, color: Colors.white),
       this.trailingIcon,
       this.onPressedTrailing,
-      this.titleColor = Colors.white});
+      this.titleStyle});
 
   final Icon leadingIcon;
   final Function onPressedLeading;
   final Icon? trailingIcon;
   final Function? onPressedTrailing;
   final String title;
-  final Color titleColor;
-  final bool brightness;
+  final TextStyle? titleStyle;
+  final bool hasShadow;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Visibility(
-            visible: brightness,
+            visible: hasShadow,
             child: BackgroundShadow(
               height: context.screenWidth / 2.5,
             )),
@@ -52,8 +52,9 @@ class CustomAppBar extends StatelessWidget {
               ),
               Text(
                 title,
-                style: AppStyles.titleLargeRegular(context)
-                    .copyWith(color: titleColor),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: titleStyle ?? AppStyles.titleLargeRegular(context),
               ),
               const Spacer(),
               _trailingIcon(),

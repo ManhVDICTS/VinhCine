@@ -14,12 +14,14 @@ class MovieTab extends StatelessWidget {
       required this.width,
       required this.height,
       required this.initialTab,
-      required this.onTapBooking});
+      required this.onTapBooking,
+      required this.onTapMovie});
   final double width;
   final double height;
   final bool isExpanded;
   final MovieTabType initialTab;
   final Function(MovieModel movie) onTapBooking;
+  final Function(MovieModel movie) onTapMovie;
 
   @override
   Widget build(BuildContext context) {
@@ -43,20 +45,16 @@ class MovieTab extends StatelessWidget {
     return Column(
       children: [
         BlocConsumer<MovieTabCubit, MovieTabState>(
-          builder: (context, state) {
-            return MovieTabTitle(
-              selectedTab: state.selectedTab,
-              onTabChanged: (movieTab) {
-                context.read<MovieTabCubit>().onSelectedTab(movieTab);
-              },
-            );
-          },
-          listenWhen: (previous, current) => previous != current,
-          listener: (context, state) {
-            if (state is MovieTabSelected) {
-              context.read<MovieDataCubit>().getTopPage(state.selectedTab);
-            }
-          },
+          builder: (context, state) => MovieTabTitle(
+            selectedTab: state.selectedTab,
+            onTabChanged: (movieTab) {
+              context.read<MovieTabCubit>().onSelectedTab(movieTab);
+            },
+          ),
+          listenWhen: (previous, current) =>
+              previous != current && current is MovieTabSelected,
+          listener: (context, state) =>
+              context.read<MovieDataCubit>().getTopPage(state.selectedTab),
         ),
         BlocBuilder<MovieDataCubit, MovieDataState>(builder: (context, state) {
           if (state is MovieDataLoaded) {
@@ -66,17 +64,15 @@ class MovieTab extends StatelessWidget {
               initialIndex: initialIndex,
               data: data,
               options: MovieTabBodyOptions(
-                onInited: (MovieModel initItem) {
-                  context.read<MovieSelectorCubit>().onSelected(initItem);
-                },
-                onPageChanged: (MovieModel item) {
-                  context.read<MovieSelectorCubit>().onSelected(item);
-                },
+                onInited: (MovieModel initItem) =>
+                    context.read<MovieSelectorCubit>().onSelected(initItem),
+                onPageChanged: (MovieModel item) =>
+                    context.read<MovieSelectorCubit>().onSelected(item),
+                onPageTap: (MovieModel item) => onTapMovie.call(item),
               ),
             );
-          } else {
-            return const Expanded(flex: 1, child: SizedBox.shrink());
           }
+          return const Expanded(flex: 1, child: SizedBox.shrink());
         }),
         BlocBuilder<MovieSelectorCubit, MovieSelectorState>(
             buildWhen: (previous, current) => current is MovieSelectorSelected,
@@ -86,9 +82,8 @@ class MovieTab extends StatelessWidget {
                   movie: state.movie,
                   onTapBooking: onTapBooking,
                 );
-              } else {
-                return const SizedBox.shrink();
               }
+              return const SizedBox.shrink();
             })
       ],
     );

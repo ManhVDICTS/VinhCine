@@ -91,7 +91,7 @@ class ForgotPasswordScreen extends StatelessWidget implements AutoRouteWrapper {
           ),
           CustomAppBar(
               title: "Quên mật khẩu",
-              brightness: false,
+              hasShadow: false,
               onPressedLeading: () => _currentContext.router.pop()),
         ],
       ),

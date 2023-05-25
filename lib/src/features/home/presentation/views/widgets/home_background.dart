@@ -42,9 +42,8 @@ class HomeBackgroundSwitcher extends StatelessWidget {
                       const CircularProgressIndicator(),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ));
-          } else {
-            return const SizedBox.shrink();
           }
+          return const SizedBox.shrink();
         },
       ),
     );

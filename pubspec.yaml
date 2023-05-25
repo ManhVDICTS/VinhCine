@@ -52,6 +52,9 @@ dependencies:
   carousel_slider: ^4.2.1
   sliding_up_panel: ^2.0.0+1
 
+  # Youtube video player
+  youtube_player_flutter: ^8.1.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

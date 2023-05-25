@@ -2,11 +2,11 @@ part of 'injections.dart';
 
 void initMovie(GetIt di) {
   di
-    ..registerSingleton<TopPageService>(
-      TopPageService(di<AppDio>().baseDio),
+    ..registerSingleton<MovieService>(
+      MovieService(di<AppDio>().baseDio),
     )
     ..registerSingleton<MovieRepository>(
-      MovieRepositoryImpl(di<TopPageService>()),
+      MovieRepositoryImpl(di<MovieService>()),
     )
     ..registerSingleton<MovieDataCubit>(MovieDataCubit(di<MovieRepository>()))
     ..registerSingleton<MovieTabCubit>(MovieTabCubit())

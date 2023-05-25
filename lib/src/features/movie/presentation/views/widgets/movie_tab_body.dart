@@ -9,13 +9,15 @@ class MovieTabBodyOptions {
   final bool isExpanded;
   final Function(MovieModel item) onPageChanged;
   final Function(MovieModel initItem) onInited;
+  final Function(MovieModel item) onPageTap;
 
   MovieTabBodyOptions(
       {this.width = 300,
       this.height = 400,
       this.isExpanded = true,
       required this.onPageChanged,
-      required this.onInited});
+      required this.onInited,
+      required this.onPageTap});
 }
 
 class MovieTabBody extends StatelessWidget {
@@ -42,8 +44,9 @@ class MovieTabBody extends StatelessWidget {
     options.onInited.call(data[initialIndex]);
     return CarouselSlider.builder(
       itemCount: data.length,
-      itemBuilder: (ctx, itemIndex, pageViewIndex) =>
-          _itemWidget(imageUrl: data[itemIndex].avatarUrl ?? ''),
+      itemBuilder: (ctx, itemIndex, pageViewIndex) => GestureDetector(
+          onTap: () => options.onPageTap.call(data[itemIndex]),
+          child: _itemWidget(imageUrl: data[itemIndex].avatarUrl ?? '')),
       options: _carouselOptions(
           initialIndex: initialIndex,
           enableInfiniteScroll: data.length > 2,
