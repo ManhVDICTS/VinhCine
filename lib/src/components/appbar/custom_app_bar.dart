@@ -50,11 +50,13 @@ class CustomAppBar extends StatelessWidget {
                   onPressedLeading();
                 },
               ),
-              Text(
-                title,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                style: titleStyle ?? AppStyles.titleLargeRegular(context),
+              Expanded(
+                child: Text(
+                  title,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: titleStyle ?? AppStyles.titleLargeRegular(context),
+                ),
               ),
               const Spacer(),
               _trailingIcon(),

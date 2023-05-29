@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:video_player/video_player.dart';
 import 'package:vinhcine/src/core/di/injections.dart';
 import 'package:vinhcine/src/features/authentication/presentation/cubit/auth_cubit.dart';
 import 'package:vinhcine/src/features/authentication/presentation/views/forgot_password_screen.dart';
@@ -10,6 +11,7 @@ import 'package:vinhcine/src/features/authentication/presentation/views/signin_s
 import 'package:vinhcine/src/features/home/presentation/views/home_screen.dart';
 import 'package:vinhcine/src/features/movie/presentation/cubit/cubit.dart';
 import 'package:vinhcine/src/features/movie/presentation/views/movie_detail_screen.dart';
+import 'package:vinhcine/src/features/movie/presentation/views/movie_player_screen.dart';
 import 'package:vinhcine/src/features/profile/presentation/views/profile_screen.dart';
 import 'package:vinhcine/src/features/setting/presentation/views/setting_screen.dart';
 import 'package:vinhcine/src/router/routes/guards/secure_guards.dart';

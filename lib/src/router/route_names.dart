@@ -7,3 +7,4 @@ const String signInScreenRoute = 'SignInScreenRoute';
 const String changePasswordScreenName = 'ChangePasswordScreenRoute';
 const String settingScreenName = 'SettingScreenRoute';
 const String movieDetailScreenName = 'MovieDetailScreenRoute';
+const String moviePlayerScreenName = 'MoviePlayerScreenRoute';

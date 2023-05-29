@@ -57,7 +57,7 @@ class MovieTab extends StatelessWidget {
               context.read<MovieDataCubit>().getTopPage(state.selectedTab),
         ),
         BlocBuilder<MovieDataCubit, MovieDataState>(builder: (context, state) {
-          if (state is MovieDataLoaded) {
+          if (state is MovieDataLoaded && state.data.isNotEmpty) {
             final data = state.data;
             final initialIndex = data.length ~/ 2;
             return MovieTabBody(
@@ -71,11 +71,12 @@ class MovieTab extends StatelessWidget {
                 onPageTap: (MovieModel item) => onTapMovie.call(item),
               ),
             );
+          } else {
+            context.read<MovieSelectorCubit>().unSelected();
+            return const Expanded(flex: 1, child: SizedBox.shrink());
           }
-          return const Expanded(flex: 1, child: SizedBox.shrink());
         }),
         BlocBuilder<MovieSelectorCubit, MovieSelectorState>(
-            buildWhen: (previous, current) => current is MovieSelectorSelected,
             builder: (context, state) {
               if (state is MovieSelectorSelected) {
                 return MovieTabBottom(
