@@ -79,7 +79,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
       child: Stack(children: [
         Padding(
           padding: const EdgeInsets.only(top: 48),
-          child: _buildThumbnail(),
+          child: AspectRatio(aspectRatio: 16 / 9, child: _buildThumbnail()),
         ),
         CustomAppBar(
           hasShadow: false,
@@ -97,44 +97,41 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   }
 
   Widget _buildThumbnail() {
-    return AspectRatio(
-      aspectRatio: 16 / 9,
-      child: _thumbUrl.isNotEmpty
-          ? GestureDetector(
-              onTap: () {
-                if (_videoPlayerController?.value.isInitialized == true) {
-                  context.pushRoute(MoviePlayerScreenRoute(
-                      videoController: _videoPlayerController!));
-                }
-              },
-              child: Stack(
-                children: [
-                  CachedNetworkImage(
-                    width: context.screenWidth,
-                    fit: BoxFit.cover,
-                    imageUrl: _thumbUrl,
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
-                  ),
-                  Center(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.white, width: 2),
-                      ),
-                      child: const Icon(Icons.play_arrow,
-                          size: 32, color: Colors.white),
+    return _thumbUrl.isNotEmpty
+        ? GestureDetector(
+            onTap: () {
+              if (_videoPlayerController?.value.isInitialized == true) {
+                context.pushRoute(MoviePlayerScreenRoute(
+                    videoController: _videoPlayerController!));
+              }
+            },
+            child: Stack(
+              children: [
+                CachedNetworkImage(
+                  width: context.screenWidth,
+                  fit: BoxFit.cover,
+                  imageUrl: _thumbUrl,
+                  errorWidget: (context, url, error) =>
+                      const Icon(Icons.error),
+                ),
+                Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white, width: 2),
                     ),
-                  )
-                ],
-              ),
-            )
-          : Container(
-              color: Colors.black,
-              child: Center(
-                  child:
-                      CircularProgressIndicator(color: _appColors?.redDark))),
-    );
+                    child: const Icon(Icons.play_arrow,
+                        size: 32, color: Colors.white),
+                  ),
+                )
+              ],
+            ),
+          )
+        : Container(
+            color: Colors.black,
+            child: Center(
+                child:
+                    CircularProgressIndicator(color: _appColors?.redDark)));
   }
 
   Future<void> _loadVideoInfoFromYouTubeLink(
