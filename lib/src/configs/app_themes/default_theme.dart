@@ -7,7 +7,7 @@ ThemeData getThemeDefault() {
     extensions: <ThemeExtension<dynamic>>[
       const AppColors(
         red: Color(0xFFdb1b2a),
-        redDark: Color(0xFFdb1b2a),
+        redDark: Color(0xFFAD2F34),
         hintGray: Color(0xFFcbc0b8),
         gray: Color(0xFFcccdcd),
         backgroundDark: Color(0xFF081012),

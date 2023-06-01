@@ -5,15 +5,16 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:vinhcine/src/components/appbar/custom_app_bar.dart';
+import 'package:vinhcine/src/components/shadow/background_shadow.dart';
 import 'package:vinhcine/src/core/utis/context.dart';
 import 'package:vinhcine/src/features/movie/domain/models/movie.dart';
+import 'package:vinhcine/src/features/movie/presentation/views/widgets/movie_detail_info.dart';
 import 'package:vinhcine/src/router/route_names.dart';
 import 'package:vinhcine/src/router/router.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 import '../../../../configs/app_themes/app_themes.dart';
-
-Stopwatch stopwatch = Stopwatch();
+import '../../../../core/constants/dimension.dart';
 
 @RoutePage(name: movieDetailScreenName)
 class MovieDetailScreen extends StatefulWidget {
@@ -30,6 +31,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
 
   String _videoUrl = '';
   String _thumbUrl = '';
+  double thumbnailRatio = 16.0 / 9.0;
 
   late AppColors? _appColors;
 
@@ -75,11 +77,24 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   }
 
   Widget _buildBody(BuildContext context) {
+    final thumbHeight = context.screenWidth / thumbnailRatio;
+    const double avatarHeight = 150;
     return SafeArea(
       child: Stack(children: [
         Padding(
-          padding: const EdgeInsets.only(top: 48),
-          child: AspectRatio(aspectRatio: 16 / 9, child: _buildThumbnail()),
+          padding: const EdgeInsets.only(top: Dimession.appBarHeight),
+          child: AspectRatio(
+            aspectRatio: thumbnailRatio,
+            child: _buildThumbnail(),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(
+              top: Dimession.appBarHeight + thumbHeight - avatarHeight / 2,
+              left: 10,
+              right: 10),
+          child: MovieDetailInfo(
+              movieData: widget.movieData, avatarHeight: avatarHeight),
         ),
         CustomAppBar(
           hasShadow: false,
@@ -111,9 +126,9 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                   width: context.screenWidth,
                   fit: BoxFit.cover,
                   imageUrl: _thumbUrl,
-                  errorWidget: (context, url, error) =>
-                      const Icon(Icons.error),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
+                const BackgroundShadow(),
                 Center(
                   child: Container(
                     decoration: BoxDecoration(
@@ -123,15 +138,14 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                     child: const Icon(Icons.play_arrow,
                         size: 32, color: Colors.white),
                   ),
-                )
+                ),
               ],
             ),
           )
         : Container(
             color: Colors.black,
             child: Center(
-                child:
-                    CircularProgressIndicator(color: _appColors?.redDark)));
+                child: CircularProgressIndicator(color: _appColors?.redDark)));
   }
 
   Future<void> _loadVideoInfoFromYouTubeLink(

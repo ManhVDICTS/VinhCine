@@ -12,6 +12,8 @@ import 'package:vinhcine/src/features/setting/presentation/views/widgets/languag
 import 'package:vinhcine/src/features/setting/presentation/views/widgets/theme/theme_widget.dart';
 import 'package:vinhcine/src/router/route_names.dart';
 
+import '../../../../core/constants/dimension.dart';
+
 @RoutePage(name: settingScreenName)
 class SettingScreen extends StatelessWidget implements AutoRouteWrapper {
   @override
@@ -90,7 +92,7 @@ class SettingScreen extends StatelessWidget implements AutoRouteWrapper {
     var statusBarHeight = MediaQuery.of(_currentContext).viewPadding.top;
     return Container(
       width: MediaQuery.of(_currentContext).size.width,
-      height: statusBarHeight + 48,
+      height: statusBarHeight + Dimession.appBarHeight,
       color: appColors?.settingAppbar,
     );
   }

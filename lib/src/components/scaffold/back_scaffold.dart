@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vinhcine/src/components/button/icon_button.dart';
 
+import '../../core/constants/dimension.dart';
 import 'my_scaffold.dart';
 
 class BackScaffold extends MyScaffold {
@@ -21,8 +22,8 @@ class BackScaffold extends MyScaffold {
         CustomIconButton(
           icon: const Icon(Icons.arrow_back_ios, size: 32),
           onTap: onBackTap,
-          width: 48,
-          height: 48,
+          width: Dimession.appBarHeight,
+          height: Dimession.appBarHeight,
         ),
         Text(title)
       ],

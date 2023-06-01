@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vinhcine/src/components/button/icon_button.dart';
 
+import '../../core/constants/dimension.dart';
 import 'my_scaffold.dart';
 
 class HomeScaffold extends MyScaffold {
@@ -14,8 +15,8 @@ class HomeScaffold extends MyScaffold {
     return CustomIconButton(
       icon: const Icon(Icons.account_circle, size: 32),
       onTap: onProfileTap,
-      width: 48,
-      height: 48,
+      width: Dimession.appBarHeight,
+      height: Dimession.appBarHeight,
     );
   }
 

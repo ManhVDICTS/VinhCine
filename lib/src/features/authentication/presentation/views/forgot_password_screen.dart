@@ -7,6 +7,7 @@ import 'package:vinhcine/src/core/di/injections.dart';
 import 'package:vinhcine/src/router/route_names.dart';
 import '../../../../components/appbar/custom_app_bar.dart';
 import '../../../../components/text_field/custom_text_field.dart';
+import '../../../../core/constants/dimension.dart';
 import '../cubit/auth_cubit.dart';
 
 // ignore_for_file: must_be_immutable
@@ -102,7 +103,7 @@ class ForgotPasswordScreen extends StatelessWidget implements AutoRouteWrapper {
     var statusBarHeight = MediaQuery.of(_currentContext).viewPadding.top;
     return Container(
       width: MediaQuery.of(_currentContext).size.width,
-      height: statusBarHeight + 48,
+      height: statusBarHeight + Dimession.appBarHeight,
       color: appColors!.forgotPasswordAppbar,
     );
   }

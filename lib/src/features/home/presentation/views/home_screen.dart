@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:vinhcine/src/core/constants/dimension.dart';
 import 'package:vinhcine/src/features/banner/presentation/views/banner.dart';
 import 'package:vinhcine/src/features/home/presentation/views/widgets/home_appbar.dart';
 import 'package:vinhcine/src/features/movie/domain/models/movie.dart';
@@ -24,7 +25,6 @@ final List<String> moviesList = [
 @RoutePage(name: homeScreenName)
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-  final double _appBarHeight = 48;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
       const HomeBackgroundShadow(),
       _body(context),
       HomeAppBar(
-        height: 48,
+        height: Dimession.appBarHeight,
         title: 'home.title'.tr(),
         onTapLeading: () => context.router.push(ProfileScreenRoute()),
         onTapTrailing: () => context.router.push(SignInScreenRoute()),
@@ -45,7 +45,7 @@ class HomeScreen extends StatelessWidget {
   Widget _body(BuildContext context) {
     return SafeArea(
       child: Column(children: [
-        SizedBox(height: _appBarHeight + 20),
+        const SizedBox(height: Dimession.appBarHeight + 20),
         BannerSlider(
           width: MediaQuery.of(context).size.width - 80,
           height: 170,

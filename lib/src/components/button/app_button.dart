@@ -3,6 +3,8 @@ import 'package:vinhcine/src/components/loading_indicator/loading_indicator_widg
 import 'package:vinhcine/src/configs/app_themes/app_colors.dart';
 import 'package:vinhcine/src/configs/app_themes/app_shadow.dart';
 
+import '../../core/constants/dimension.dart';
+
 class AppButton extends StatelessWidget {
   String title;
   bool? isLoading;
@@ -30,7 +32,7 @@ class AppButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 48,
+      height: Dimession.appBarHeight,
       width: double.infinity,
       decoration: BoxDecoration(
         color: backgroundColor,

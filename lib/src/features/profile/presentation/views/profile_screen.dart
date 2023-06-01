@@ -11,6 +11,7 @@ import 'package:vinhcine/src/features/profile/presentation/views/widgets/profile
 import 'package:vinhcine/src/router/route_names.dart';
 import 'package:vinhcine/src/router/router.dart';
 import '../../../../components/appbar/custom_app_bar.dart';
+import '../../../../core/constants/dimension.dart';
 import '../../../authentication/presentation/cubit/auth_cubit.dart';
 import 'widgets/optional_item.dart';
 
@@ -164,7 +165,7 @@ class ProfileScreen extends StatelessWidget implements AutoRouteWrapper {
     var statusBarHeight = MediaQuery.of(_currentContext).viewPadding.top;
     return Container(
       width: MediaQuery.of(_currentContext).size.width,
-      height: statusBarHeight + 48,
+      height: statusBarHeight + Dimession.appBarHeight,
       color: appColors!.profileAppbar,
     );
   }

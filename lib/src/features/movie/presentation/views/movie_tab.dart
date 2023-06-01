@@ -57,35 +57,37 @@ class MovieTab extends StatelessWidget {
               context.read<MovieDataCubit>().getTopPage(state.selectedTab),
         ),
         BlocBuilder<MovieDataCubit, MovieDataState>(builder: (context, state) {
-          if (state is MovieDataLoaded && state.data.isNotEmpty) {
-            final data = state.data;
-            final initialIndex = data.length ~/ 2;
-            return MovieTabBody(
-              initialIndex: initialIndex,
-              data: data,
-              options: MovieTabBodyOptions(
-                onInited: (MovieModel initItem) =>
-                    context.read<MovieSelectorCubit>().onSelected(initItem),
-                onPageChanged: (MovieModel item) =>
-                    context.read<MovieSelectorCubit>().onSelected(item),
-                onPageTap: (MovieModel item) => onTapMovie.call(item),
-              ),
-            );
-          } else {
-            context.read<MovieSelectorCubit>().unSelected();
-            return const Expanded(flex: 1, child: SizedBox.shrink());
+          if (state is MovieDataLoaded) {
+            if (state.data.isNotEmpty) {
+              final data = state.data;
+              final initialIndex = data.length ~/ 2;
+              return MovieTabBody(
+                initialIndex: initialIndex,
+                data: data,
+                options: MovieTabBodyOptions(
+                  onInited: (MovieModel initItem) =>
+                      context.read<MovieSelectorCubit>().onSelected(initItem),
+                  onPageChanged: (MovieModel item) =>
+                      context.read<MovieSelectorCubit>().onSelected(item),
+                  onPageTap: (MovieModel item) => onTapMovie.call(item),
+                ),
+              );
+            } else {
+              context.read<MovieSelectorCubit>().unSelected();
+            }
           }
+          return const Expanded(flex: 1, child: SizedBox.shrink());
         }),
         BlocBuilder<MovieSelectorCubit, MovieSelectorState>(
             builder: (context, state) {
-              if (state is MovieSelectorSelected) {
-                return MovieTabBottom(
-                  movie: state.movie,
-                  onTapBooking: onTapBooking,
-                );
-              }
-              return const SizedBox.shrink();
-            })
+          if (state is MovieSelectorSelected) {
+            return MovieTabBottom(
+              movie: state.movie,
+              onTapBooking: onTapBooking,
+            );
+          }
+          return const SizedBox.shrink();
+        })
       ],
     );
   }

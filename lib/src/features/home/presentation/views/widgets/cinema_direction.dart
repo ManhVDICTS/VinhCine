@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vinhcine/src/configs/app_themes/app_themes.dart';
 
+import '../../../../../core/constants/dimension.dart';
+
 class CinemaDirection extends StatelessWidget {
   const CinemaDirection({super.key});
 
@@ -9,7 +11,7 @@ class CinemaDirection extends StatelessWidget {
     final appColors = Theme.of(context).extension<AppColors>();
     return Container(
       width: double.maxFinite,
-      height: 48,
+      height: Dimession.appBarHeight,
       padding: const EdgeInsets.symmetric(horizontal: 10),
       color: Colors.white,
       child: GestureDetector(

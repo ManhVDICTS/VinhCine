@@ -36,6 +36,14 @@ class AppStyles {
         fontFamily: getAppFonts(context).mainFont);
   }
 
+  static TextStyle titleSmallRegular(BuildContext context) {
+    return TextStyle(
+        color: Colors.white,
+        fontSize: 13,
+        fontWeight: FontWeight.normal,
+        fontFamily: getAppFonts(context).mainFont);
+  }
+
   static TextStyle titleLargeBold(BuildContext context) {
     return TextStyle(
         color: Colors.white,

@@ -3,6 +3,8 @@ import 'package:vinhcine/src/components/shadow/background_shadow.dart';
 import 'package:vinhcine/src/configs/app_themes/app_themes.dart';
 import 'package:vinhcine/src/core/utis/context.dart';
 
+import '../../core/constants/dimension.dart';
+
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar(
       {super.key,
@@ -39,7 +41,7 @@ class CustomAppBar extends StatelessWidget {
 
   Widget _appBar(BuildContext context) => SafeArea(
         child: SizedBox(
-          height: 48,
+          height: Dimession.appBarHeight,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
